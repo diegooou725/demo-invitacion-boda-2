@@ -62,7 +62,6 @@
         .separador { 
              border: 0; height: 1px; width: 70%; max-width: 300px; 
              background-color: var(--oro-palido); 
-             /* MARGEN VERTICAL REDUCIDO */
              margin: 40px auto; 
         }
         .separador-corto { width: 40px; margin: 25px auto;}
@@ -89,12 +88,11 @@
              padding-bottom: 15vh; 
         }
         #enter-button { 
-             /* BOTÓN DESCUBRIR AJUSTADO */
-             background-color: rgba(255, 255, 255, 0.3); /* Fondo más opaco */
-             border: 2px solid var(--blanco); 
-             color: var(--blanco); 
+             background-color: rgba(255, 255, 255, 0.3); /* Fondo con ligera transparencia */
+             border: 2px solid white; /* Borde blanco */
+             color: white; /* Texto blanco puro */
              padding: 12px 30px; 
-             border-radius: 8px; /* Más redondeado */
+             border-radius: 8px; 
              font-family: 'Nunito Sans', sans-serif; 
              font-weight: 400; 
              font-size: 1rem; 
@@ -103,10 +101,9 @@
              cursor: pointer; 
              transition: background-color 0.3s ease, color 0.3s ease;
              backdrop-filter: blur(3px); 
-             /* ANIMACIÓN PULSO */
              animation: pulse 2s infinite; 
          }
-        #enter-button:hover { background-color: var(--blanco); color: var(--negro-carbon); animation-play-state: paused; }
+        #enter-button:hover { background-color: white; color: var(--negro-carbon); animation-play-state: paused; }
         body.invitation-revealed #intro-overlay { transform: translateY(-100%); }
 
         /* --- CONTENIDO PRINCIPAL --- */
@@ -245,7 +242,7 @@
         footer { padding: 40px 0 0 0; font-size: 1.1rem; color: var(--texto-secundario); border-top: 1px solid var(--oro-palido); margin-top: 40px;}
 
         /* Footer Fijo Demo */
-         #sticky-footer { /* ... (mismo estilo que antes) ... */
+         #sticky-footer { 
              position: fixed; bottom: 0; left: 0; width: 100%; 
              background-color: rgba(44, 62, 80, 0.9); padding: 8px 15px; 
              box-shadow: 0 -2px 10px rgba(0,0,0,0.1); z-index: 999; 
@@ -283,9 +280,6 @@
           70% { transform: scale(1.03); box-shadow: 0 0 0 10px rgba(255, 255, 255, 0); }
           100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
         }
-
-        /* --- DEFINICIÓN ANIMACIÓN FLOAT (Ya no se usa) --- */
-        /* @keyframes float { ... } */
 
     </style>
 </head>
@@ -456,7 +450,7 @@
 
     <script>
         // --- SCRIPT PARA EL CONTADOR ---
-        (function() { /* ... (mismo script contador) ... */ 
+        (function() { 
             const fechaBoda = new Date(2027, 4, 20, 12, 0, 0).getTime(); 
             const countdownEl = document.getElementById('countdown');
             const diasEl = document.getElementById('dias'); const horasEl = document.getElementById('horas'); const minutosEl = document.getElementById('minutos'); const segundosEl = document.getElementById('segundos');
@@ -470,7 +464,7 @@
         })();
         
         // --- SCRIPT PARA REVELAR INVITACIÓN ---
-        (function() { /* ... (mismo script revelar) ... */
+        (function() { 
              const overlay = document.getElementById('intro-overlay');
              const body = document.body;
              const revealInvitation = () => { if (!body.classList.contains('invitation-revealed')) { body.classList.add('invitation-revealed'); } };
@@ -478,21 +472,17 @@
         })();
         
         // --- SCRIPT FORMULARIO RSVP (No funcional) ---
-         (function() { /* ... (mismo script rsvp) ... */
+         (function() { 
               const rsvpForm = document.getElementById('rsvp-form');
               if (rsvpForm) { rsvpForm.addEventListener('submit', function(event) { event.preventDefault(); alert('Confirmación enviada (Esto es un ejemplo).'); }); }
          })();
 
          // --- SCRIPT PARA FADE-IN SECTIONS ---
-         (function() { /* ... (mismo script fade-in) ... */
+         (function() { 
               const sections = document.querySelectorAll('.fade-in-section'); const options = { threshold: 0.1 }; 
               const observer = new IntersectionObserver(function(entries, observer) { entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('is-visible'); observer.unobserve(entry.target); } }); }, options);
               sections.forEach(section => { observer.observe(section); });
          })();
-
-         // --- DEFINICIÓN ANIMACIÓN PULSO (para botón descubrir) ---
-         // (Se define aquí pero se aplica en el CSS inline)
-         /* @keyframes pulse { ... } */ // <-- Keyframes ahora en CSS
 
     </script>
 </body>
