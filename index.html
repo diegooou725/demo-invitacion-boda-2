@@ -56,9 +56,15 @@
         h3 { font-size: 1.4rem; font-weight: 400; text-transform: none; letter-spacing: 0.5px;} 
         h4 { font-size: 1rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;} 
 
-        .container { max-width: 800px; margin: 0 auto; padding: 0 20px; }
+        .container { max-width: 750px; margin: 0 auto; padding: 0 20px; }
         
-        .separador { border: 0; height: 1px; width: 80px; background-color: var(--oro-palido); margin: 50px auto; }
+        /* Separador Estilizado */
+        .separador { 
+             border: 0; height: 1px; width: 70%; max-width: 300px; 
+             background-color: var(--oro-palido); 
+             /* MARGEN VERTICAL REDUCIDO */
+             margin: 40px auto; 
+        }
         .separador-corto { width: 40px; margin: 25px auto;}
         
         p { color: var(--gris-texto); font-weight: 300; margin-bottom: 20px; font-size: 0.95rem; max-width: 600px; margin-left: auto; margin-right: auto;}
@@ -80,8 +86,8 @@
         .intro-content { position: relative; z-index: 3; height: 100%; display: flex; justify-content: center; align-items: center; }
         #enter-button { 
              /* BOTÓN DESCUBRIR MÁS VISIBLE */
-             background-color: rgba(255, 255, 255, 0.2); /* Fondo más opaco */
-             border: 2px solid var(--blanco); /* Borde más grueso */
+             background-color: rgba(255, 255, 255, 0.4); /* Fondo más opaco */
+             border: 2px solid var(--blanco); 
              color: var(--blanco); 
              padding: 12px 30px; 
              border-radius: 4px; 
@@ -107,7 +113,8 @@
              box-shadow: 0 10px 40px var(--sombra-suave); 
              overflow: hidden; 
         }
-        .seccion { padding: 60px 0; } 
+        /* PADDING VERTICAL REDUCIDO */
+        .seccion { padding: 50px 0; } 
         
         /* Nombres */
         .nombres-header { padding: 60px 0 40px 0; }
@@ -139,53 +146,47 @@
              text-transform: uppercase; 
              white-space: nowrap; 
         }
-        #countdown { display: flex; justify-content: center; gap: 20px; /* Reducido gap */ flex-wrap: wrap; margin-top: 30px;} 
-        .tiempo-caja { background-color: transparent; padding: 0; min-width: 60px; /* Reducido */ }
-        .tiempo-caja span:first-child { display: block; font-size: 2.5rem; /* Reducido */ font-weight: 300; color: var(--negro-carbon); font-family: 'Lato', sans-serif; line-height: 1; margin-bottom: 3px; }
-        .tiempo-caja span:last-child { display: block; font-size: 0.6rem; /* Reducido */ text-transform: uppercase; color: var(--gris-texto); font-family: 'Nunito Sans', sans-serif; letter-spacing: 1px; margin-top: 0;}
+        #countdown { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-top: 30px;} 
+        .tiempo-caja { background-color: transparent; padding: 0; min-width: 60px; }
+        .tiempo-caja span:first-child { display: block; font-size: 2.5rem; font-weight: 300; color: var(--negro-carbon); font-family: 'Lato', sans-serif; line-height: 1; margin-bottom: 3px; }
+        .tiempo-caja span:last-child { display: block; font-size: 0.6rem; text-transform: uppercase; color: var(--gris-texto); font-family: 'Nunito Sans', sans-serif; letter-spacing: 1px; margin-top: 0;}
 
         /* Segunda Foto */
         .foto-secundaria { display: block; width: calc(100% - 40px); max-width: 700px; height: auto; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 8px; margin: 0 auto; box-shadow: 0 15px 30px var(--sombra-suave); }
 
         /* Itinerario - Timeline Vertical */
         /* ... (Estilos del timeline sin cambios) ... */
-        .itinerario h2 { margin-bottom: 10px; }
-        .timeline { position: relative; max-width: 600px; margin: 50px auto 0 auto; }
-        .timeline::after { content: ''; position: absolute; width: 1px; background-color: var(--oro-palido); top: 10px; bottom: 10px; left: 50%; margin-left: -0.5px; }
-        .timeline-container { padding: 10px 40px; position: relative; background-color: inherit; width: 50%; }
-        .timeline-container::after { content: ''; position: absolute; width: 12px; height: 12px; right: -6px; background-color: var(--blanco-nieve); border: 2px solid var(--esmeralda); top: 20px; border-radius: 50%; z-index: 1; }
-        .timeline-left { left: 0; }
-        .timeline-left::before { content: " "; height: 0; position: absolute; top: 22px; width: 0; z-index: 1; right: 30px; border: medium solid var(--blanco-nieve); border-width: 8px 0 8px 8px; border-color: transparent transparent transparent var(--blanco-nieve); }
-        .timeline-left::after { left: -6px; background-color: var(--blanco-nieve);} 
-        .timeline-right { left: 50%; }
-        .timeline-right::before { content: " "; height: 0; position: absolute; top: 22px; width: 0; z-index: 1; left: 30px; border: medium solid var(--blanco-nieve); border-width: 8px 8px 8px 0; border-color: transparent var(--blanco-nieve) transparent transparent; }
-        .timeline-right::after { left: -6px; } 
-        .timeline-content { padding: 15px 20px; background-color: transparent; position: relative; border-radius: 6px; box-shadow: none; text-align: left; }
-         .timeline-content h3 { color: var(--esmeralda); font-size: 1.2rem; margin-bottom: 8px; text-align: left; font-family: 'Nunito Sans'; font-weight: 700; text-transform: uppercase;}
-         .timeline-content p { margin-bottom: 15px; color: var(--texto-secundario); font-size: 0.9rem;}
-         .timeline-content .hora { font-weight: 400; color: var(--negro-carbon); display: block; margin-bottom: 15px; font-family: 'Nunito Sans'; font-size: 0.8rem; text-transform: uppercase;}
-         /* BOTONES MAPA OUTLINE */
-         .timeline-content .boton { 
-             background-color: transparent;
-             color: var(--esmeralda);
-             border: 1px solid var(--esmeralda);
-             padding: 8px 20px; 
-             font-size: 0.8rem;
-         }
-          .timeline-content .boton:hover {
-             background-color: var(--esmeralda);
-             color: var(--blanco);
-         }
-         
-         @media screen and (max-width: 768px) { /* Ajuste Timeline Móvil */
-           .timeline::after { left: 15px;} 
-           .timeline-container { width: 100%; padding-left: 50px; padding-right: 15px; } 
-           .timeline-container::before { left: 35px;} 
-           .timeline-left::before { border-color: transparent var(--blanco-nieve) transparent transparent;} 
-           .timeline-right::before { border-color: transparent var(--blanco-nieve) transparent transparent;}
-           .timeline-left::after, .timeline-right::after { left: 9px; } 
-           .timeline-right { left: 0%; } 
-         }
+         .itinerario h2 { margin-bottom: 10px; }
+         .timeline { position: relative; max-width: 600px; margin: 50px auto 0 auto; }
+         .timeline::after { content: ''; position: absolute; width: 1px; background-color: var(--oro-palido); top: 10px; bottom: 10px; left: 50%; margin-left: -0.5px; }
+         .timeline-container { padding: 10px 40px; position: relative; background-color: inherit; width: 50%; }
+         .timeline-container::after { content: ''; position: absolute; width: 12px; height: 12px; right: -6px; background-color: var(--blanco-nieve); border: 2px solid var(--esmeralda); top: 20px; border-radius: 50%; z-index: 1; }
+         .timeline-left { left: 0; }
+         .timeline-left::before { content: " "; height: 0; position: absolute; top: 22px; width: 0; z-index: 1; right: 30px; border: medium solid var(--blanco-nieve); border-width: 8px 0 8px 8px; border-color: transparent transparent transparent var(--blanco-nieve); }
+         .timeline-left::after { left: -6px; background-color: var(--blanco-nieve);} 
+         .timeline-right { left: 50%; }
+         .timeline-right::before { content: " "; height: 0; position: absolute; top: 22px; width: 0; z-index: 1; left: 30px; border: medium solid var(--blanco-nieve); border-width: 8px 8px 8px 0; border-color: transparent var(--blanco-nieve) transparent transparent; }
+         .timeline-right::after { left: -6px; } 
+         .timeline-content { padding: 15px 20px; background-color: transparent; position: relative; border-radius: 6px; box-shadow: none; text-align: left; }
+          .timeline-content h3 { color: var(--esmeralda); font-size: 1.2rem; margin-bottom: 8px; text-align: left; font-family: 'Nunito Sans'; font-weight: 700; text-transform: uppercase;}
+          .timeline-content p { margin-bottom: 15px; color: var(--texto-secundario); font-size: 0.9rem;}
+          .timeline-content .hora { font-weight: 400; color: var(--negro-carbon); display: block; margin-bottom: 15px; font-family: 'Nunito Sans'; font-size: 0.8rem; text-transform: uppercase;}
+          /* BOTONES MAPA OUTLINE */
+          .timeline-content .boton { 
+              background-color: transparent; color: var(--esmeralda); border: 1px solid var(--esmeralda); 
+              padding: 8px 20px; font-size: 0.8rem;
+          }
+           .timeline-content .boton:hover { background-color: var(--esmeralda); color: var(--blanco); }
+          
+          @media screen and (max-width: 768px) { /* Ajuste Timeline Móvil */
+            .timeline::after { left: 15px;} 
+            .timeline-container { width: 100%; padding-left: 50px; padding-right: 15px; } 
+            .timeline-container::before { left: 35px;} 
+            .timeline-left::before { border-color: transparent var(--blanco-nieve) transparent transparent;} 
+            .timeline-right::before { border-color: transparent var(--blanco-nieve) transparent transparent;}
+            .timeline-left::after, .timeline-right::after { left: 9px; } 
+            .timeline-right { left: 0%; } 
+          }
 
         /* Vestimenta */
         .vestimenta h2 { margin-bottom: 10px; }
@@ -200,10 +201,10 @@
         .regalos p { margin-bottom: 25px; color: var(--texto-secundario); }
 
         /* --- GALERÍA CONTINUOUS SLIDER CSS --- */
-        .gallery-continuous { padding: 60px 0; background-color: var(--fondo-alterno); overflow: hidden; } /* Fondo alterno aquí */
+        .gallery-continuous { padding: 60px 0; background-color: var(--fondo-alterno); overflow: hidden; } 
         .gallery-continuous h2 { margin-bottom: 10px; }
-        .slider-row { display: flex; width: max-content; will-change: transform; margin-top: 10px; /* Reducido */ }
-        .slider-row img { height: 180px; /* Reducido */ width: auto; margin: 0 6px; border-radius: 6px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .slider-row { display: flex; width: max-content; will-change: transform; margin-top: 10px; }
+        .slider-row img { height: 180px; width: auto; margin: 0 6px; border-radius: 6px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
         @keyframes scrollLeft { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
         @keyframes scrollRight { 0% { transform: translateX(-50%); } 100% { transform: translateX(0); } }
         #slider-row1 .slider-row, #slider-row3 .slider-row { animation: scrollLeft 60s linear infinite; }
@@ -226,9 +227,16 @@
         .rsvp-form textarea { min-height: 70px; resize: vertical; }
         /* Centrar botón */
         .rsvp-form .boton-wrapper { text-align: center; } 
-        /* Asegurar color blanco en botón RSVP */
-        .boton-enviar { color: var(--blanco); }
-        .boton-enviar:hover { color: var(--esmeralda); }
+        /* BOTÓN RSVP AHORA OUTLINE */
+        .boton-enviar.boton-outline { 
+             background-color: transparent; 
+             color: var(--esmeralda); 
+             border: 1px solid var(--esmeralda); 
+         }
+         .boton-enviar.boton-outline:hover {
+             background-color: var(--esmeralda);
+             color: var(--blanco);
+         }
 
 
         /* Footer dentro de invitación */
@@ -257,13 +265,12 @@
              .nombres-header h1 { font-size: 2.8rem; } 
              .vestimenta-grid { grid-template-columns: 1fr; gap: 15px;}
              /* Ajuste Contador Móvil */
-             .fecha-texto { font-size: 1.1rem; } /* Más chico */
-             #countdown { gap: 10px; } /* Menos gap */
-             .tiempo-caja span:first-child { font-size: 1.6rem; } /* Más chico */
+             .fecha-texto { font-size: 1.1rem; } 
+             #countdown { gap: 10px; } /* Reducido gap */
+             .tiempo-caja span:first-child { font-size: 1.6rem; } 
              .tiempo-caja span:last-child { font-size: 0.5rem; letter-spacing: 0.5px;} /* Más chico */
              .seccion { padding: 50px 0; } 
              .slider-row img { height: 120px; margin: 0 5px;}
-             
          }
 
     </style>
@@ -412,7 +419,7 @@
                          <textarea id="message" name="Mensaje" rows="3" placeholder="Escribe aquí tu mensaje..."></textarea>
                      </div>
                      <div class="boton-wrapper" style="text-align: center;">
-                          <button type="submit" class="boton boton-enviar">Enviar Confirmación</button>
+                          <button type="submit" class="boton boton-outline boton-enviar">Enviar Confirmación</button>
                      </div>
                  </form>
              </div>
