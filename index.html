@@ -7,7 +7,7 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Raleway:wght@300;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather+Sans:wght@300&family=Nunito+Sans:wght@300;400;700&family=Petit+Formal+Script&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
 
@@ -18,7 +18,7 @@
             --esmeralda: #006A4E; 
             --oro-palido: #E0CDB6;
             --negro-carbon: #333333; 
-            --gris-texto: #777777; 
+            --gris-texto: #666666; /* Un poco más oscuro */
             --fondo-alterno: #f9f9f9; 
             --sombra-suave: rgba(0, 0, 0, 0.08);
             --intro-overlay-color: rgba(0, 0, 0, 0.4); 
@@ -30,7 +30,8 @@
         html { scroll-behavior: smooth; }
 
         body {
-            font-family: 'Raleway', sans-serif;
+            /* Fuente Cuerpo: Merriweather Sans Light */
+            font-family: 'Merriweather Sans', sans-serif;
             font-weight: 300; 
             background-color: var(--blanco); 
             color: var(--negro-carbon); 
@@ -44,32 +45,36 @@
         }
         body.invitation-revealed { overflow-y: auto; }
 
-        /* Títulos (Raleway Light) */
         h1, h2, h3, h4 { 
-            font-family: 'Raleway', sans-serif;
-            font-weight: 300; 
+            /* Fuente Títulos: Nunito Sans Light */
+            font-family: 'Nunito Sans', sans-serif;
+            font-weight: 300; /* Light */
             color: var(--negro-carbon); 
             text-align: center; 
-            letter-spacing: 1px; 
+            letter-spacing: 1.5px; /* Ligeramente más espaciado */
             margin-bottom: 25px; 
+            text-transform: uppercase; /* Mayúsculas */
         }
-        h1 { font-size: 3rem; } 
-        h2 { font-size: 2.2rem; } /* Títulos Sección */
-        h3 { font-size: 1.6rem; } 
-        h4 { font-size: 1.2rem; } 
+        
+        /* Ajuste de tamaño */
+        h1 { font-size: 2.8rem; } /* Nombres */
+        h2 { font-size: 1.6rem; margin-bottom: 15px; color: var(--esmeralda);} /* Títulos Sección */
+        h3 { font-size: 1.4rem; font-weight: 400; text-transform: none; letter-spacing: 0.5px;} /* Itinerario */
+        h4 { font-size: 1rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;} /* Vestimenta */
 
+        /* Contenedor */
         .container { max-width: 800px; margin: 0 auto; padding: 0 20px; }
         
         /* Separador */
-        .separador { border: 0; height: 1px; width: 100px; background-color: var(--oro-palido); margin: 60px auto; }
-        .separador-corto { width: 50px; margin: 30px auto;}
+        .separador { border: 0; height: 1px; width: 80px; background-color: var(--oro-palido); margin: 50px auto; }
+        .separador-corto { width: 40px; margin: 25px auto;}
         
         /* Párrafos */
-        p { color: var(--gris-texto); font-weight: 300; margin-bottom: 20px; font-size: 0.95rem; max-width: 650px; margin-left: auto; margin-right: auto;}
+        p { color: var(--gris-texto); font-weight: 300; margin-bottom: 20px; font-size: 0.95rem; max-width: 600px; margin-left: auto; margin-right: auto;}
         strong { font-weight: 400; color: var(--negro-carbon); }
         
         /* Botones generales */
-        .boton { display: inline-block; background-color: var(--esmeralda); color: var(--blanco); border: 1px solid var(--esmeralda); padding: 12px 30px; border-radius: 4px; font-family: 'Roboto Condensed', sans-serif; font-weight: 700; text-decoration: none; transition: all 0.3s ease; cursor: pointer; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; }
+        .boton { display: inline-block; background-color: var(--esmeralda); color: var(--blanco); border: 1px solid var(--esmeralda); padding: 12px 28px; border-radius: 4px; font-family: 'Nunito Sans', sans-serif; font-weight: 700; text-decoration: none; transition: all 0.3s ease; cursor: pointer; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1.5px; }
         .boton:hover { background-color: var(--blanco); color: var(--esmeralda); }
         .boton-outline { background-color: transparent; color: var(--esmeralda); }
         .boton-outline:hover { background-color: var(--esmeralda); color: var(--blanco); }
@@ -82,7 +87,7 @@
         #intro-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; z-index: 1001; transition: transform 1s cubic-bezier(0.77, 0, 0.175, 1); cursor: pointer; background-color: var(--preloader-bg); }
         .intro-background { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: linear-gradient(var(--intro-overlay-color), var(--intro-overlay-color)), url('fotonovios1.jpg'); background-size: cover; background-position: center; z-index: 2;}
         .intro-content { position: relative; z-index: 3; height: 100%; display: flex; justify-content: center; align-items: center; }
-        #enter-button { background-color: transparent; border: 1px solid var(--blanco); color: var(--blanco); padding: 12px 30px; border-radius: 4px; font-family: 'Roboto Condensed', sans-serif; font-weight: 700; font-size: 1rem; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; transition: background-color 0.3s ease, color 0.3s ease; }
+        #enter-button { background-color: transparent; border: 1px solid var(--blanco); color: var(--blanco); padding: 12px 30px; border-radius: 4px; font-family: 'Nunito Sans', sans-serif; font-weight: 400; /* Regular */ font-size: 1rem; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; transition: background-color 0.3s ease, color 0.3s ease; }
         #enter-button:hover { background-color: var(--blanco); color: var(--negro-carbon); }
         body.invitation-revealed #intro-overlay { transform: translateY(-100%); }
 
@@ -91,123 +96,95 @@
         .seccion { padding: 80px 0; } 
         .seccion-alterna { background-color: var(--fondo-alterno); }
         
-        /* Nombres (Great Vibes Cursiva) */
+        /* Nombres (Petit Formal Script) */
         .nombres-header { padding: 60px 0 40px 0; }
         .nombres-header h1 {
-             font-family: 'Great Vibes', cursive; /* Fuente Cursiva */
-             font-weight: 400; 
-             font-size: 3.5rem; 
+             font-family: 'Petit Formal Script', cursive; /* Nueva Fuente */
+             font-weight: 400; /* Regular */
+             font-size: 3.2rem; /* Ajustado */ 
              color: var(--negro-carbon);
-             margin-bottom: 0; line-height: 1.3; letter-spacing: 0;
-             font-style: normal; /* Asegura no itálica extra */
+             margin-bottom: 0; line-height: 1.3; letter-spacing: 0px; /* Sin espaciado */
+             text-transform: none; /* Sin mayúsculas */
         }
-        .nombres-header .ampersand { color: var(--esmeralda); font-style: normal;} /* & en Esmeralda */
+        .nombres-header .ampersand { color: var(--esmeralda); font-style: normal; font-size: 0.9em; }
 
         /* Intro Text */
-        .intro-texto h2 { margin-bottom: 10px; color: var(--esmeralda); font-size: 2.2rem;}
-        .intro-texto p { max-width: 600px; margin: 0 auto; font-size: 1rem;}
+        .intro-texto h2 { margin-bottom: 10px; color: var(--esmeralda); font-size: 2rem;}
+        .intro-texto p { max-width: 600px; margin: 0 auto; font-size: 1rem; color: var(--gris-texto);}
 
-        /* Countdown (Ajustado para una línea) */
+        /* Countdown */
         .fecha-contador { text-align: center; }
         .fecha-texto { 
-             font-family: 'Raleway', sans-serif; /* Mantenemos Raleway */
-             font-weight: 300;
-             font-size: 1.6rem; 
+             font-family: 'Nunito Sans', sans-serif; /* Nunito */
+             font-weight: 400; /* Regular */
+             font-size: 1.5rem; 
              color: var(--esmeralda); 
-             margin-bottom: 10px; 
+             margin-bottom: 30px; 
              letter-spacing: 1px;
+             text-transform: uppercase; /* Mayúsculas */
         }
-        .contador-marco {
-            max-width: 420px; /* Reducido para asegurar una línea */
-            margin: 40px auto 0 auto; 
-            padding: 25px 15px 20px 15px; /* Ajustado padding */
-            border: double 4px var(--dorado); 
-            border-radius: 10px; 
-            position: relative; 
-        }
-        .contador-marco::before {
-             content: "Faltan"; position: absolute; top: -12px; left: 50%;
-             transform: translateX(-50%); background-color: var(--fondo-alterno); 
-             padding: 0 15px; font-family: 'Raleway', sans-serif; 
-             font-weight: 300; font-size: 1rem; color: var(--gris-texto);
-        }
-        #countdown { display: flex; justify-content: space-around; gap: 10px; flex-wrap: nowrap; margin-top: 5px; } /* nowrap */
-        .tiempo-caja { background-color: transparent; padding: 0; min-width: auto; /* Ancho automático */ box-shadow: none; flex: 1; /* Distribuye espacio */}
-        .tiempo-caja span:first-child { display: block; font-size: 2.2rem; /* Reducido */ font-weight: 300; color: var(--negro-carbon); font-family: 'Lato', sans-serif; line-height: 1; margin-bottom: 5px;}
-        .tiempo-caja span:last-child { display: block; font-size: 0.65rem; /* Reducido */ text-transform: uppercase; color: var(--gris-texto); font-family: 'Roboto Condensed', sans-serif; letter-spacing: 1px;}
+        #countdown { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; } /* Aumentado gap */
+        .tiempo-caja { background-color: transparent; padding: 0; min-width: 70px; }
+        .tiempo-caja span:first-child { display: block; font-size: 3rem; /* Más pequeño */ font-weight: 300; color: var(--negro-carbon); font-family: 'Lato', sans-serif; line-height: 1; margin-bottom: 5px;}
+        .tiempo-caja span:last-child { display: block; font-size: 0.7rem; text-transform: uppercase; color: var(--gris-texto); font-family: 'Nunito Sans', sans-serif; letter-spacing: 1px;}
 
-        /* Segunda Foto (Estilo Tarjeta) */
-        .foto-secundaria { display: block; width: calc(100% - 40px); max-width: 700px; height: auto; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 10px; margin: 0 auto; box-shadow: 0 15px 35px var(--sombra-suave); }
+        /* Segunda Foto */
+        .foto-secundaria { display: block; width: calc(100% - 40px); max-width: 700px; height: auto; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 8px; /* Reducido */ margin: 0 auto; box-shadow: 0 15px 30px var(--sombra-suave); }
 
         /* Itinerario - Timeline Vertical */
         .itinerario h2 { margin-bottom: 10px; }
         .timeline { position: relative; max-width: 600px; margin: 50px auto 0 auto; }
-        .timeline::after { content: ''; position: absolute; width: 2px; background-color: var(--oro-palido); top: 10px; bottom: 10px; left: 50%; margin-left: -1px; }
+        .timeline::after { content: ''; position: absolute; width: 1px; /* Más fina */ background-color: var(--oro-palido); top: 10px; bottom: 10px; left: 50%; margin-left: -0.5px; }
         .timeline-container { padding: 10px 40px; position: relative; background-color: inherit; width: 50%; }
-        .timeline-container::after { content: ''; position: absolute; width: 16px; height: 16px; right: -8px; background-color: var(--fondo-alterno); border: 3px solid var(--esmeralda); top: 15px; border-radius: 50%; z-index: 1; }
+        .timeline-container::after { content: ''; position: absolute; width: 12px; height: 12px; right: -6px; background-color: var(--fondo-alterno); border: 2px solid var(--esmeralda); top: 20px; /* Ajustado */ border-radius: 50%; z-index: 1; }
         .timeline-left { left: 0; }
-        .timeline-left::before { content: " "; height: 0; position: absolute; top: 18px; width: 0; z-index: 1; right: 30px; border: medium solid var(--blanco); border-width: 10px 0 10px 10px; border-color: transparent transparent transparent var(--blanco); }
-        .timeline-left::after { left: -8px; background-color: var(--blanco);} 
+        .timeline-left::before { content: " "; height: 0; position: absolute; top: 22px; width: 0; z-index: 1; right: 30px; border: medium solid var(--blanco); border-width: 8px 0 8px 8px; border-color: transparent transparent transparent var(--blanco); }
+        .timeline-left::after { left: -6px; background-color: var(--blanco);} 
         .timeline-right { left: 50%; }
-        .timeline-right::before { content: " "; height: 0; position: absolute; top: 18px; width: 0; z-index: 1; left: 30px; border: medium solid var(--fondo-alterno); border-width: 10px 10px 10px 0; border-color: transparent var(--fondo-alterno) transparent transparent; }
-        .timeline-right::after { left: -8px; } 
-        .timeline-content { padding: 20px 30px; background-color: var(--blanco); position: relative; border-radius: 6px; box-shadow: 0 3px 10px var(--sombra-suave); text-align: left; }
+        .timeline-right::before { content: " "; height: 0; position: absolute; top: 22px; width: 0; z-index: 1; left: 30px; border: medium solid var(--fondo-alterno); border-width: 8px 8px 8px 0; border-color: transparent var(--fondo-alterno) transparent transparent; }
+        .timeline-right::after { left: -6px; } 
+        .timeline-content { padding: 15px 20px; background-color: var(--blanco); position: relative; border-radius: 6px; box-shadow: 0 3px 10px var(--sombra-suave); text-align: left; }
          .timeline-right .timeline-content { background-color: var(--fondo-alterno);} 
-         .timeline-content h3 { color: var(--esmeralda); font-size: 1.4rem; margin-bottom: 8px; text-align: left;}
+         .timeline-content h3 { color: var(--esmeralda); font-size: 1.2rem; margin-bottom: 8px; text-align: left; font-family: 'Nunito Sans'; font-weight: 700; text-transform: uppercase;}
          .timeline-content p { margin-bottom: 15px; color: var(--texto-secundario); font-size: 0.9rem;}
-         .timeline-content .hora { font-weight: 400; color: var(--negro-carbon); display: block; margin-bottom: 15px; font-family: 'Roboto Condensed';}
+         .timeline-content .hora { font-weight: 400; color: var(--negro-carbon); display: block; margin-bottom: 15px; font-family: 'Nunito Sans'; font-size: 0.8rem; text-transform: uppercase;}
          
          @media screen and (max-width: 768px) { /* Ajuste Timeline Móvil */
-           .timeline::after { left: 20px; margin-left: 0;} 
+           .timeline::after { left: 15px;} 
            .timeline-container { width: 100%; padding-left: 50px; padding-right: 15px; } 
-           .timeline-container::before { left: 40px; border-width: 10px 10px 10px 0; } 
-           .timeline-left::before { border-color: transparent var(--blanco) transparent transparent;}
-           .timeline-right::before { border-color: transparent var(--fondo-alterno) transparent transparent;}
-           .timeline-left::after, .timeline-right::after { left: 12px; } 
+           .timeline-container::before { left: 35px;} 
+           .timeline-left::after, .timeline-right::after { left: 9px; } 
            .timeline-right { left: 0%; } 
          }
 
         /* Vestimenta */
         .vestimenta h2 { margin-bottom: 10px; }
-        .vestimenta .subtitulo-formal { font-size: 1.1rem; font-weight: 400; color: var(--texto-principal); margin-bottom: 30px; font-family: 'Roboto Condensed', sans-serif;}
+        .vestimenta .subtitulo-formal { font-size: 1rem; font-weight: 400; color: var(--texto-principal); margin-bottom: 30px; font-family: 'Nunito Sans', sans-serif;}
         .vestimenta-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; max-width: 450px; margin: 0 auto; align-items: start; }
         .vestimenta-grid div { text-align: center; }
-        .vestimenta-grid h4 { font-size: 1.1rem; margin-bottom: 5px; color: var(--texto-principal); font-weight: 700; text-transform: uppercase; letter-spacing: 1px;}
+        .vestimenta-grid h4 { font-size: 1rem; margin-bottom: 5px; color: var(--texto-principal); font-weight: 700; text-transform: uppercase; letter-spacing: 1px;}
         .vestimenta-grid p { font-size: 0.9rem; color: var(--texto-secundario);}
 
         /* Regalos */
         .regalos h2 { margin-bottom: 10px; }
         .regalos p { margin-bottom: 25px; color: var(--texto-secundario); }
 
-        /* --- NUEVA GALERÍA: CONTINUOUS SLIDER --- */
-        .gallery-continuous {
-             padding: 80px 0;
-             background-color: var(--fondo-alterno);
-             overflow: hidden; /* Importante para que no se vea scrollbar horizontal */
-        }
+        /* --- GALERÍA CONTINUOUS SLIDER --- */
+        .gallery-continuous { padding: 80px 0; background-color: var(--fondo-alterno); overflow: hidden; }
         .gallery-continuous h2 { margin-bottom: 10px; }
-        .swiper-row {
-             width: 100%;
-             margin-top: 20px;
+        .swiper-row { width: 100%; margin-top: 25px; } /* Aumentado margen */
+        .swiper-container-multirow { /* Contenedor Swiper */
+             height: 200px; /* Altura fija fila */
+             overflow: hidden; /* Asegura que no se desborde */
         }
-        .swiper-slide-continuous {
-             width: auto; /* Swiper calculará el ancho */
-             height: 200px; /* Altura fija y más pequeña */
-        }
-        .swiper-slide-continuous img {
-             display: block;
-             height: 100%;
-             width: auto; /* Ancho automático para mantener proporción */
-             object-fit: cover;
-             border-radius: 6px;
-             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
-        /* Eliminar flechas y paginación para este slider */
-         .swiper-row .swiper-button-next, 
-         .swiper-row .swiper-button-prev,
-         .swiper-row .swiper-pagination {
-              display: none;
+        .swiper-slide-continuous { width: auto !important; /* Importante para que Swiper calcule */ height: 100%; }
+        .swiper-slide-continuous img { display: block; height: 100%; width: auto; object-fit: cover; border-radius: 6px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin: 0 8px; /* Espacio entre fotos */}
+         .swiper-row .swiper-wrapper { /* Configuracion clave para continuidad */
+              transition-timing-function: linear !important; 
          }
+         /* Quitamos flechas y paginacion */
+         .swiper-row .swiper-button-next, .swiper-row .swiper-button-prev, .swiper-row .swiper-pagination { display: none; }
+
 
         /* Formulario RSVP */
         .rsvp-section h2 { margin-bottom: 5px; }
@@ -241,6 +218,7 @@
          body.invitation-revealed #sticky-footer { 
              opacity: 1; transform: translateY(0); pointer-events: auto;
          }
+         /* NUEVO: Color texto footer claro */
          .footer-text { font-size: 0.75rem; color: var(--texto-claro); text-align: left; flex-grow: 1; font-family: 'Montserrat', sans-serif;}
          .whatsapp-button { display: inline-flex; align-items: center; background-color: var(--esmeralda); color: var(--blanco); padding: 5px 10px; border-radius: 4px; font-size: 0.75rem; font-weight: 400; text-decoration: none; transition: background-color 0.3s ease; white-space: nowrap; font-family: 'Montserrat', sans-serif;}
          .whatsapp-button svg { width: 12px; height: 12px; fill: var(--blanco); margin-right: 5px;}
@@ -249,10 +227,14 @@
          @media (max-width: 600px) {
              #sticky-footer { justify-content: center; text-align: center; }
              .footer-text { width: 100%; margin-bottom: 5px; text-align: center; }
-             h1 { font-size: 2.2rem; } h2 { font-size: 1.8rem; } h3 { font-size: 1.4rem; }
-             .nombres-header h1 { font-size: 2.5rem; }
+             h1 { font-size: 2.2rem; } h2 { font-size: 1.6rem; } h3 { font-size: 1.2rem; }
+             .nombres-header h1 { font-size: 2.8rem; } /* Ajustado */
              .vestimenta-grid { grid-template-columns: 1fr; gap: 15px;}
-             .swiper-slide-continuous { height: 150px; } /* Galería más pequeña en móvil */
+             .swiper-slide-continuous { height: 120px; } /* Galería más estrecha */
+             .tiempo-caja span:first-child { font-size: 1.8rem; } /* Contador más pequeño */
+             .tiempo-caja span:last-child { font-size: 0.6rem; }
+             .contador-marco { max-width: 90%; padding: 20px 10px 15px 10px; }
+             #countdown { gap: 5px; }
          }
 
     </style>
@@ -277,12 +259,11 @@
 
         <section class="seccion intro-texto fade-in-section">
             <div class="container">
-                <h2>¡Nos casamos!</h2>
-                <hr class="separador-corto">
+                <h2>Celebremos Nuestro Amor</h2> <hr class="separador-corto">
                 <p>
-                    Después de 4 años caminando juntos hemos decidido unir nuestras vidas en matrimonio, 
-                    por lo que nos complace que sean participes de esta unión ...
-                </p>
+                     Con gran alegría, después de cuatro años compartiendo un mismo camino, 
+                     hemos decidido unir nuestras vidas. Nos encantaría que nos acompañes 
+                     en este día tan especial... </p>
             </div>
         </section>
 
@@ -290,18 +271,18 @@
             <div class="container">
                 <div class="fecha-texto">20 de Mayo, 2027 | 12:00 PM</div>
                 <div class="contador-marco">
-                     <div id="countdown">
-                          <div class="tiempo-caja"><span id="dias">00</span><span>Días</span></div>
-                          <div class="tiempo-caja"><span id="horas">00</span><span>Horas</span></div>
-                          <div class="tiempo-caja"><span id="minutos">00</span><span>Minutos</span></div>
-                          <div class="tiempo-caja"><span id="segundos">00</span><span>Segundos</span></div>
-                     </div>
-                </div>
+                      <div id="countdown">
+                           <div class="tiempo-caja"><span id="dias">00</span><span>Días</span></div>
+                           <div class="tiempo-caja"><span id="horas">00</span><span>Horas</span></div>
+                           <div class="tiempo-caja"><span id="minutos">00</span><span>Minutos</span></div>
+                           <div class="tiempo-caja"><span id="segundos">00</span><span>Segundos</span></div>
+                      </div>
+                 </div>
             </div>
         </section>
         
         <section class="seccion fade-in-section">
-             <img src="fotonovios2.jpg" alt="Juan y María - Foto 2" class="foto-secundaria">
+            <img src="fotonovios2.jpg" alt="Juan y María - Foto 2" class="foto-secundaria">
         </section>
 
         <section class="seccion seccion-alterna itinerario fade-in-section">
@@ -344,8 +325,7 @@
              <div class="container">
                   <h2>Mesa de Regalos</h2>
                   <hr class="separador-corto" style="margin-top:0;">
-                  <p>Tu presencia es nuestro mejor regalo, pero si deseas obsequiarnos algo...</p>
-                  <a href="mesa-de-regalos-demo2.html" target="_blank" class="boton boton-outline">Ver Opciones de Regalos</a>
+                  <p>Su presencia es el mejor regalo, pero si desean tener un detalle...</p> <a href="mesa-de-regalos-demo2.html" target="_blank" class="boton boton-outline">Ver Opciones de Regalos</a>
              </div>
         </section>
 
@@ -354,7 +334,7 @@
                  <h2>Nuestra Galería</h2>
                  <hr class="separador-corto" style="margin-top:0;">
             </div>
-                 <div class="swiper swiper-row" id="swiper-row1">
+                 <div class="swiper swiper-row swiper-container-multirow" id="swiper-row1">
                      <div class="swiper-wrapper">
                          <div class="swiper-slide swiper-slide-continuous"><img src="car1.jpg" alt=""></div>
                          <div class="swiper-slide swiper-slide-continuous"><img src="car2.jpg" alt=""></div>
@@ -374,7 +354,7 @@
                          <div class="swiper-slide swiper-slide-continuous"><img src="car8.jpg" alt=""></div>
                      </div>
                  </div>
-                 <div class="swiper swiper-row" id="swiper-row2">
+                 <div class="swiper swiper-row swiper-container-multirow" id="swiper-row2">
                      <div class="swiper-wrapper">
                           <div class="swiper-slide swiper-slide-continuous"><img src="car5.jpg" alt=""></div>
                          <div class="swiper-slide swiper-slide-continuous"><img src="car6.jpg" alt=""></div>
@@ -394,7 +374,7 @@
                          <div class="swiper-slide swiper-slide-continuous"><img src="car4.jpg" alt=""></div>
                      </div>
                  </div>
-                 <div class="swiper swiper-row" id="swiper-row3">
+                 <div class="swiper swiper-row swiper-container-multirow" id="swiper-row3">
                      <div class="swiper-wrapper">
                           <div class="swiper-slide swiper-slide-continuous"><img src="car8.jpg" alt=""></div>
                          <div class="swiper-slide swiper-slide-continuous"><img src="car7.jpg" alt=""></div>
@@ -418,8 +398,7 @@
 
         <section class="seccion rsvp-section fade-in-section">
              <div class="container">
-                 <h2>Confirmación de Asistencia</h2>
-                 <p class="subtitulo-rsvp">Evento exclusivo para adultos.</p> 
+                 <h2>Confirma tu Asistencia</h2> <p class="subtitulo-rsvp">Evento exclusivo para adultos.</p> 
                  <hr class="separador-corto" style="margin-top:0; margin-bottom: 30px;">
                  <form id="rsvp-form" class="rsvp-form" onsubmit="event.preventDefault(); alert('Este es un formulario de ejemplo.');"> 
                      <div class="form-group">
@@ -440,8 +419,7 @@
                          </select>
                      </div>
                      <div class="form-group">
-                         <label for="message">¿Quieres enviar un mensaje? (opcional):</label>
-                         <textarea id="message" name="Mensaje" rows="3" placeholder="Escribe aquí tu mensaje..."></textarea>
+                         <label for="message">Mensaje para los novios (opcional):</label> <textarea id="message" name="Mensaje" rows="3" placeholder="Escribe aquí tu mensaje..."></textarea>
                      </div>
                      <button type="submit" class="boton">Enviar Confirmación</button>
                  </form>
@@ -449,8 +427,7 @@
          </section>
 
         <footer class="fade-in-section">
-            <p>¡Te esperamos!</p>
-        </footer>
+            <p>Con cariño, Juan & María</p> </footer>
 
     </div> 
     <div id="sticky-footer">
@@ -482,25 +459,33 @@
         // --- SCRIPT PARA INICIALIZAR SWIPER (Galería Continua) ---
         function initContinuousSlider(selector, reverse = false) {
              if (document.querySelector(selector)) {
+                  // Ajusta slidesPerView basado en el ancho de la ventana
+                  let slides = 'auto'; // Por defecto
+                  if (window.innerWidth < 600) slides = 3; // Muestra ~3 en móviles
+                  else if (window.innerWidth < 900) slides = 4; // Muestra ~4 en tablets
+                  else slides = 5; // Muestra ~5 en escritorio
+
                   new Swiper(selector, {
                        loop: true,
-                       slidesPerView: 'auto', // Ajusta automáticamente
-                       spaceBetween: 15, // Espacio entre fotos
-                       speed: 5000, // Velocidad de transición muy alta (para movimiento lento)
+                       slidesPerView: slides, // Variable
+                       spaceBetween: 15, 
+                       speed: 6000, // Velocidad constante
                        autoplay: {
-                            delay: 0, // Sin retraso
+                            delay: 1, // Mínimo delay
                             disableOnInteraction: false,
-                            reverseDirection: reverse, // Dirección inversa para la fila central
+                            reverseDirection: reverse, 
                        },
-                       freeMode: true, // Permite deslizar libremente
-                       freeModeMomentum: false, // Evita el efecto 'rebote'
-                       grabCursor: true,
+                       freeMode: false, // Desactivado para asegurar velocidad constante
+                       // freeModeMomentum: false, // No necesario sin freeMode
+                       allowTouchMove: false, // Desactiva interacción manual
+                       // No grabCursor
                   });
              }
          }
-         initContinuousSlider('#swiper-row1', false); // Mueve a la izquierda
-         initContinuousSlider('#swiper-row2', true);  // Mueve a la derecha
-         initContinuousSlider('#swiper-row3', false); // Mueve a la izquierda
+         // Llama a la inicialización
+         initContinuousSlider('#swiper-row1', false); 
+         initContinuousSlider('#swiper-row2', true);  
+         initContinuousSlider('#swiper-row3', false); 
         
         // --- SCRIPT PARA REVELAR INVITACIÓN ---
         (function() { /* ... (mismo script revelar) ... */
