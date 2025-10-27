@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mesa de Regalos - Boda de Juan & María</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather+Sans:wght@300&family=Nunito+Sans:wght@300;400;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+
+    <style>
+        /* --- Estilos Generales --- */
+        :root {
+            --blanco-nieve: #FFFAFA; 
+            --crema-fondo: #FBF8F1; 
+            --esmeralda: #006A4E; 
+            --oro-palido: #E0CDB6;
+            --negro-carbon: #333333; 
+            --gris-texto: #666666; 
+            --sombra-suave: rgba(0, 0, 0, 0.08);
+            --gris-borde: #eee; 
+            --esmeralda-velo: rgba(0, 106, 78, 0.5); 
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Merriweather Sans', sans-serif;
+            font-weight: 300; 
+            background-color: var(--crema-fondo); 
+            color: var(--negro-carbon); 
+            line-height: 1.8; 
+            text-align: center; 
+            padding: 20px; 
+            padding-bottom: 90px; 
+             -webkit-font-smoothing: antialiased; 
+             -moz-osx-font-smoothing: grayscale;
+        }
+
+        h1, h2, h3 { 
+            font-family: 'Nunito Sans', sans-serif;
+            font-weight: 300; 
+            color: var(--negro-carbon); 
+            text-align: center; 
+            letter-spacing: 1.5px; 
+            margin-bottom: 25px; 
+            text-transform: uppercase; 
+        }
+        h1 { font-size: 2.2rem; margin-top: 50px; } 
+        h2 { font-size: 1.6rem; text-align: left; border-bottom: 1px solid var(--oro-palido); padding-bottom: 10px; margin-top: 40px; color: var(--esmeralda);} 
+        h3 { font-size: 1.1rem; font-weight: 700; color: var(--negro-carbon); margin: 10px 0; text-transform: uppercase;} 
+
+        /* Contenedor principal (Tarjeta) */
+        .container {
+            max-width: 900px; 
+            margin: 40px auto;
+            padding: 40px 0px 50px 0px; 
+            background-color: var(--blanco-nieve); 
+            border-radius: 8px; 
+            box-shadow: 0 10px 40px var(--sombra-suave); 
+            position: relative; 
+            text-align: center; 
+        }
+        
+        .container-padding { padding: 0 30px; }
+        
+        p { color: var(--gris-texto); font-weight: 300; margin-bottom: 20px; font-size: 0.95rem; max-width: 600px; margin-left: auto; margin-right: auto;}
+        .introduccion { font-size: 1rem; max-width: 550px; margin: 0 auto 40px auto; text-align: center; }
+        
+        /* Link Volver */
+        .link-volver {
+            display: inline-block;
+            position: absolute;
+            top: 30px; 
+            left: 30px;
+            font-size: 0.9rem; 
+            color: var(--esmeralda); 
+            text-decoration: none;
+            font-weight: 400; 
+            transition: color 0.3s ease;
+            font-family: 'Nunito Sans', sans-serif; 
+            z-index: 10; 
+        }
+        .link-volver:hover { color: var(--negro-carbon); }
+        .link-volver::before { content: '← '; transition: transform 0.3s ease; display: inline-block; }
+        .link-volver:hover::before { transform: translateX(-3px); }
+
+
+        /* --- ESTILOS CARRUSEL DE REGALOS --- */
+        .swiper-container-regalos {
+             width: 100%;
+             height: auto; 
+             margin-top: 30px;
+             padding: 10px 0 30px 0; 
+             overflow: hidden; 
+        }
+        
+        /* NUEVO: ESTILO PARA MOVIMIENTO CONTINUO */
+        .swiper-container-regalos .swiper-wrapper {
+            transition-timing-function: linear !important;
+            -webkit-transition-timing-function: linear !important; 
+        }
+        
+        .regalo-card {
+            width: 280px; 
+            background-color: var(--blanco);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px var(--sombra-suave);
+            overflow: hidden; 
+            text-align: left; 
+            cursor: pointer; 
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative; 
+            margin-bottom: 10px; 
+        }
+        .regalo-card:hover {
+             transform: translateY(-5px);
+             box-shadow: 0 12px 20px rgba(0,0,0,0.12);
+        }
+
+        .regalo-imagen {
+            width: 100%;
+            height: 180px; 
+            background-color: var(--gris-borde); 
+            background-size: cover;
+            background-position: center;
+            position: relative; 
+        }
+        
+        .regalo-card.comprado .regalo-imagen::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: var(--esmeralda-velo); 
+            z-index: 1; 
+        }
+
+        .regalo-contenido { padding: 15px 20px 20px 20px; }
+        .regalo-titulo-wrap { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+        .regalo-contenido h3 { text-align: left; margin-bottom: 0; font-size: 1.1rem; flex-grow: 1; }
+        .detalle-flecha { width: 9px; height: 9px; fill: var(--esmeralda); transition: transform 0.3s ease; flex-shrink: 0; }
+        .regalo-contenido p { font-size: 0.85rem; margin-bottom: 15px; color: var(--gris-texto); line-height: 1.6;}
+        
+        .boton-regalar {
+            background-color: var(--esmeralda); 
+            color: var(--blanco);
+            border: none; border-radius: 4px; padding: 8px 15px; 
+            font-size: 0.8rem; font-weight: 700; 
+            font-family: 'Nunito Sans', sans-serif;
+            cursor: pointer; transition: all 0.3s ease; text-align: center;
+            text-transform: uppercase; letter-spacing: 1px;
+        }
+        .boton-regalar:hover { opacity: 0.8; }
+        
+        .regalo-descripcion-full { max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out, padding 0.4s ease-out; padding: 0 20px; font-size: 0.9rem; color: var(--gris-texto); text-align: left; }
+        .regalo-descripcion-full p { margin-bottom: 0; padding-bottom: 20px; font-size: 0.9rem; }
+        
+        .regalo-card.active .regalo-descripcion-full { max-height: 200px; }
+        .regalo-card.active .detalle-flecha { transform: rotate(180deg); }
+        
+        .regalo-card.comprado {
+            opacity: 0.8; 
+            cursor: pointer; /* Permitir clic para ver desc */
+        }
+        .regalo-card.comprado:hover {
+             transform: translateY(-5px); /* Permitir hover */
+        }
+         .regalo-card.comprado .regalo-contenido h3 { text-decoration: line-through; color: var(--gris-texto); }
+         .regalo-card.comprado .boton-regalar { background-color: var(--gris-texto); cursor: not-allowed; pointer-events: none; }
+         .regalo-card.comprado .boton-regalar::before { content: "¡Gracias!"; }
+         .regalo-card.comprado .boton-regalar span { display: none; }
+
+         .swiper-pagination {
+              position: static; 
+              margin-top: 15px;
+         }
+         .swiper-pagination-bullet {
+              background-color: var(--oro-palido);
+              opacity: 0.6;
+         }
+         .swiper-pagination-bullet-active {
+              background-color: var(--esmeralda);
+              opacity: 1;
+         }
+         /* Ocultar paginación para el carrusel continuo */
+         .swiper-container-regalos .swiper-pagination {
+             display: none; 
+         }
+
+
+        /* --- FOOTER FIJO VISIBLE --- */
+        #sticky-footer {
+            position: fixed; bottom: 0; left: 0; width: 100%; 
+            background-color: rgba(44, 62, 80, 0.9); padding: 8px 15px; 
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1); z-index: 999; 
+            display: flex; justify-content: space-between; align-items: center;
+            flex-wrap: wrap; gap: 10px; opacity: 1; transform: translateY(0); pointer-events: auto;
+        }
+        .footer-text { font-size: 0.75rem; color: var(--texto-claro); text-align: left; flex-grow: 1; font-family: 'Montserrat', sans-serif;}
+        .whatsapp-button { display: inline-flex; align-items: center; background-color: var(--esmeralda); color: var(--blanco); padding: 5px 10px; border-radius: 4px; font-size: 0.75rem; font-weight: 400; text-decoration: none; transition: background-color 0.3s ease; white-space: nowrap; font-family: 'Montserrat', sans-serif;}
+        .whatsapp-button svg { width: 12px; height: 12px; fill: var(--blanco); margin-right: 5px;}
+        .whatsapp-button:hover { background-color: #004d39; }
+
+        /* --- AJUSTES PARA MÓVILES --- */
+        @media (max-width: 600px) {
+            h1 { font-size: 2.2rem; }
+            h2 { font-size: 1.6rem; text-align: center; border-bottom: none; padding-bottom: 0;}
+            .link-volver { position: static; margin-bottom: 20px; display: block; text-align: center;} 
+            .container { padding: 20px 0px 30px 0px; margin: 20px auto; width: 100%;} 
+            .container-padding { padding: 0 20px; } 
+            
+            .swiper-container-regalos { padding-left: 20px; } 
+            .regalo-card { width: 240px; } 
+
+            /* Ajustes Footer Móvil */
+            #sticky-footer { justify-content: center; text-align: center; }
+            .footer-text { width: 100%; margin-bottom: 5px; text-align: center; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <svg style="display: none;">
+        <symbol id="icono-flecha-abajo" viewBox="0 0 10 7.5"> 
+             <path d="M0 0 L5 7.5 L10 0 Z" /> 
+        </symbol>
+    </svg>
+
+    <div class="container">
+        
+        <a href="index.html" class="link-volver">Volver a la Invitación</a>
+
+        <div class="container-padding">
+             <h1>Mesa de Regalos</h1>
+             <p class="introduccion">
+                 Su presencia es el mejor regalo. Si además desean tener un detalle con nosotros 
+                 para nuestra luna de miel en Brasil, aquí compartimos algunas experiencias que nos ilusionan. 
+                 Haz clic en una tarjeta para ver más.
+             </p>
+        </div>
+
+        <h2 style="padding: 0 20px;">Río de Janeiro</h2>
+        <div class="swiper swiper-container-regalos" id="swiper-rio">
+            <div class="swiper-wrapper continuous">
+                
+                <div class="swiper-slide regalo-card">
+                    <div class="regalo-imagen" style="background-image: url('cristoredentor.jpg');"></div>
+                    <div class="regalo-contenido">
+                        <div class="regalo-titulo-wrap">
+                            <h3>Visita al Cristo Redentor</h3>
+                            <svg class="detalle-flecha"><use href="#icono-flecha-abajo" /></svg>
+                        </div>
+                        <p>Subida en tren y visita al amanecer...</p> 
+                        <button class="boton-regalar"><span>Quiero regalar esto</span></button>
+                    </div>
+                    <div class="regalo-descripcion-full">
+                        <p>Entradas para subir en el tren de Corcovado y visitar el icónico Cristo Redentor al amanecer, disfrutando de las mejores vistas de la ciudad.</p>
+                    </div>
+                </div>
+
+                <div class="swiper-slide regalo-card comprado">
+                    <div class="regalo-imagen" style="background-image: url('clasesamba.jpg');"></div>
+                    <div class="regalo-contenido">
+                         <div class="regalo-titulo-wrap">
+                            <h3>Clase de Samba en Lapa</h3>
+                            <svg class="detalle-flecha"><use href="#icono-flecha-abajo" /></svg>
+                         </div>
+                        <p>Clase privada de 2 horas en Lapa...</p>
+                        <button class="boton-regalar" disabled><span>Quiero regalar esto</span></button> 
+                    </div>
+                     <div class="regalo-descripcion-full">
+                        <p>Una clase privada de 2 horas para aprender los movimientos básicos de la samba y disfrutarlos en el corazón de la vida nocturna de Río.</p>
+                    </div>
+                </div>
+                
+                <div class="swiper-slide regalo-card">
+                     <div class="regalo-imagen" style="background-image: url('tourbote.jpg');"></div>
+                    <div class="regalo-contenido">
+                         <div class="regalo-titulo-wrap">
+                            <h3>Tour en Bote (Pan de Azúcar)</h3>
+                            <svg class="detalle-flecha"><use href="#icono-flecha-abajo" /></svg>
+                         </div>
+                        <p>Paseo en velero al atardecer...</p>
+                        <button class="boton-regalar"><span>Quiero regalar esto</span></button>
+                    </div>
+                     <div class="regalo-descripcion-full">
+                         <p>Un paseo en velero por la bahía de Guanabara para ver el atardecer con vistas espectaculares del Pan de Azúcar.</p>
+                    </div>
+                </div>
+
+                <div class="swiper-slide regalo-card">
+                     <div class="regalo-imagen" style="background-image: url('tourescalera.jpg');"></div>
+                    <div class="regalo-contenido">
+                         <div class="regalo-titulo-wrap">
+                            <h3>Tour Escalera Selarón</h3>
+                            <svg class="detalle-flecha"><use href="#icono-flecha-abajo" /></svg>
+                         </div>
+                        <p>Recorrido a pie por Santa Teresa...</p>
+                        <button class="boton-regalar"><span>Quiero regalar esto</span></button>
+                    </div>
+                     <div class="regalo-descripcion-full">
+                        <p>Un recorrido a pie por el bohemio barrio de Santa Teresa y sus famosas escaleras de colores creadas por el artista Jorge Selarón.</p>
+                    </div>
+                </div>
+                
+                <div class="swiper-slide regalo-card">
+                    <div class="regalo-imagen" style="background-image: url('cristoredentor.jpg');"></div>
+                    <div class="regalo-contenido">
+                        <div class="regalo-titulo-wrap">
+                            <h3>Visita al Cristo Redentor</h3>
+                            <svg class="detalle-flecha"><use href="#icono-flecha-abajo" /></svg>
+                        </div>
+                        <p>Subida en tren y visita al amanecer...</p> 
+                        <button class="boton-regalar"><span>Quiero regalar esto</span></button>
+                    </div>
+                    <div class="regalo-descripcion-full">
+                        <p>Entradas para subir en el tren de Corcovado y visitar el icónico Cristo Redentor al amanecer, disfrutando de las mejores vistas de la ciudad.</p>
+                    </div>
+                </div>
+
+            </div> <div class="swiper-pagination"></div>
+        </div> <h2 style="padding: 0 20px;">São Paulo</h2>
+         <div class="swiper swiper-container-regalos" id="swiper-saopaulo">
+            <div class="swiper-wrapper continuous">
+
+                <div class="swiper-slide regalo-card">
+                     <div class="regalo-imagen" style="background-image: url('tourgastronomico.jpg');"></div>
+                    <div class="regalo-contenido">
+                         <div class="regalo-titulo-wrap">
+                            <h3>Tour Gastronómico</h3>
+                            <svg class="detalle-flecha"><use href="#icono-flecha-abajo" /></svg>
+                         </div>
+                        <p>Degustación en el Mercado Municipal...</p>
+                        <button class="boton-regalar"><span>Quiero regalar esto</span></button>
+                    </div>
+                     <div class="regalo-descripcion-full">
+                        <p>Un recorrido guiado para probar las famosas frutas exóticas, el sándwich de mortadela y el pastel de bacalhau en el histórico Mercado Municipal.</p>
+                    </div>
+                </div>
+
+                <div class="swiper-slide regalo-card comprado">
+                     <div class="regalo-imagen" style="background-image: url('jazz.jpg');"></div>
+                    <div class="regalo-contenido">
+                         <div class="regalo-titulo-wrap">
+                            <h3>Noche de Jazz</h3>
+                             <svg class="detalle-flecha"><use href="#icono-flecha-abajo" /></svg>
+                         </div>
+                        <p>Entradas para Bossa Nova en vivo...</p>
+                        <button class="boton-regalar" disabled><span>Quiero regalar esto</span></button>
+                    </div>
+                     <div class="regalo-descripcion-full">
+                        <p>Entradas para una noche de Bossa Nova y Jazz en vivo en uno de los clubes más legendarios de la ciudad, cuna de este género musical.</p>
+                    </div>
+                </div>
+
+                <div class="swiper-slide regalo-card">
+                     <div class="regalo-imagen" style="background-image: url('masp.jpg');"></div>
+                    <div class="regalo-contenido">
+                        <div class="regalo-titulo-wrap">
+                            <h3>Visita al Museo (MASP)</h3>
+                            <svg class="detalle-flecha"><use href="#icono-flecha-abajo" /></svg>
+                        </div>
+                        <p>Entradas al famoso Museo de Arte...</p>
+                        <button class="boton-regalar"><span>Quiero regalar esto</span></button>
+                    </div>
+                     <div class="regalo-descripcion-full">
+                         <p>Entradas al Museo de Arte de São Paulo, famoso por su arquitectura y su increíble colección de arte europeo y brasileño.</p>
+                     </div>
+                </div>
+                
+                <div class="swiper-slide regalo-card">
+                     <div class="regalo-imagen" style="background-image: url('tourgastronomico.jpg');"></div>
+                    <div class="regalo-contenido">
+                         <div class="regalo-titulo-wrap">
+                            <h3>Tour Gastronómico</h3>
+                            <svg class="detalle-flecha"><use href="#icono-flecha-abajo" /></svg>
+                         </div>
+                        <p>Degustación en el Mercado Municipal...</p>
+                        <button class="boton-regalar"><span>Quiero regalar esto</span></button>
+                    </div>
+                     <div class="regalo-descripcion-full">
+                        <p>Un recorrido guiado para probar las famosas frutas exóticas, el sándwich de mortadela y el pastel de bacalhau en el histórico Mercado Municipal.</p>
+                    </div>
+                </div>
+            
+             </div> <div class="swiper-pagination"></div>
+        </div> </div> <div id="sticky-footer">
+        <span class="footer-text">
+            Esta invitación es solo una versión de prueba. Si quieres cotizar, contáctanos.
+        </span>
+        <a href="https://wa.me/524274270566?text=Quisiera%20mas%20informacion%20sobre%20las%20invitaciones%20digitales" target="_blank" class="whatsapp-button">
+             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 .9c48.4 0 95.2 18.8 130.1 53.6l1.6 1.6c34.9 34.9 56.2 81.7 56.1 130.5 0 101.7-84.9 184.6-186.6 184.6-.1 0-.1 0-.2 0h-31.9c-30.2 0-59-7.9-85.7-22.7l-1.9-.9-61.5 16.2 16.5-59.8-1.1-1.9c-16.1-28.8-25.6-61.1-25.6-94.8 0-101.7 83.1-184.6 186.6-184.6zm101.2 158.3c-1.3-1.6-4.8-5.1-6.9-6c-2.1-.9-12.8-6.3-14.8-7.1s-4.4-1.3-6.3 .9c-1.9 2.1-7.1 8.7-8.7 10.4s-3.2 1.9-6 1c-2.8-.9-11.7-4.3-22.3-13.6-8.2-7.3-13.8-16.3-15.4-19s-.4-4.5 .4-5.9c.8-1.3 1.9-3.2 2.9-4.3s1.3-1.9 1.9-3.2c.6-1.3 .3-2.5-.3-3.4s-6.3-15.1-8.7-20.7c-2.3-5.6-4.8-4.8-6.3-4.9s-4.4-.1-6.3-.1c-1.9 0-4.8 .7-7.3 2.9s-8.7 8.5-8.7 20.7c0 12.2 8.9 24 10.2 25.7s17.7 27.5 42.6 37.9c5.6 2.3 10 3.7 13.5 4.8s6.9 1.7 10.1 1.4c3.9-.3 12.8-5.2 14.6-10.1s1.9-9.2 1.3-10.1c-.6-.9-2.2-1.4-4.8-2.5z"/></svg>
+             Contactar
+        </a>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+        // --- SCRIPT PARA INICIALIZAR SWIPERS Y CONTROLAR AUTOPLAY ---
+        (function() {
+            let swiperRio = null;
+            let swiperSaoPaulo = null;
+
+            // Configuración común para carrusel continuo
+            const swiperOptions = {
+                slidesPerView: 'auto', 
+                spaceBetween: 20, 
+                grabCursor: false, // Desactivado para movimiento continuo
+                loop: true, 
+                freeMode: false, // Desactivado
+                allowTouchMove: false, // Desactiva interacción manual
+                
+                // --- CONFIGURACIÓN DE AUTOPLAY CONTINUO ---
+                speed: 6000, // Velocidad de la transición (6 segundos)
+                autoplay: {
+                    delay: 1, // Delay mínimo
+                    disableOnInteraction: false, 
+                    pauseOnMouseEnter: true, // Pausa si el ratón está encima
+                },
+                // --- FIN CONFIGURACIÓN AUTOPLAY ---
+
+                pagination: {
+                   el: '.swiper-pagination', // Oculto por CSS, pero necesario
+                   clickable: false,
+                },
+                slidesOffsetBefore: 20, 
+                slidesOffsetAfter: 20, 
+                
+                breakpoints: {
+                   601: {
+                        slidesOffsetBefore: 30, 
+                        slidesOffsetAfter: 30,
+                        spaceBetween: 30,
+                   }
+                }
+            };
+            
+            // Inicializar carrusel de Río
+            if (document.getElementById('swiper-rio')) {
+                 swiperRio = new Swiper('#swiper-rio', swiperOptions);
+            }
+            
+            // Inicializar carrusel de São Paulo
+            if (document.getElementById('swiper-saopaulo')) {
+                 swiperSaoPaulo = new Swiper('#swiper-saopaulo', swiperOptions);
+            }
+
+            // --- LÓGICA PARA PAUSAR/REANUDAR ---
+            const cards = document.querySelectorAll('.regalo-card');
+            
+            cards.forEach(card => {
+                const clickableArea = card; 
+                const button = card.querySelector('.boton-regalar');
+
+                const toggleActive = (event) => {
+                     // No hacer nada si el clic fue en el botón
+                     if (button && (event.target === button || button.contains(event.target))) {
+                          return;
+                     }
+                     
+                     // 1. Encontrar el swiper padre
+                     const swiperContainer = card.closest('.swiper-container-regalos');
+                     let targetSwiper = null;
+                     if (swiperContainer) {
+                         targetSwiper = (swiperContainer.id === 'swiper-rio') ? swiperRio : swiperSaoPaulo;
+                     }
+
+                     // 2. Comprobar si se está abriendo o cerrando
+                     const isOpening = !card.classList.contains('active');
+                     
+                     // 3. Activar/Desactivar
+                     card.classList.toggle('active');
+
+                     // 4. Pausar o Reanudar Autoplay
+                     if (targetSwiper && targetSwiper.autoplay) {
+                          if (isOpening) {
+                               targetSwiper.autoplay.stop();
+                          } else {
+                               targetSwiper.autoplay.start();
+                          }
+                     }
+                };
+
+                clickableArea.addEventListener('click', toggleActive);
+                
+                if (button) {
+                    button.addEventListener('click', (event) => {
+                        event.stopPropagation(); 
+                        if (button.disabled) return; 
+                        alert('¡Gracias! Por favor, avísale a Juan o María para que lo marquen como comprado.');
+                    });
+                }
+            });
+        })();
+    </script>
+</body>
+</html>
