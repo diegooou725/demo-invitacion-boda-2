@@ -23,6 +23,7 @@
             --sombra-suave: rgba(0, 0, 0, 0.08);
             --gris-borde: #eee; 
             --esmeralda-velo: rgba(0, 106, 78, 0.5); 
+            --texto-claro: #ecf0f1; /* Definición de texto claro */
         }
 
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -63,6 +64,7 @@
             box-shadow: 0 10px 40px var(--sombra-suave); 
             position: relative; 
             text-align: center; 
+            overflow: hidden; /* Oculta overflow */
         }
         
         .container-padding { padding: 0 30px; }
@@ -98,12 +100,21 @@
              overflow: hidden; 
         }
         
-        /* NUEVO: ESTILO PARA MOVIMIENTO CONTINUO */
+        /* ESTILO PARA MOVIMIENTO CONTINUO */
         .swiper-container-regalos .swiper-wrapper {
             transition-timing-function: linear !important;
             -webkit-transition-timing-function: linear !important; 
         }
         
+        /* NUEVO: Clase para pausar la animación */
+        .swiper-container-regalos.is-paused .swiper-wrapper {
+            /* Pausa la transición en seco */
+            -webkit-transition-duration: 0ms !important;
+            transition-duration: 0ms !important; 
+            /* Mantiene la posición actual */
+            transform: var(--swiper-paused-transform, 'translateX(0)');
+        }
+
         .regalo-card {
             width: 280px; 
             background-color: var(--blanco);
@@ -163,10 +174,10 @@
         
         .regalo-card.comprado {
             opacity: 0.8; 
-            cursor: pointer; /* Permitir clic para ver desc */
+            cursor: pointer; 
         }
         .regalo-card.comprado:hover {
-             transform: translateY(-5px); /* Permitir hover */
+             transform: translateY(-5px); 
         }
          .regalo-card.comprado .regalo-contenido h3 { text-decoration: line-through; color: var(--gris-texto); }
          .regalo-card.comprado .boton-regalar { background-color: var(--gris-texto); cursor: not-allowed; pointer-events: none; }
@@ -185,9 +196,8 @@
               background-color: var(--esmeralda);
               opacity: 1;
          }
-         /* Ocultar paginación para el carrusel continuo */
          .swiper-container-regalos .swiper-pagination {
-             display: none; 
+              display: none; 
          }
 
 
@@ -199,7 +209,14 @@
             display: flex; justify-content: space-between; align-items: center;
             flex-wrap: wrap; gap: 10px; opacity: 1; transform: translateY(0); pointer-events: auto;
         }
-        .footer-text { font-size: 0.75rem; color: var(--texto-claro); text-align: left; flex-grow: 1; font-family: 'Montserrat', sans-serif;}
+        /* CORRECCIÓN: Color del texto del footer */
+        .footer-text { 
+            font-size: 0.75rem; 
+            color: var(--texto-claro); /* Texto blanco suave */
+            text-align: left; 
+            flex-grow: 1; 
+            font-family: 'Montserrat', sans-serif;
+        }
         .whatsapp-button { display: inline-flex; align-items: center; background-color: var(--esmeralda); color: var(--blanco); padding: 5px 10px; border-radius: 4px; font-size: 0.75rem; font-weight: 400; text-decoration: none; transition: background-color 0.3s ease; white-space: nowrap; font-family: 'Montserrat', sans-serif;}
         .whatsapp-button svg { width: 12px; height: 12px; fill: var(--blanco); margin-right: 5px;}
         .whatsapp-button:hover { background-color: #004d39; }
@@ -245,7 +262,7 @@
 
         <h2 style="padding: 0 20px;">Río de Janeiro</h2>
         <div class="swiper swiper-container-regalos" id="swiper-rio">
-            <div class="swiper-wrapper continuous">
+            <div class="swiper-wrapper">
                 
                 <div class="swiper-slide regalo-card">
                     <div class="regalo-imagen" style="background-image: url('cristoredentor.jpg');"></div>
@@ -321,11 +338,25 @@
                         <p>Entradas para subir en el tren de Corcovado y visitar el icónico Cristo Redentor al amanecer, disfrutando de las mejores vistas de la ciudad.</p>
                     </div>
                 </div>
+                <div class="swiper-slide regalo-card comprado">
+                    <div class="regalo-imagen" style="background-image: url('clasesamba.jpg');"></div>
+                    <div class="regalo-contenido">
+                         <div class="regalo-titulo-wrap">
+                            <h3>Clase de Samba en Lapa</h3>
+                            <svg class="detalle-flecha"><use href="#icono-flecha-abajo" /></svg>
+                         </div>
+                        <p>Clase privada de 2 horas en Lapa...</p>
+                        <button class="boton-regalar" disabled><span>Quiero regalar esto</span></button> 
+                    </div>
+                     <div class="regalo-descripcion-full">
+                        <p>Una clase privada de 2 horas para aprender los movimientos básicos de la samba y disfrutarlos en el corazón de la vida nocturna de Río.</p>
+                    </div>
+                </div>
 
             </div> <div class="swiper-pagination"></div>
         </div> <h2 style="padding: 0 20px;">São Paulo</h2>
          <div class="swiper swiper-container-regalos" id="swiper-saopaulo">
-            <div class="swiper-wrapper continuous">
+            <div class="swiper-wrapper">
 
                 <div class="swiper-slide regalo-card">
                      <div class="regalo-imagen" style="background-image: url('tourgastronomico.jpg');"></div>
@@ -409,22 +440,21 @@
             const swiperOptions = {
                 slidesPerView: 'auto', 
                 spaceBetween: 20, 
-                grabCursor: false, // Desactivado para movimiento continuo
+                grabCursor: true, // Habilitar agarre manual
                 loop: true, 
-                freeMode: false, // Desactivado
-                allowTouchMove: false, // Desactiva interacción manual
+                allowTouchMove: true, // Habilitar swipe manual
                 
                 // --- CONFIGURACIÓN DE AUTOPLAY CONTINUO ---
-                speed: 6000, // Velocidad de la transición (6 segundos)
+                speed: 10000, // MÁS LENTO: 10 segundos
                 autoplay: {
                     delay: 1, // Delay mínimo
-                    disableOnInteraction: false, 
+                    disableOnInteraction: false, // NO se desactiva al tocar
                     pauseOnMouseEnter: true, // Pausa si el ratón está encima
                 },
                 // --- FIN CONFIGURACIÓN AUTOPLAY ---
 
                 pagination: {
-                   el: '.swiper-pagination', // Oculto por CSS, pero necesario
+                   el: '.swiper-pagination', 
                    clickable: false,
                 },
                 slidesOffsetBefore: 20, 
@@ -478,9 +508,15 @@
                      // 4. Pausar o Reanudar Autoplay
                      if (targetSwiper && targetSwiper.autoplay) {
                           if (isOpening) {
+                               // Pausa autoplay
                                targetSwiper.autoplay.stop();
+                               // NUEVO: Pausa la animación CSS
+                               swiperContainer.classList.add('is-paused');
                           } else {
+                               // Reanuda autoplay
                                targetSwiper.autoplay.start();
+                               // NUEVO: Reanuda la animación CSS
+                               swiperContainer.classList.remove('is-paused');
                           }
                      }
                 };
