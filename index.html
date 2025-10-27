@@ -70,7 +70,6 @@
         p { color: var(--gris-texto); font-weight: 300; margin-bottom: 20px; font-size: 0.95rem; max-width: 600px; margin-left: auto; margin-right: auto;}
         strong { font-weight: 400; color: var(--negro-carbon); }
         
-        /* Botones generales */
         .boton { display: inline-block; background-color: var(--esmeralda); color: var(--blanco); border: 1px solid var(--esmeralda); padding: 12px 28px; border-radius: 4px; font-family: 'Nunito Sans', sans-serif; font-weight: 700; text-decoration: none; transition: all 0.3s ease; cursor: pointer; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1.5px; }
         .boton:hover { background-color: var(--blanco); color: var(--esmeralda); }
         .boton-outline { background-color: transparent; color: var(--esmeralda); border: 1px solid var(--esmeralda); }
@@ -83,14 +82,19 @@
         /* --- INTRO OVERLAY --- */
         #intro-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; z-index: 1001; transition: transform 1s cubic-bezier(0.77, 0, 0.175, 1); cursor: pointer; background-color: var(--preloader-bg); }
         .intro-background { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: linear-gradient(var(--intro-overlay-color), var(--intro-overlay-color)), url('fotonovios1.jpg'); background-size: cover; background-position: center; z-index: 2;}
-        .intro-content { position: relative; z-index: 3; height: 100%; display: flex; justify-content: center; align-items: center; }
+        .intro-content { 
+             position: relative; z-index: 3; height: 100%; 
+             display: flex; justify-content: center; 
+             align-items: flex-end; 
+             padding-bottom: 15vh; 
+        }
         #enter-button { 
-             /* BOTÓN DESCUBRIR MÁS VISIBLE */
-             background-color: rgba(255, 255, 255, 0.4); /* Fondo más opaco */
+             /* BOTÓN DESCUBRIR AJUSTADO */
+             background-color: rgba(255, 255, 255, 0.3); /* Fondo más opaco */
              border: 2px solid var(--blanco); 
              color: var(--blanco); 
              padding: 12px 30px; 
-             border-radius: 4px; 
+             border-radius: 8px; /* Más redondeado */
              font-family: 'Nunito Sans', sans-serif; 
              font-weight: 400; 
              font-size: 1rem; 
@@ -99,8 +103,10 @@
              cursor: pointer; 
              transition: background-color 0.3s ease, color 0.3s ease;
              backdrop-filter: blur(3px); 
+             /* ANIMACIÓN PULSO */
+             animation: pulse 2s infinite; 
          }
-        #enter-button:hover { background-color: var(--blanco); color: var(--negro-carbon); }
+        #enter-button:hover { background-color: var(--blanco); color: var(--negro-carbon); animation-play-state: paused; }
         body.invitation-revealed #intro-overlay { transform: translateY(-100%); }
 
         /* --- CONTENIDO PRINCIPAL --- */
@@ -172,10 +178,7 @@
           .timeline-content p { margin-bottom: 15px; color: var(--texto-secundario); font-size: 0.9rem;}
           .timeline-content .hora { font-weight: 400; color: var(--negro-carbon); display: block; margin-bottom: 15px; font-family: 'Nunito Sans'; font-size: 0.8rem; text-transform: uppercase;}
           /* BOTONES MAPA OUTLINE */
-          .timeline-content .boton { 
-              background-color: transparent; color: var(--esmeralda); border: 1px solid var(--esmeralda); 
-              padding: 8px 20px; font-size: 0.8rem;
-          }
+          .timeline-content .boton { background-color: transparent; color: var(--esmeralda); border: 1px solid var(--esmeralda); padding: 8px 20px; font-size: 0.8rem; }
            .timeline-content .boton:hover { background-color: var(--esmeralda); color: var(--blanco); }
           
           @media screen and (max-width: 768px) { /* Ajuste Timeline Móvil */
@@ -225,9 +228,8 @@
         .rsvp-form textarea::placeholder,
         .rsvp-form select { color: var(--texto-secundario); }
         .rsvp-form textarea { min-height: 70px; resize: vertical; }
-        /* Centrar botón */
         .rsvp-form .boton-wrapper { text-align: center; } 
-        /* BOTÓN RSVP AHORA OUTLINE */
+        /* BOTÓN RSVP OUTLINE */
         .boton-enviar.boton-outline { 
              background-color: transparent; 
              color: var(--esmeralda); 
@@ -266,12 +268,24 @@
              .vestimenta-grid { grid-template-columns: 1fr; gap: 15px;}
              /* Ajuste Contador Móvil */
              .fecha-texto { font-size: 1.1rem; } 
-             #countdown { gap: 10px; } /* Reducido gap */
-             .tiempo-caja span:first-child { font-size: 1.6rem; } 
-             .tiempo-caja span:last-child { font-size: 0.5rem; letter-spacing: 0.5px;} /* Más chico */
+             #countdown { gap: 10px; } 
+             /* AJUSTE TAMAÑO CONTADOR MÓVIL */
+             .tiempo-caja span:first-child { font-size: 2rem; } 
+             .tiempo-caja span:last-child { font-size: 0.5rem; letter-spacing: 0.5px;} 
              .seccion { padding: 50px 0; } 
              .slider-row img { height: 120px; margin: 0 5px;}
+             
          }
+         
+        /* --- DEFINICIÓN ANIMACIÓN PULSO --- */
+        @keyframes pulse {
+          0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4); }
+          70% { transform: scale(1.03); box-shadow: 0 0 0 10px rgba(255, 255, 255, 0); }
+          100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
+        }
+
+        /* --- DEFINICIÓN ANIMACIÓN FLOAT (Ya no se usa) --- */
+        /* @keyframes float { ... } */
 
     </style>
 </head>
@@ -475,6 +489,10 @@
               const observer = new IntersectionObserver(function(entries, observer) { entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('is-visible'); observer.unobserve(entry.target); } }); }, options);
               sections.forEach(section => { observer.observe(section); });
          })();
+
+         // --- DEFINICIÓN ANIMACIÓN PULSO (para botón descubrir) ---
+         // (Se define aquí pero se aplica en el CSS inline)
+         /* @keyframes pulse { ... } */ // <-- Keyframes ahora en CSS
 
     </script>
 </body>
