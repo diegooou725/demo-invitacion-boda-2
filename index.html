@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boda de Juan & María</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,400&family=Montserrat:wght@300;400;500&family=Quattrocento&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- Estilos Generales --- */
+        :root {
+            --fondo-pagina: #f5f0e8; /* Soft Taupe */
+            --blanco: #FFFFFF;
+            --color-papel: #fdfbf7; /* Off-white (para overlay btn) */
+            --acento: #b87354; /* Terracotta/Dusty Clay */
+            --texto-principal: #4a4a4a; /* Charcoal Gray */
+            --texto-secundario: #6e6e6e; /* Lighter Gray */
+            --gris-borde: #eee; 
+            --sombra-suave: rgba(0, 0, 0, 0.1);
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        html {
+             scroll-behavior: smooth;
+        }
+
+        body {
+            /* Fuente Cuerpo: Quattrocento */
+            font-family: 'Quattrocento', serif;
+            font-weight: 400; 
+            background-color: var(--fondo-pagina); 
+            color: var(--texto-principal); 
+            line-height: 1.7; 
+            text-align: center; 
+            /* Importante: Overflow hidden inicialmente */
+            overflow: hidden;
+            /* Padding inferior para footer fijo (cuando se revele) */
+            padding-bottom: 80px; 
+        }
+        /* Clase que se añade con JS para permitir scroll */
+        body.invitation-revealed {
+             overflow: auto;
+        }
+
+        h1, h2, h3, h4 { 
+            /* Fuente Títulos: Montserrat Light */
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 300; 
+            color: var(--texto-principal); 
+            text-align: center; 
+            letter-spacing: 1px; 
+            margin-bottom: 20px; 
+        }
+        
+        /* Ajuste de tamaño */
+        h1 { font-size: 2.5rem; } /* Nombres */
+        h2 { font-size: 2.4rem; color: var(--acento); } /* Títulos Sección */
+        h3 { font-size: 1.6rem; } 
+        h4 { font-size: 1.2rem; } 
+
+        /* Contenedor */
+        .container {
+            max-width: 800px; 
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* Separador */
+        .separador {
+            border: 0;
+            height: 1px;
+            width: 80px;
+            background-color: var(--acento); /* Acento */
+            opacity: 0.6;
+            margin: 40px auto; 
+        }
+        
+        /* Párrafos */
+        p {
+            color: var(--texto-secundario); 
+            font-weight: 400; /* Regular Quattrocento */
+            margin-bottom: 20px; 
+        }
+        
+        strong {
+             font-weight: 500; /* Medium Montserrat */
+             font-family: 'Montserrat', sans-serif;
+             color: var(--texto-principal);
+        }
+        
+        /* Botones generales */
+        .boton {
+            display: inline-block;
+            background-color: var(--acento);
+            color: var(--blanco);
+            border: 1px solid var(--acento);
+            padding: 10px 25px;
+            border-radius: 6px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 400; /* Regular */
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        .boton:hover {
+            background-color: var(--blanco);
+            color: var(--acento);
+        }
+        .boton-outline {
+             background-color: transparent;
+             color: var(--acento);
+        }
+         .boton-outline:hover {
+             background-color: var(--acento);
+             color: var(--blanco);
+         }
+
+
+        /* --- INTRO OVERLAY --- */
+        #intro-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('fotonovios1.jpg'); /* Foto con overlay oscuro */
+            background-size: cover;
+            background-position: center;
+            z-index: 1001; /* Encima de todo */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: transform 1s cubic-bezier(0.77, 0, 0.175, 1); /* Transición suave slide up */
+            cursor: pointer;
+        }
+        /* Estado revelado: overlay se desliza hacia arriba */
+        body.invitation-revealed #intro-overlay {
+             transform: translateY(-100%);
+        }
+
+        #enter-button {
+            background-color: rgba(255, 255, 255, 0.1); /* Fondo semi-transparente */
+            border: 1px solid var(--color-papel); /* Borde blanco */
+            color: var(--color-papel); /* Texto blanco */
+            padding: 15px 35px;
+            border-radius: 30px; /* Redondeado */
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 400; /* Regular */
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            backdrop-filter: blur(5px); /* Efecto cristal (si el navegador lo soporta) */
+        }
+        #enter-button:hover {
+            background-color: var(--color-papel);
+            color: var(--texto-principal);
+        }
+
+        /* --- CONTENIDO PRINCIPAL DE LA INVITACIÓN --- */
+        #main-invitation {
+            background-color: var(--blanco); /* Fondo blanco para la invitación */
+            position: relative; /* Asegura que esté bajo el overlay */
+            z-index: 1; /* Debajo del overlay */
+            /* Padding superior para compensar el header si fuera fijo (no es el caso aquí) */
+        }
+
+        /* Estilos específicos de secciones dentro de #main-invitation */
+        .seccion {
+             padding: 60px 0;
+        }
+        .seccion-alterna {
+             background-color: var(--fondo-pagina); /* Fondo Taupe */
+        }
+        
+        /* Nombres (dentro de la invitación) */
+        .nombres-header {
+             padding: 40px 0 20px 0;
+        }
+        .nombres-header h1 {
+             /* Fuente Nombres: Playfair Display */
+             font-family: 'Playfair Display', serif;
+             font-weight: 400; /* Regular */
+             font-size: 3.5rem; 
+             color: var(--texto-principal);
+             margin-bottom: 0;
+             line-height: 1.2;
+        }
+        .nombres-header .ampersand { color: var(--acento); font-style: italic;} /* & en Acento */
+
+        /* Intro Text */
+        .intro-texto h2 { margin-bottom: 10px; font-size: 2.4rem;}
+        .intro-texto p { max-width: 600px; margin: 0 auto; font-size: 1rem;}
+
+        /* Countdown */
+        .fecha-contador { text-align: center; }
+        .fecha-texto { 
+             font-family: 'Montserrat', sans-serif;
+             font-weight: 300;
+             font-size: 1.6rem; 
+             color: var(--acento); /* Acento */
+             margin-bottom: 30px; 
+        }
+        #countdown { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
+        .tiempo-caja { background-color: var(--blanco); padding: 15px 20px; border-radius: 8px; min-width: 90px; box-shadow: 0 4px 15px var(--sombra-suave); }
+        .tiempo-caja span:first-child { display: block; font-size: 2.2rem; font-weight: 500; /* Medium Montserrat */ color: var(--texto-principal); font-family: 'Montserrat', sans-serif;}
+        .tiempo-caja span:last-child { display: block; font-size: 0.7rem; text-transform: uppercase; color: var(--texto-secundario); font-family: 'Montserrat', sans-serif;}
+
+        /* Segunda Foto */
+        .foto-secundaria { display: block; width: 100%; max-width: 800px; height: auto; border-radius: 10px; margin: 0 auto; box-shadow: 0 10px 25px var(--sombra-suave); }
+
+        /* Itinerario */
+        .itinerario h2 { margin-bottom: 10px; }
+        .eventos-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 40px; margin-top: 40px; }
+        .evento-item h3 { color: var(--acento); font-size: 1.6rem; margin-bottom: 8px;}
+        .evento-item p { margin-bottom: 20px; min-height: 40px; color: var(--texto-secundario);}
+
+        /* Vestimenta */
+        .vestimenta h2 { margin-bottom: 10px; }
+        .vestimenta .subtitulo-formal { font-size: 1.1rem; font-weight: 500; color: var(--texto-principal); margin-bottom: 30px; font-family: 'Montserrat', sans-serif;}
+        .vestimenta-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; max-width: 450px; margin: 0 auto; align-items: start; }
+        .vestimenta-grid div { text-align: center; }
+        .vestimenta-grid h4 { font-size: 1.2rem; margin-bottom: 5px; color: var(--texto-principal); font-weight: 400; text-transform: uppercase; letter-spacing: 1px;}
+        .vestimenta-grid p { font-size: 0.9rem; color: var(--texto-secundario);}
+
+        /* Regalos */
+        .regalos h2 { margin-bottom: 10px; }
+        .regalos p { margin-bottom: 25px; color: var(--texto-secundario); }
+
+        /* Galería Masonry */
+        .galeria h2 { margin-bottom: 10px; }
+        .masonry-grid {
+             columns: 3 200px; /* 3 columnas base, mínimo 200px ancho */
+             column-gap: 15px; /* Espacio entre columnas */
+             width: 90%;
+             max-width: 1000px;
+             margin: 30px auto 0 auto;
+        }
+        .masonry-item {
+             margin-bottom: 15px; /* Espacio debajo de cada foto */
+             display: inline-block; /* Evita que se rompan */
+             width: 100%; /* Ocupa el ancho de la columna */
+        }
+        .masonry-item img {
+             width: 100%; 
+             height: auto; 
+             display: block; 
+             border-radius: 8px; 
+             box-shadow: 0 5px 15px var(--sombra-suave);
+        }
+         @media (max-width: 768px) { .masonry-grid { columns: 2 150px; } }
+         @media (max-width: 480px) { .masonry-grid { columns: 1 100%; } }
+
+        /* Formulario RSVP */
+        .rsvp-section h2 { margin-bottom: 5px; }
+        .subtitulo-rsvp { font-size: 0.85rem; font-style: italic; color: var(--texto-secundario); margin-bottom: 25px;}
+        .rsvp-form { max-width: 500px; margin: 0 auto; text-align: left;}
+        .form-group { margin-bottom: 15px; }
+        .rsvp-form label { display: block; font-weight: 500; /* Medium Montserrat */ margin-bottom: 5px; color: var(--texto-principal); font-size: 0.9rem; font-family: 'Montserrat', sans-serif;}
+        .rsvp-form input[type="text"],
+        .rsvp-form select,
+        .rsvp-form textarea { width: 100%; padding: 10px; border: 1px solid var(--gris-borde); border-radius: 6px; box-sizing: border-box; font-family: 'Quattrocento', serif; font-size: 0.95rem; color: var(--texto-principal); background-color: var(--fondo-pagina);}
+        .rsvp-form input::placeholder,
+        .rsvp-form textarea::placeholder,
+        .rsvp-form select { color: var(--texto-secundario); }
+        .rsvp-form textarea { min-height: 70px; resize: vertical; }
+
+        /* Footer dentro de invitación */
+        footer { padding: 40px 0 0 0; font-size: 1.1rem; color: var(--texto-secundario); border-top: 1px solid var(--gris-borde); margin-top: 40px;}
+
+        /* Footer Fijo Demo */
+         #sticky-footer { /* Mismo estilo que antes, pero fondo oscuro */
+             position: fixed; bottom: 0; left: 0; width: 100%; 
+             background-color: rgba(44, 62, 80, 0.9); 
+             padding: 8px 15px; 
+             box-shadow: 0 -2px 10px rgba(0,0,0,0.1); 
+             z-index: 999; 
+             display: flex; justify-content: space-between; align-items: center;
+             flex-wrap: wrap; gap: 10px; 
+             opacity: 0; transform: translateY(100%); pointer-events: none;
+             transition: opacity 0.4s ease 0.5s, transform 0.4s ease 0.5s; /* Retraso */
+         }
+         body.invitation-revealed #sticky-footer { /* Se muestra cuando se revela */
+             opacity: 1; transform: translateY(0); pointer-events: auto;
+         }
+         .footer-text { font-size: 0.75rem; color: var(--texto-claro); text-align: left; flex-grow: 1; font-family: 'Montserrat', sans-serif;}
+         .whatsapp-button { display: inline-flex; align-items: center; background-color: var(--acento); color: var(--blanco); padding: 5px 10px; border-radius: 4px; font-size: 0.75rem; font-weight: 400; text-decoration: none; transition: background-color 0.3s ease; white-space: nowrap; font-family: 'Montserrat', sans-serif;}
+         .whatsapp-button svg { width: 12px; height: 12px; fill: var(--blanco); margin-right: 5px;}
+         .whatsapp-button:hover { background-color: #9f6044; /* Acento oscuro */}
+         
+         @media (max-width: 600px) {
+             #sticky-footer { justify-content: center; text-align: center; }
+             .footer-text { width: 100%; margin-bottom: 5px; text-align: center; }
+         }
+
+    </style>
+</head>
+<body class=""> <div id="intro-overlay">
+        <button id="enter-button">Descubrir</button>
+    </div>
+
+    <div id="main-invitation">
+
+        <header class="nombres-header">
+             <div class="container">
+                  <h1>Juan <span class="ampersand">&</span> María</h1>
+             </div>
+        </header>
+
+        <section class="seccion intro-texto">
+            <div class="container">
+                <h2>¡Nos casamos!</h2>
+                <hr class="separador">
+                <p>
+                    Después de 4 años caminando juntos hemos decidido unir nuestras vidas en matrimonio, 
+                    por lo que nos complace que sean participes de esta unión ...
+                </p>
+            </div>
+        </section>
+
+        <section class="seccion seccion-alterna fecha-contador">
+            <div class="container">
+                <div class="fecha-texto">20 de Mayo, 2027 | 12:00 PM</div>
+                <div id="countdown">
+                      <div class="tiempo-caja"><span id="dias">00</span><span>Días</span></div>
+                      <div class="tiempo-caja"><span id="horas">00</span><span>Horas</span></div>
+                      <div class="tiempo-caja"><span id="minutos">00</span><span>Minutos</span></div>
+                      <div class="tiempo-caja"><span id="segundos">00</span><span>Segundos</span></div>
+                 </div>
+            </div>
+        </section>
+        
+        <section class="seccion">
+            <img src="fotonovios2.jpg" alt="Juan y María - Foto 2" class="foto-secundaria">
+        </section>
+
+        <section class="seccion seccion-alterna itinerario">
+            <div class="container">
+                <h2>Itinerario</h2>
+                <hr class="separador" style="margin-top:0;">
+                <div class="eventos-grid">
+                    <div class="evento-item">
+                        <h3>Ceremonia</h3>
+                        <p>Parroquia de San Judas Tadeo y de la Santa Cruz<br>12:00 PM</p>
+                        <a href="http://googleusercontent.com/maps/google.com/7" target="_blank" class="boton">Ver Ubicación</a>
+                    </div>
+                    <div class="evento-item">
+                        <h3>Recepción</h3>
+                        <p>Salón de Eventos La Ermita<br>A partir de las 2:00 PM</p>
+                        <a href="http://googleusercontent.com/maps/google.com/8" target="_blank" class="boton">Ver Ubicación</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="seccion vestimenta">
+            <div class="container">
+                <h2>Código de Vestimenta</h2>
+                <hr class="separador" style="margin-top:0;">
+                <p class="subtitulo-formal"><strong>Formal</strong></p>
+                <div class="vestimenta-grid">
+                     <div><h4>Mujeres</h4><p>Vestido largo o de cóctel.</p></div>
+                     <div><h4>Hombres</h4><p>Traje formal.</p></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="seccion regalos">
+             <div class="container">
+                  <h2>Mesa de Regalos</h2>
+                  <hr class="separador" style="margin-top:0;">
+                  <p>Tu presencia es nuestro mejor regalo, pero si deseas obsequiarnos algo...</p>
+                  <a href="mesa-de-regalos-demo2.html" target="_blank" class="boton boton-outline">Ver Opciones de Regalos</a>
+             </div>
+        </section>
+
+        <section class="seccion seccion-alterna galeria">
+            <div class="container">
+                 <h2>Nuestra Galería</h2>
+                 <hr class="separador" style="margin-top:0;">
+                 <div class="masonry-grid">
+                      <div class="masonry-item"><img src="car1.jpg" alt="Galería 1"></div>
+                      <div class="masonry-item"><img src="car2.jpg" alt="Galería 2"></div>
+                      <div class="masonry-item"><img src="car3.jpg" alt="Galería 3"></div>
+                      <div class="masonry-item"><img src="car4.jpg" alt="Galería 4"></div>
+                      <div class="masonry-item"><img src="car5.jpg" alt="Galería 5"></div>
+                      <div class="masonry-item"><img src="car6.jpg" alt="Galería 6"></div>
+                      <div class="masonry-item"><img src="car7.jpg" alt="Galería 7"></div>
+                      <div class="masonry-item"><img src="car8.jpg" alt="Galería 8"></div>
+                 </div>
+            </div>
+        </section>
+
+        <section class="seccion rsvp-section">
+             <div class="container">
+                 <h2>Confirmación de Asistencia</h2>
+                 <p class="subtitulo-rsvp">Evento exclusivo para adultos.</p> 
+                 <hr class="separador" style="margin-top:0; margin-bottom: 30px;">
+                 <form id="rsvp-form" class="rsvp-form" onsubmit="event.preventDefault(); alert('Este es un formulario de ejemplo.');"> 
+                     <div class="form-group">
+                         <label for="name">Nombre completo:</label>
+                         <input type="text" id="name" name="Nombre" required>
+                     </div>
+                     <div class="form-group">
+                         <label for="guests">Número de invitados (incluyéndote):</label>
+                         <select id="guests" name="Invitados" required>
+                             <option value="" disabled selected>-- Selecciona cuántos asisten --</option>
+                             <option value="1">1 invitado</option>
+                             <option value="2">2 invitados</option>
+                             <option value="3">3 invitados</option>
+                             <option value="4">4 invitados</option>
+                             <option value="5">5 invitados</option>
+                             <option value="6">6 invitados</option>
+                             <option value="0 (No asistiremos)">No podremos asistir</option> 
+                         </select>
+                     </div>
+                     <div class="form-group">
+                         <label for="message">¿Quieres enviar un mensaje? (opcional):</label>
+                         <textarea id="message" name="Mensaje" rows="3" placeholder="Escribe aquí tu mensaje..."></textarea>
+                     </div>
+                     <button type="submit" class="boton">Enviar Confirmación</button>
+                 </form>
+             </div>
+         </section>
+
+        <footer>
+            <p>¡Te esperamos!</p>
+        </footer>
+
+    </div> 
+    <div id="sticky-footer">
+         <span class="footer-text">
+             Esta invitación es solo una versión de prueba. Si quieres cotizar, contáctanos.
+         </span>
+         <a href="https://wa.me/524274270566?text=Quisiera%20mas%20informacion%20sobre%20las%20invitaciones%20digitales" target="_blank" class="whatsapp-button">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 .9c48.4 0 95.2 18.8 130.1 53.6l1.6 1.6c34.9 34.9 56.2 81.7 56.1 130.5 0 101.7-84.9 184.6-186.6 184.6-.1 0-.1 0-.2 0h-31.9c-30.2 0-59-7.9-85.7-22.7l-1.9-.9-61.5 16.2 16.5-59.8-1.1-1.9c-16.1-28.8-25.6-61.1-25.6-94.8 0-101.7 83.1-184.6 186.6-184.6zm101.2 158.3c-1.3-1.6-4.8-5.1-6.9-6c-2.1-.9-12.8-6.3-14.8-7.1s-4.4-1.3-6.3 .9c-1.9 2.1-7.1 8.7-8.7 10.4s-3.2 1.9-6 1c-2.8-.9-11.7-4.3-22.3-13.6-8.2-7.3-13.8-16.3-15.4-19s-.4-4.5 .4-5.9c.8-1.3 1.9-3.2 2.9-4.3s1.3-1.9 1.9-3.2c.6-1.3 .3-2.5-.3-3.4s-6.3-15.1-8.7-20.7c-2.3-5.6-4.8-4.8-6.3-4.9s-4.4-.1-6.3-.1c-1.9 0-4.8 .7-7.3 2.9s-8.7 8.5-8.7 20.7c0 12.2 8.9 24 10.2 25.7s17.7 27.5 42.6 37.9c5.6 2.3 10 3.7 13.5 4.8s6.9 1.7 10.1 1.4c3.9-.3 12.8-5.2 14.6-10.1s1.9-9.2 1.3-10.1c-.6-.9-2.2-1.4-4.8-2.5z"/></svg>
+              Contactar
+         </a>
+     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+        // --- SCRIPT PARA EL CONTADOR ---
+        (function() {
+            const fechaBoda = new Date(2027, 4, 20, 12, 0, 0).getTime(); 
+            const countdownEl = document.getElementById('countdown');
+            const diasEl = document.getElementById('dias');
+            const horasEl = document.getElementById('horas');
+            const minutosEl = document.getElementById('minutos');
+            const segundosEl = document.getElementById('segundos');
+
+             if (!countdownEl || !diasEl || !horasEl || !minutosEl || !segundosEl) return; 
+
+             const intervalo = setInterval(function() {
+                 const ahora = new Date().getTime();
+                 const diferencia = fechaBoda - ahora;
+
+                 if (diferencia < 0) {
+                     clearInterval(intervalo);
+                     countdownEl.innerHTML = "<p style='font-size: 1.2rem; color: var(--acento);'>¡Llegó el gran día!</p>";
+                     return;
+                 }
+                 const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
+                 const horas = Math.floor((diferencia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                 const minutos = Math.floor((diferencia % (1000 * 60 * 60)) / (1000 * 60));
+                 const segundos = Math.floor((diferencia % (1000 * 60)) / 1000);
+
+                 diasEl.innerText = dias.toString().padStart(2, '0');
+                 horasEl.innerText = horas.toString().padStart(2, '0');
+                 minutosEl.innerText = minutos.toString().padStart(2, '0');
+                 segundosEl.innerText = segundos.toString().padStart(2, '0');
+             }, 1000);
+        })();
+
+        // --- SCRIPT PARA INICIALIZAR SWIPER ---
+         if (document.querySelector('.swiper')) {
+             const swiper = new Swiper('.swiper', {
+                 effect: 'coverflow', 
+                 grabCursor: true,
+                 centeredSlides: true,
+                 slidesPerView: 'auto', 
+                 loop: true, 
+                 autoplay: { delay: 1500, disableOnInteraction: false },
+                 coverflowEffect: { rotate: 50, stretch: 0, depth: 100, modifier: 1, slideShadows: true },
+                 pagination: { el: '.swiper-pagination', clickable: true },
+             });
+         }
+        
+        // --- SCRIPT PARA REVELAR INVITACIÓN ---
+        (function() {
+             const overlay = document.getElementById('intro-overlay');
+             const enterButton = document.getElementById('enter-button');
+             const body = document.body;
+             const stickyFooter = document.getElementById('sticky-footer');
+
+             const revealInvitation = () => {
+                 if (!body.classList.contains('invitation-revealed')) {
+                      body.classList.add('invitation-revealed');
+                      // Opcional: Ocultar el botón después de la animación si ya no se necesita
+                      // setTimeout(() => {
+                      //      overlay.style.display = 'none'; 
+                      // }, 1000); // 1000ms = 1 segundo (igual a la transición)
+                 }
+             };
+
+             if (overlay) {
+                  // Permitir clic en cualquier parte del overlay o solo en el botón
+                  overlay.addEventListener('click', revealInvitation); 
+                  // Si solo quieres que funcione el botón:
+                  // if (enterButton) {
+                  //      enterButton.addEventListener('click', revealInvitation);
+                  // }
+             }
+        })();
+        
+        // --- SCRIPT FORMULARIO RSVP (No funcional) ---
+         (function() {
+              const rsvpForm = document.getElementById('rsvp-form');
+              if (rsvpForm) {
+                   rsvpForm.addEventListener('submit', function(event) {
+                        event.preventDefault(); 
+                        alert('Confirmación enviada (Esto es un ejemplo).'); 
+                   });
+              }
+         })();
+
+    </script>
+</body>
+</html>
