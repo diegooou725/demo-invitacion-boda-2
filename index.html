@@ -7,8 +7,10 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Lato:wght@300;400&family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Raleway:wght@300;400&display=swap" rel="stylesheet">
     
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+
     <style>
         /* --- Estilos Generales --- */
         :root {
@@ -21,20 +23,21 @@
             --sombra-suave: rgba(0, 0, 0, 0.08);
             --intro-overlay-color: rgba(0, 0, 0, 0.4); 
             --preloader-bg: var(--negro-carbon); 
+            --texto-claro: #ecf0f1; /* Para el footer */
         }
 
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
         html { scroll-behavior: smooth; }
 
         body {
-            font-family: 'Lato', sans-serif;
+            font-family: 'Raleway', sans-serif;
             font-weight: 300; 
             background-color: var(--blanco); 
             color: var(--negro-carbon); 
-            line-height: 1.8; 
+            line-height: 1.8; /* Aumentado ligeramente */
             text-align: center; 
-            overflow-x: hidden; /* Previene scroll horizontal */
-            overflow-y: hidden; /* No scroll inicial */
+            overflow-x: hidden; 
+            overflow-y: hidden; 
             padding-bottom: 80px; 
             -webkit-font-smoothing: antialiased; 
             -moz-osx-font-smoothing: grayscale;
@@ -42,47 +45,34 @@
         body.invitation-revealed { overflow-y: auto; }
 
         h1, h2, h3, h4 { 
-            font-family: 'Roboto Condensed', sans-serif;
-            font-weight: 700; 
+            font-family: 'Raleway', sans-serif;
+            font-weight: 300; 
             color: var(--negro-carbon); 
             text-align: center; 
-            text-transform: uppercase; 
-            letter-spacing: 2px; 
-            margin-bottom: 20px; 
+            letter-spacing: 1px; 
+            margin-bottom: 25px; 
         }
         h1 { font-size: 2.5rem; } 
-        h2 { font-size: 1.8rem; margin-bottom: 10px;} /* Títulos Sección más pequeños */
-        h3 { font-size: 1.4rem; font-weight: 400; text-transform: none; letter-spacing: 0.5px;} 
-        h4 { font-size: 1.1rem; font-weight: 400; text-transform: uppercase; letter-spacing: 1px;} 
+        h2 { font-size: 2.2rem; } 
+        h3 { font-size: 1.6rem; } 
+        h4 { font-size: 1.2rem; } 
 
-        /* Contenedor */
-        .container { max-width: 800px; margin: 0 auto; padding: 0 20px; }
+        .container { max-width: 800px; margin: 0 auto; padding: 0 20px; /* Aumentado padding */ }
         
-        /* Separador: Línea fina oro pálido */
         .separador { border: 0; height: 1px; width: 100px; background-color: var(--oro-palido); margin: 60px auto; }
         .separador-corto { width: 50px; margin: 30px auto;}
         
-        /* Párrafos */
-        p { color: var(--gris-texto); font-weight: 300; margin-bottom: 20px; font-size: 0.95rem; max-width: 600px; margin-left: auto; margin-right: auto;}
+        p { color: var(--gris-texto); font-weight: 300; margin-bottom: 20px; font-size: 1rem; /* Ligeramente más grande */ max-width: 650px; /* Ancho máximo para párrafos */ margin-left: auto; margin-right: auto;}
         strong { font-weight: 400; color: var(--negro-carbon); }
         
-        /* Botones generales */
         .boton { display: inline-block; background-color: var(--esmeralda); color: var(--blanco); border: 1px solid var(--esmeralda); padding: 12px 30px; border-radius: 4px; font-family: 'Roboto Condensed', sans-serif; font-weight: 700; text-decoration: none; transition: all 0.3s ease; cursor: pointer; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; }
         .boton:hover { background-color: var(--blanco); color: var(--esmeralda); }
         .boton-outline { background-color: transparent; color: var(--esmeralda); }
         .boton-outline:hover { background-color: var(--esmeralda); color: var(--blanco); }
 
-         /* --- EFECTO FADE-IN AL SCROLL --- */
-         .fade-in-section {
-              opacity: 0;
-              transform: translateY(20px);
-              transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-         }
-         .fade-in-section.is-visible {
-              opacity: 1;
-              transform: translateY(0);
-         }
-
+         /* --- EFECTO FADE-IN --- */
+         .fade-in-section { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
+         .fade-in-section.is-visible { opacity: 1; transform: translateY(0); }
 
         /* --- INTRO OVERLAY --- */
         #intro-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; z-index: 1001; transition: transform 1s cubic-bezier(0.77, 0, 0.175, 1); cursor: pointer; background-color: var(--preloader-bg); }
@@ -94,114 +84,68 @@
 
         /* --- CONTENIDO PRINCIPAL --- */
         #main-invitation { background-color: var(--blanco); position: relative; z-index: 1; }
-        .seccion { padding: 80px 0; } /* Más padding vertical */
+        .seccion { padding: 80px 0; } 
         .seccion-alterna { background-color: var(--fondo-alterno); }
         
         /* Nombres */
         .nombres-header { padding: 60px 0 40px 0; }
-        .nombres-header h1 {
-             font-family: 'Cinzel Decorative', serif;
-             font-weight: 700; 
-             font-size: 3.5rem; /* Más grande */ 
-             color: var(--negro-carbon);
-             margin-bottom: 0; line-height: 1.3; letter-spacing: 1px;
-        }
-        .nombres-header .ampersand { color: var(--esmeralda); font-style: normal; font-size: 0.8em; /* & un poco más pequeña */}
+        .nombres-header h1 { font-family: 'Cinzel Decorative', serif; font-weight: 700; font-size: 3.5rem; color: var(--negro-carbon); margin-bottom: 0; line-height: 1.3; letter-spacing: 1px; }
+        .nombres-header .ampersand { color: var(--esmeralda); font-style: normal; font-size: 0.8em; }
 
         /* Intro Text */
-        .intro-texto h2 { margin-bottom: 10px; color: var(--esmeralda); font-size: 2rem;}
+        .intro-texto h2 { margin-bottom: 10px; color: var(--esmeralda); font-size: 2.2rem;}
         .intro-texto p { max-width: 600px; margin: 0 auto; font-size: 1rem;}
 
         /* Countdown */
         .fecha-contador { text-align: center; }
-        .fecha-texto { 
-             font-family: 'Roboto Condensed', sans-serif;
-             font-weight: 400; 
-             font-size: 1.5rem; 
-             color: var(--esmeralda); 
-             margin-bottom: 30px; 
-             letter-spacing: 1px;
-        }
+        .fecha-texto { font-family: 'Roboto Condensed', sans-serif; font-weight: 400; font-size: 1.5rem; color: var(--esmeralda); margin-bottom: 30px; letter-spacing: 1px; }
         #countdown { display: flex; justify-content: center; gap: 35px; flex-wrap: wrap; }
         .tiempo-caja { background-color: transparent; padding: 0; min-width: 70px; }
-        .tiempo-caja span:first-child { display: block; font-size: 3.5rem; font-weight: 300; /* Light Lato */ color: var(--negro-carbon); font-family: 'Lato', sans-serif; line-height: 1; margin-bottom: 8px;}
+        .tiempo-caja span:first-child { display: block; font-size: 3.5rem; font-weight: 300; color: var(--negro-carbon); font-family: 'Lato', sans-serif; line-height: 1; margin-bottom: 8px;}
         .tiempo-caja span:last-child { display: block; font-size: 0.7rem; text-transform: uppercase; color: var(--gris-texto); font-family: 'Roboto Condensed', sans-serif; letter-spacing: 1px;}
 
-        /* Segunda Foto */
-        .foto-secundaria { display: block; width: 100%; max-width: 700px; /* Más estrecha */ height: auto; border-radius: 8px; /* Redondeado suave */ margin: 0 auto; box-shadow: 0 15px 30px var(--sombra-suave); /* Sombra más notoria */}
+        /* Segunda Foto (Estilo Tarjeta con Margen) */
+        .foto-secundaria { 
+             display: block; 
+             width: calc(100% - 40px); /* Ancho menos padding */
+             max-width: 700px; /* Mantenemos max-width */
+             height: auto; /* Alto automático */
+             aspect-ratio: 16 / 9; /* Proporción horizontal */
+             object-fit: cover; 
+             border-radius: 10px; /* Redondeado */
+             margin: 0 auto; /* Centrado */
+             box-shadow: 0 15px 35px var(--sombra-suave); /* Sombra */
+        }
 
         /* Itinerario - Timeline Vertical */
         .itinerario h2 { margin-bottom: 10px; }
-        .timeline {
-             position: relative;
-             max-width: 600px;
-             margin: 50px auto 0 auto;
-        }
-        /* Línea central */
-        .timeline::after {
-             content: '';
-             position: absolute;
-             width: 2px;
-             background-color: var(--oro-palido);
-             top: 10px;
-             bottom: 10px;
-             left: 50%;
-             margin-left: -1px; /* Centrar la línea */
-        }
-        /* Contenedor de cada evento */
-        .timeline-container {
-             padding: 10px 40px;
-             position: relative;
-             background-color: inherit;
-             width: 50%;
-        }
-        /* Círculo en la línea */
-        .timeline-container::after {
-             content: '';
-             position: absolute;
-             width: 16px;
-             height: 16px;
-             right: -8px;
-             background-color: var(--blanco);
-             border: 3px solid var(--esmeralda); /* Punto Esmeralda */
-             top: 15px;
-             border-radius: 50%;
-             z-index: 1;
-        }
-        /* Eventos a la izquierda */
+        .timeline { position: relative; max-width: 600px; margin: 50px auto 0 auto; }
+        .timeline::after { content: ''; position: absolute; width: 2px; background-color: var(--oro-palido); top: 10px; bottom: 10px; left: 50%; margin-left: -1px; }
+        .timeline-container { padding: 10px 40px; position: relative; background-color: inherit; width: 50%; }
+        .timeline-container::after { content: ''; position: absolute; width: 16px; height: 16px; right: -8px; background-color: var(--fondo-alterno); border: 3px solid var(--esmeralda); top: 15px; border-radius: 50%; z-index: 1; }
         .timeline-left { left: 0; }
-        .timeline-left::before { /* Flecha apunta derecha */
-             content: " "; height: 0; position: absolute; top: 18px; width: 0; z-index: 1; right: 30px; border: medium solid var(--blanco); border-width: 10px 0 10px 10px; border-color: transparent transparent transparent var(--blanco);
-        }
-        .timeline-left::after { left: -8px; } /* Círculo a la izquierda */
+        .timeline-left::before { content: " "; height: 0; position: absolute; top: 18px; width: 0; z-index: 1; right: 30px; border: medium solid var(--blanco); border-width: 10px 0 10px 10px; border-color: transparent transparent transparent var(--blanco); }
+        .timeline-left::after { left: -8px; background-color: var(--blanco);} /* Fondo blanco para círculo */
         
-        /* Eventos a la derecha */
         .timeline-right { left: 50%; }
-        .timeline-right::before { /* Flecha apunta izquierda */
-              content: " "; height: 0; position: absolute; top: 18px; width: 0; z-index: 1; left: 30px; border: medium solid var(--blanco); border-width: 10px 10px 10px 0; border-color: transparent var(--blanco) transparent transparent;
-        }
-        .timeline-right::after { left: -8px; } /* Círculo a la izquierda (en su 50%) */
+        .timeline-right::before { content: " "; height: 0; position: absolute; top: 18px; width: 0; z-index: 1; left: 30px; border: medium solid var(--fondo-alterno); border-width: 10px 10px 10px 0; border-color: transparent var(--fondo-alterno) transparent transparent; }
+        .timeline-right::after { left: -8px; } 
         
-        /* Contenido del evento */
-        .timeline-content {
-             padding: 20px 30px;
-             background-color: white;
-             position: relative;
-             border-radius: 6px;
-             box-shadow: 0 3px 10px var(--sombra-suave);
-             text-align: left; /* Alineación izquierda dentro del globo */
-        }
+        .timeline-content { padding: 20px 30px; background-color: var(--blanco); position: relative; border-radius: 6px; box-shadow: 0 3px 10px var(--sombra-suave); text-align: left; }
+         /* Fondo diferente para globos derechos */
+         .timeline-right .timeline-content { background-color: var(--fondo-alterno);} 
          .timeline-content h3 { color: var(--esmeralda); font-size: 1.4rem; margin-bottom: 8px; text-align: left;}
          .timeline-content p { margin-bottom: 15px; color: var(--texto-secundario); font-size: 0.9rem;}
          .timeline-content .hora { font-weight: 400; color: var(--negro-carbon); display: block; margin-bottom: 15px; font-family: 'Roboto Condensed';}
          
-         /* Ajuste Timeline Móvil */
-         @media screen and (max-width: 768px) {
-           .timeline::after { left: 20px; margin-left: 0;} /* Línea a la izquierda */
-           .timeline-container { width: 100%; padding-left: 50px; padding-right: 15px; } /* Todo a la derecha */
-           .timeline-container::before { left: 40px; border: medium solid white; border-width: 10px 10px 10px 0; border-color: transparent white transparent transparent; } /* Flecha siempre a la izq */
-           .timeline-left::after, .timeline-right::after { left: 12px; } /* Círculo siempre a la izq */
-           .timeline-right { left: 0%; } /* Contenedor derecho empieza a la izq */
+         @media screen and (max-width: 768px) { /* Ajuste Timeline Móvil */
+           .timeline::after { left: 20px; margin-left: 0;} 
+           .timeline-container { width: 100%; padding-left: 50px; padding-right: 15px; } 
+           .timeline-container::before { left: 40px; border-width: 10px 10px 10px 0; } 
+           .timeline-left::before { border-color: transparent var(--blanco) transparent transparent;}
+           .timeline-right::before { border-color: transparent var(--fondo-alterno) transparent transparent;}
+           .timeline-left::after, .timeline-right::after { left: 12px; } 
+           .timeline-right { left: 0%; } 
          }
 
 
@@ -217,56 +161,45 @@
         .regalos h2 { margin-bottom: 10px; }
         .regalos p { margin-bottom: 25px; color: var(--texto-secundario); }
 
-        /* Galería Collage */
+        /* Galería - Swiper Slider Simple */
         .galeria h2 { margin-bottom: 10px; }
-        .collage-grid {
-             display: grid;
-             grid-template-columns: repeat(3, 1fr); /* 3 columnas base */
-             grid-auto-rows: minmax(150px, auto); /* Altura mínima de fila */
-             gap: 15px;
-             margin-top: 40px;
+        .swiper-gallery {
+            width: 100%;
+            max-width: 900px; /* Más ancho */
+            margin: 40px auto 0 auto;
+            padding: 0 50px; /* Espacio para flechas */
+            position: relative; /* Para posicionar flechas */
         }
-        .collage-item {
-             overflow: hidden;
+        .swiper-slide-gallery {
+            width: 80%; /* Imagen principal más pequeña que el contenedor */
+            opacity: 0.4; /* Opacidad para slides no activos */
+            transition: opacity 0.3s ease;
+            text-align: center; /* Centra la imagen si es más pequeña */
+        }
+        .swiper-slide-gallery img {
+             width: 100%; 
+             height: auto; /* Alto automático */
+             max-height: 60vh; /* Altura máxima */
+             object-fit: contain; /* Muestra imagen completa */
              border-radius: 8px;
-             box-shadow: 0 8px 15px var(--sombra-suave);
-             transition: transform 0.3s ease, box-shadow 0.3s ease;
+             box-shadow: 0 10px 25px var(--sombra-suave);
         }
-        .collage-item:hover {
-             transform: scale(1.03);
-             box-shadow: 0 12px 20px var(--sombra-suave);
+        .swiper-slide-active { /* Slide activo */
+             opacity: 1;
+             transform: scale(1.05); /* Ligeramente más grande */
         }
-        .collage-item img {
-             width: 100%; height: 100%;
-             object-fit: cover;
-             display: block;
-        }
-        /* Hacer algunas imágenes más grandes */
-        .collage-item-large {
-             grid-column: span 2; /* Ocupa 2 columnas */
-             grid-row: span 2; /* Ocupa 2 filas */
-        }
-         .collage-item-tall { grid-row: span 2; }
-         .collage-item-wide { grid-column: span 2; }
-         
-         /* Adaptación Collage Móvil */
-         @media (max-width: 768px) {
-              .collage-grid { grid-template-columns: repeat(2, 1fr); gap: 10px;} /* 2 columnas */
-              .collage-item-large, .collage-item-tall, .collage-item-wide { grid-column: span 1; grid-row: span 1;} /* Reset spans */
-              .collage-item:nth-child(3n+1) { grid-column: span 2; } /* Cada 3era imagen más ancha */
+        /* Estilo Flechas Swiper */
+         .swiper-button-next::after, .swiper-button-prev::after {
+              font-size: 24px !important; /* Tamaño flechas */
+              color: var(--esmeralda); /* Color esmeralda */
          }
-          @media (max-width: 480px) {
-               .collage-grid { grid-template-columns: 1fr; } /* 1 columna */
-               .collage-item:nth-child(3n+1) { grid-column: span 1; } /* Reset span ancho */
-          }
-
 
         /* Formulario RSVP */
         .rsvp-section h2 { margin-bottom: 5px; }
         .subtitulo-rsvp { font-size: 0.85rem; font-style: italic; color: var(--texto-secundario); margin-bottom: 25px;}
         .rsvp-form { max-width: 500px; margin: 0 auto; text-align: left;}
         .form-group { margin-bottom: 15px; }
-        .rsvp-form label { display: block; font-weight: 400; /* Regular Lato */ margin-bottom: 5px; color: var(--texto-principal); font-size: 0.9rem; font-family: 'Lato', sans-serif;}
+        .rsvp-form label { display: block; font-weight: 400; margin-bottom: 5px; color: var(--texto-principal); font-size: 0.9rem; font-family: 'Lato', sans-serif;}
         .rsvp-form input[type="text"],
         .rsvp-form select,
         .rsvp-form textarea { width: 100%; padding: 10px; border: 1px solid var(--gris-borde); border-radius: 4px; box-sizing: border-box; font-family: 'Lato', sans-serif; font-weight: 300; font-size: 0.95rem; color: var(--texto-principal); background-color: var(--fondo-alterno);}
@@ -288,7 +221,7 @@
              display: flex; justify-content: space-between; align-items: center;
              flex-wrap: wrap; gap: 10px; 
              opacity: 0; transform: translateY(100%); pointer-events: none;
-             transition: opacity 0.4s ease 0.5s, transform 0.4s ease 0.5s; /* Retraso */
+             transition: opacity 0.4s ease 0.5s, transform 0.4s ease 0.5s; 
          }
          body.invitation-revealed #sticky-footer { 
              opacity: 1; transform: translateY(0); pointer-events: auto;
@@ -296,11 +229,16 @@
          .footer-text { font-size: 0.75rem; color: var(--texto-claro); text-align: left; flex-grow: 1; font-family: 'Montserrat', sans-serif;}
          .whatsapp-button { display: inline-flex; align-items: center; background-color: var(--esmeralda); color: var(--blanco); padding: 5px 10px; border-radius: 4px; font-size: 0.75rem; font-weight: 400; text-decoration: none; transition: background-color 0.3s ease; white-space: nowrap; font-family: 'Montserrat', sans-serif;}
          .whatsapp-button svg { width: 12px; height: 12px; fill: var(--blanco); margin-right: 5px;}
-         .whatsapp-button:hover { background-color: #004d39; /* Esmeralda oscuro */}
+         .whatsapp-button:hover { background-color: #004d39; }
          
          @media (max-width: 600px) {
              #sticky-footer { justify-content: center; text-align: center; }
              .footer-text { width: 100%; margin-bottom: 5px; text-align: center; }
+             h1 { font-size: 2.2rem; } h2 { font-size: 1.8rem; } h3 { font-size: 1.4rem; }
+             .nombres-header h1 { font-size: 2.5rem; }
+             .vestimenta-grid { grid-template-columns: 1fr; gap: 15px;}
+             .swiper-button-next, .swiper-button-prev { display: none; } /* Ocultar flechas en móvil */
+             .swiper-gallery { padding: 0 10px; } /* Menos padding lateral */
          }
 
     </style>
@@ -399,15 +337,20 @@
             <div class="container">
                  <h2>Nuestra Galería</h2>
                  <hr class="separador-corto" style="margin-top:0;">
-                 <div class="collage-grid">
-                      <div class="collage-item"><img src="car1.jpg" alt="Galería 1"></div>
-                      <div class="collage-item collage-item-tall"><img src="car2.jpg" alt="Galería 2"></div>
-                      <div class="collage-item"><img src="car3.jpg" alt="Galería 3"></div>
-                      <div class="collage-item collage-item-wide"><img src="car4.jpg" alt="Galería 4"></div>
-                      <div class="collage-item"><img src="car5.jpg" alt="Galería 5"></div>
-                      <div class="collage-item"><img src="car6.jpg" alt="Galería 6"></div>
-                      <div class="collage-item collage-item-large"><img src="car7.jpg" alt="Galería 7"></div>
-                      <div class="collage-item"><img src="car8.jpg" alt="Galería 8"></div>
+                 <div class="swiper swiper-gallery">
+                     <div class="swiper-wrapper">
+                         <div class="swiper-slide swiper-slide-gallery"> <img src="car1.jpg" alt="Galería 1"> </div>
+                         <div class="swiper-slide swiper-slide-gallery"> <img src="car2.jpg" alt="Galería 2"> </div>
+                         <div class="swiper-slide swiper-slide-gallery"> <img src="car3.jpg" alt="Galería 3"> </div>
+                         <div class="swiper-slide swiper-slide-gallery"> <img src="car4.jpg" alt="Galería 4"> </div>
+                         <div class="swiper-slide swiper-slide-gallery"> <img src="car5.jpg" alt="Galería 5"> </div>
+                         <div class="swiper-slide swiper-slide-gallery"> <img src="car6.jpg" alt="Galería 6"> </div>
+                         <div class="swiper-slide swiper-slide-gallery"> <img src="car7.jpg" alt="Galería 7"> </div>
+                         <div class="swiper-slide swiper-slide-gallery"> <img src="car8.jpg" alt="Galería 8"> </div>
+                     </div>
+                     <div class="swiper-button-prev"></div>
+                     <div class="swiper-button-next"></div>
+                     <div class="swiper-pagination"></div>
                  </div>
             </div>
         </section>
@@ -465,10 +408,7 @@
         (function() { /* ... (mismo script contador) ... */ 
             const fechaBoda = new Date(2027, 4, 20, 12, 0, 0).getTime(); 
             const countdownEl = document.getElementById('countdown');
-            const diasEl = document.getElementById('dias');
-            const horasEl = document.getElementById('horas');
-            const minutosEl = document.getElementById('minutos');
-            const segundosEl = document.getElementById('segundos');
+            const diasEl = document.getElementById('dias'); const horasEl = document.getElementById('horas'); const minutosEl = document.getElementById('minutos'); const segundosEl = document.getElementById('segundos');
              if (!countdownEl || !diasEl || !horasEl || !minutosEl || !segundosEl) return; 
              const intervalo = setInterval(function() {
                  const ahora = new Date().getTime(); const diferencia = fechaBoda - ahora;
@@ -478,8 +418,28 @@
              }, 1000);
         })();
 
-        // --- SCRIPT PARA INICIALIZAR SWIPER (Full Width Slider) ---
-         // No necesitamos Swiper para la galería Masonry
+        // --- SCRIPT PARA INICIALIZAR SWIPER (Galería Slider Simple) ---
+         if (document.querySelector('.swiper-gallery')) {
+              const swiperGallery = new Swiper('.swiper-gallery', {
+                 loop: true,
+                 centeredSlides: true,
+                 slidesPerView: 'auto', // Muestra parte de las siguientes
+                 spaceBetween: 15, // Espacio entre slides
+                 autoplay: {
+                      delay: 2500, 
+                      disableOnInteraction: false,
+                 },
+                 pagination: {
+                      el: '.swiper-pagination',
+                      clickable: true,
+                 },
+                 navigation: { // Habilita flechas
+                      nextEl: '.swiper-button-next',
+                      prevEl: '.swiper-button-prev',
+                 },
+                 effect: 'slide', // Efecto simple de deslizamiento
+             });
+         }
         
         // --- SCRIPT PARA REVELAR INVITACIÓN ---
         (function() { /* ... (mismo script revelar) ... */
@@ -496,22 +456,10 @@
          })();
 
          // --- SCRIPT PARA FADE-IN SECTIONS ---
-         (function() {
-              const sections = document.querySelectorAll('.fade-in-section');
-              const options = { threshold: 0.15 }; // Trigger cuando 15% es visible
-
-              const observer = new IntersectionObserver(function(entries, observer) {
-                   entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                             entry.target.classList.add('is-visible');
-                             observer.unobserve(entry.target); // Deja de observar una vez animado
-                        }
-                   });
-              }, options);
-
-              sections.forEach(section => {
-                   observer.observe(section);
-              });
+         (function() { /* ... (mismo script fade-in) ... */
+              const sections = document.querySelectorAll('.fade-in-section'); const options = { threshold: 0.1 }; /* Ajustado a 10% */
+              const observer = new IntersectionObserver(function(entries, observer) { entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('is-visible'); observer.unobserve(entry.target); } }); }, options);
+              sections.forEach(section => { observer.observe(section); });
          })();
 
     </script>
