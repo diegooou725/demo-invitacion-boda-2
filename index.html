@@ -7,269 +7,269 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,400&family=Montserrat:wght@300;400;500&family=Quattrocento&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Lato:wght@300;400&family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
     
     <style>
         /* --- Estilos Generales --- */
         :root {
-            --fondo-pagina: #f5f0e8; /* Soft Taupe */
             --blanco: #FFFFFF;
-            --color-papel: #fdfbf7; /* Off-white (para overlay btn) */
-            --acento: #b87354; /* Terracotta/Dusty Clay */
-            --texto-principal: #4a4a4a; /* Charcoal Gray */
-            --texto-secundario: #6e6e6e; /* Lighter Gray */
-            --gris-borde: #eee; 
-            --sombra-suave: rgba(0, 0, 0, 0.1);
+            --esmeralda: #006A4E; 
+            --oro-palido: #E0CDB6;
+            --negro-carbon: #333333; 
+            --gris-texto: #777777; 
+            --fondo-alterno: #f9f9f9; 
+            --sombra-suave: rgba(0, 0, 0, 0.08);
+            --intro-overlay-color: rgba(0, 0, 0, 0.4); 
+            --preloader-bg: var(--negro-carbon); 
         }
 
-        *, *::before, *::after {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-        
-        html {
-             scroll-behavior: smooth;
-        }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
 
         body {
-            /* Fuente Cuerpo: Quattrocento */
-            font-family: 'Quattrocento', serif;
-            font-weight: 400; 
-            background-color: var(--fondo-pagina); 
-            color: var(--texto-principal); 
-            line-height: 1.7; 
+            font-family: 'Lato', sans-serif;
+            font-weight: 300; 
+            background-color: var(--blanco); 
+            color: var(--negro-carbon); 
+            line-height: 1.8; 
             text-align: center; 
-            /* Importante: Overflow hidden inicialmente */
-            overflow: hidden;
-            /* Padding inferior para footer fijo (cuando se revele) */
+            overflow-x: hidden; /* Previene scroll horizontal */
+            overflow-y: hidden; /* No scroll inicial */
             padding-bottom: 80px; 
+            -webkit-font-smoothing: antialiased; 
+            -moz-osx-font-smoothing: grayscale;
         }
-        /* Clase que se añade con JS para permitir scroll */
-        body.invitation-revealed {
-             overflow: auto;
-        }
+        body.invitation-revealed { overflow-y: auto; }
 
         h1, h2, h3, h4 { 
-            /* Fuente Títulos: Montserrat Light */
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 300; 
-            color: var(--texto-principal); 
+            font-family: 'Roboto Condensed', sans-serif;
+            font-weight: 700; 
+            color: var(--negro-carbon); 
             text-align: center; 
-            letter-spacing: 1px; 
+            text-transform: uppercase; 
+            letter-spacing: 2px; 
             margin-bottom: 20px; 
         }
-        
-        /* Ajuste de tamaño */
-        h1 { font-size: 2.5rem; } /* Nombres */
-        h2 { font-size: 2.4rem; color: var(--acento); } /* Títulos Sección */
-        h3 { font-size: 1.6rem; } 
-        h4 { font-size: 1.2rem; } 
+        h1 { font-size: 2.5rem; } 
+        h2 { font-size: 1.8rem; margin-bottom: 10px;} /* Títulos Sección más pequeños */
+        h3 { font-size: 1.4rem; font-weight: 400; text-transform: none; letter-spacing: 0.5px;} 
+        h4 { font-size: 1.1rem; font-weight: 400; text-transform: uppercase; letter-spacing: 1px;} 
 
         /* Contenedor */
-        .container {
-            max-width: 800px; 
-            margin: 0 auto;
-            padding: 0 15px;
-        }
+        .container { max-width: 800px; margin: 0 auto; padding: 0 20px; }
         
-        /* Separador */
-        .separador {
-            border: 0;
-            height: 1px;
-            width: 80px;
-            background-color: var(--acento); /* Acento */
-            opacity: 0.6;
-            margin: 40px auto; 
-        }
+        /* Separador: Línea fina oro pálido */
+        .separador { border: 0; height: 1px; width: 100px; background-color: var(--oro-palido); margin: 60px auto; }
+        .separador-corto { width: 50px; margin: 30px auto;}
         
         /* Párrafos */
-        p {
-            color: var(--texto-secundario); 
-            font-weight: 400; /* Regular Quattrocento */
-            margin-bottom: 20px; 
-        }
-        
-        strong {
-             font-weight: 500; /* Medium Montserrat */
-             font-family: 'Montserrat', sans-serif;
-             color: var(--texto-principal);
-        }
+        p { color: var(--gris-texto); font-weight: 300; margin-bottom: 20px; font-size: 0.95rem; max-width: 600px; margin-left: auto; margin-right: auto;}
+        strong { font-weight: 400; color: var(--negro-carbon); }
         
         /* Botones generales */
-        .boton {
-            display: inline-block;
-            background-color: var(--acento);
-            color: var(--blanco);
-            border: 1px solid var(--acento);
-            padding: 10px 25px;
-            border-radius: 6px;
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 400; /* Regular */
-            text-decoration: none;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            font-size: 0.9rem;
-        }
-        .boton:hover {
-            background-color: var(--blanco);
-            color: var(--acento);
-        }
-        .boton-outline {
-             background-color: transparent;
-             color: var(--acento);
-        }
-         .boton-outline:hover {
-             background-color: var(--acento);
-             color: var(--blanco);
+        .boton { display: inline-block; background-color: var(--esmeralda); color: var(--blanco); border: 1px solid var(--esmeralda); padding: 12px 30px; border-radius: 4px; font-family: 'Roboto Condensed', sans-serif; font-weight: 700; text-decoration: none; transition: all 0.3s ease; cursor: pointer; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; }
+        .boton:hover { background-color: var(--blanco); color: var(--esmeralda); }
+        .boton-outline { background-color: transparent; color: var(--esmeralda); }
+        .boton-outline:hover { background-color: var(--esmeralda); color: var(--blanco); }
+
+         /* --- EFECTO FADE-IN AL SCROLL --- */
+         .fade-in-section {
+              opacity: 0;
+              transform: translateY(20px);
+              transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+         }
+         .fade-in-section.is-visible {
+              opacity: 1;
+              transform: translateY(0);
          }
 
 
         /* --- INTRO OVERLAY --- */
-        #intro-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('fotonovios1.jpg'); /* Foto con overlay oscuro */
-            background-size: cover;
-            background-position: center;
-            z-index: 1001; /* Encima de todo */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transition: transform 1s cubic-bezier(0.77, 0, 0.175, 1); /* Transición suave slide up */
-            cursor: pointer;
-        }
-        /* Estado revelado: overlay se desliza hacia arriba */
-        body.invitation-revealed #intro-overlay {
-             transform: translateY(-100%);
-        }
+        #intro-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; z-index: 1001; transition: transform 1s cubic-bezier(0.77, 0, 0.175, 1); cursor: pointer; background-color: var(--preloader-bg); }
+        .intro-background { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: linear-gradient(var(--intro-overlay-color), var(--intro-overlay-color)), url('fotonovios1.jpg'); background-size: cover; background-position: center; z-index: 2;}
+        .intro-content { position: relative; z-index: 3; height: 100%; display: flex; justify-content: center; align-items: center; }
+        #enter-button { background-color: transparent; border: 1px solid var(--blanco); color: var(--blanco); padding: 12px 30px; border-radius: 4px; font-family: 'Roboto Condensed', sans-serif; font-weight: 700; font-size: 1rem; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; transition: background-color 0.3s ease, color 0.3s ease; }
+        #enter-button:hover { background-color: var(--blanco); color: var(--negro-carbon); }
+        body.invitation-revealed #intro-overlay { transform: translateY(-100%); }
 
-        #enter-button {
-            background-color: rgba(255, 255, 255, 0.1); /* Fondo semi-transparente */
-            border: 1px solid var(--color-papel); /* Borde blanco */
-            color: var(--color-papel); /* Texto blanco */
-            padding: 15px 35px;
-            border-radius: 30px; /* Redondeado */
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 400; /* Regular */
-            font-size: 1.1rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            cursor: pointer;
-            transition: background-color 0.3s ease, color 0.3s ease;
-            backdrop-filter: blur(5px); /* Efecto cristal (si el navegador lo soporta) */
-        }
-        #enter-button:hover {
-            background-color: var(--color-papel);
-            color: var(--texto-principal);
-        }
-
-        /* --- CONTENIDO PRINCIPAL DE LA INVITACIÓN --- */
-        #main-invitation {
-            background-color: var(--blanco); /* Fondo blanco para la invitación */
-            position: relative; /* Asegura que esté bajo el overlay */
-            z-index: 1; /* Debajo del overlay */
-            /* Padding superior para compensar el header si fuera fijo (no es el caso aquí) */
-        }
-
-        /* Estilos específicos de secciones dentro de #main-invitation */
-        .seccion {
-             padding: 60px 0;
-        }
-        .seccion-alterna {
-             background-color: var(--fondo-pagina); /* Fondo Taupe */
-        }
+        /* --- CONTENIDO PRINCIPAL --- */
+        #main-invitation { background-color: var(--blanco); position: relative; z-index: 1; }
+        .seccion { padding: 80px 0; } /* Más padding vertical */
+        .seccion-alterna { background-color: var(--fondo-alterno); }
         
-        /* Nombres (dentro de la invitación) */
-        .nombres-header {
-             padding: 40px 0 20px 0;
-        }
+        /* Nombres */
+        .nombres-header { padding: 60px 0 40px 0; }
         .nombres-header h1 {
-             /* Fuente Nombres: Playfair Display */
-             font-family: 'Playfair Display', serif;
-             font-weight: 400; /* Regular */
-             font-size: 3.5rem; 
-             color: var(--texto-principal);
-             margin-bottom: 0;
-             line-height: 1.2;
+             font-family: 'Cinzel Decorative', serif;
+             font-weight: 700; 
+             font-size: 3.5rem; /* Más grande */ 
+             color: var(--negro-carbon);
+             margin-bottom: 0; line-height: 1.3; letter-spacing: 1px;
         }
-        .nombres-header .ampersand { color: var(--acento); font-style: italic;} /* & en Acento */
+        .nombres-header .ampersand { color: var(--esmeralda); font-style: normal; font-size: 0.8em; /* & un poco más pequeña */}
 
         /* Intro Text */
-        .intro-texto h2 { margin-bottom: 10px; font-size: 2.4rem;}
+        .intro-texto h2 { margin-bottom: 10px; color: var(--esmeralda); font-size: 2rem;}
         .intro-texto p { max-width: 600px; margin: 0 auto; font-size: 1rem;}
 
         /* Countdown */
         .fecha-contador { text-align: center; }
         .fecha-texto { 
-             font-family: 'Montserrat', sans-serif;
-             font-weight: 300;
-             font-size: 1.6rem; 
-             color: var(--acento); /* Acento */
+             font-family: 'Roboto Condensed', sans-serif;
+             font-weight: 400; 
+             font-size: 1.5rem; 
+             color: var(--esmeralda); 
              margin-bottom: 30px; 
+             letter-spacing: 1px;
         }
-        #countdown { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
-        .tiempo-caja { background-color: var(--blanco); padding: 15px 20px; border-radius: 8px; min-width: 90px; box-shadow: 0 4px 15px var(--sombra-suave); }
-        .tiempo-caja span:first-child { display: block; font-size: 2.2rem; font-weight: 500; /* Medium Montserrat */ color: var(--texto-principal); font-family: 'Montserrat', sans-serif;}
-        .tiempo-caja span:last-child { display: block; font-size: 0.7rem; text-transform: uppercase; color: var(--texto-secundario); font-family: 'Montserrat', sans-serif;}
+        #countdown { display: flex; justify-content: center; gap: 35px; flex-wrap: wrap; }
+        .tiempo-caja { background-color: transparent; padding: 0; min-width: 70px; }
+        .tiempo-caja span:first-child { display: block; font-size: 3.5rem; font-weight: 300; /* Light Lato */ color: var(--negro-carbon); font-family: 'Lato', sans-serif; line-height: 1; margin-bottom: 8px;}
+        .tiempo-caja span:last-child { display: block; font-size: 0.7rem; text-transform: uppercase; color: var(--gris-texto); font-family: 'Roboto Condensed', sans-serif; letter-spacing: 1px;}
 
         /* Segunda Foto */
-        .foto-secundaria { display: block; width: 100%; max-width: 800px; height: auto; border-radius: 10px; margin: 0 auto; box-shadow: 0 10px 25px var(--sombra-suave); }
+        .foto-secundaria { display: block; width: 100%; max-width: 700px; /* Más estrecha */ height: auto; border-radius: 8px; /* Redondeado suave */ margin: 0 auto; box-shadow: 0 15px 30px var(--sombra-suave); /* Sombra más notoria */}
 
-        /* Itinerario */
+        /* Itinerario - Timeline Vertical */
         .itinerario h2 { margin-bottom: 10px; }
-        .eventos-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 40px; margin-top: 40px; }
-        .evento-item h3 { color: var(--acento); font-size: 1.6rem; margin-bottom: 8px;}
-        .evento-item p { margin-bottom: 20px; min-height: 40px; color: var(--texto-secundario);}
+        .timeline {
+             position: relative;
+             max-width: 600px;
+             margin: 50px auto 0 auto;
+        }
+        /* Línea central */
+        .timeline::after {
+             content: '';
+             position: absolute;
+             width: 2px;
+             background-color: var(--oro-palido);
+             top: 10px;
+             bottom: 10px;
+             left: 50%;
+             margin-left: -1px; /* Centrar la línea */
+        }
+        /* Contenedor de cada evento */
+        .timeline-container {
+             padding: 10px 40px;
+             position: relative;
+             background-color: inherit;
+             width: 50%;
+        }
+        /* Círculo en la línea */
+        .timeline-container::after {
+             content: '';
+             position: absolute;
+             width: 16px;
+             height: 16px;
+             right: -8px;
+             background-color: var(--blanco);
+             border: 3px solid var(--esmeralda); /* Punto Esmeralda */
+             top: 15px;
+             border-radius: 50%;
+             z-index: 1;
+        }
+        /* Eventos a la izquierda */
+        .timeline-left { left: 0; }
+        .timeline-left::before { /* Flecha apunta derecha */
+             content: " "; height: 0; position: absolute; top: 18px; width: 0; z-index: 1; right: 30px; border: medium solid var(--blanco); border-width: 10px 0 10px 10px; border-color: transparent transparent transparent var(--blanco);
+        }
+        .timeline-left::after { left: -8px; } /* Círculo a la izquierda */
+        
+        /* Eventos a la derecha */
+        .timeline-right { left: 50%; }
+        .timeline-right::before { /* Flecha apunta izquierda */
+              content: " "; height: 0; position: absolute; top: 18px; width: 0; z-index: 1; left: 30px; border: medium solid var(--blanco); border-width: 10px 10px 10px 0; border-color: transparent var(--blanco) transparent transparent;
+        }
+        .timeline-right::after { left: -8px; } /* Círculo a la izquierda (en su 50%) */
+        
+        /* Contenido del evento */
+        .timeline-content {
+             padding: 20px 30px;
+             background-color: white;
+             position: relative;
+             border-radius: 6px;
+             box-shadow: 0 3px 10px var(--sombra-suave);
+             text-align: left; /* Alineación izquierda dentro del globo */
+        }
+         .timeline-content h3 { color: var(--esmeralda); font-size: 1.4rem; margin-bottom: 8px; text-align: left;}
+         .timeline-content p { margin-bottom: 15px; color: var(--texto-secundario); font-size: 0.9rem;}
+         .timeline-content .hora { font-weight: 400; color: var(--negro-carbon); display: block; margin-bottom: 15px; font-family: 'Roboto Condensed';}
+         
+         /* Ajuste Timeline Móvil */
+         @media screen and (max-width: 768px) {
+           .timeline::after { left: 20px; margin-left: 0;} /* Línea a la izquierda */
+           .timeline-container { width: 100%; padding-left: 50px; padding-right: 15px; } /* Todo a la derecha */
+           .timeline-container::before { left: 40px; border: medium solid white; border-width: 10px 10px 10px 0; border-color: transparent white transparent transparent; } /* Flecha siempre a la izq */
+           .timeline-left::after, .timeline-right::after { left: 12px; } /* Círculo siempre a la izq */
+           .timeline-right { left: 0%; } /* Contenedor derecho empieza a la izq */
+         }
+
 
         /* Vestimenta */
         .vestimenta h2 { margin-bottom: 10px; }
-        .vestimenta .subtitulo-formal { font-size: 1.1rem; font-weight: 500; color: var(--texto-principal); margin-bottom: 30px; font-family: 'Montserrat', sans-serif;}
+        .vestimenta .subtitulo-formal { font-size: 1.1rem; font-weight: 400; color: var(--texto-principal); margin-bottom: 30px; font-family: 'Roboto Condensed', sans-serif;}
         .vestimenta-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; max-width: 450px; margin: 0 auto; align-items: start; }
         .vestimenta-grid div { text-align: center; }
-        .vestimenta-grid h4 { font-size: 1.2rem; margin-bottom: 5px; color: var(--texto-principal); font-weight: 400; text-transform: uppercase; letter-spacing: 1px;}
+        .vestimenta-grid h4 { font-size: 1.1rem; margin-bottom: 5px; color: var(--texto-principal); font-weight: 700; text-transform: uppercase; letter-spacing: 1px;}
         .vestimenta-grid p { font-size: 0.9rem; color: var(--texto-secundario);}
 
         /* Regalos */
         .regalos h2 { margin-bottom: 10px; }
         .regalos p { margin-bottom: 25px; color: var(--texto-secundario); }
 
-        /* Galería Masonry */
+        /* Galería Collage */
         .galeria h2 { margin-bottom: 10px; }
-        .masonry-grid {
-             columns: 3 200px; /* 3 columnas base, mínimo 200px ancho */
-             column-gap: 15px; /* Espacio entre columnas */
-             width: 90%;
-             max-width: 1000px;
-             margin: 30px auto 0 auto;
+        .collage-grid {
+             display: grid;
+             grid-template-columns: repeat(3, 1fr); /* 3 columnas base */
+             grid-auto-rows: minmax(150px, auto); /* Altura mínima de fila */
+             gap: 15px;
+             margin-top: 40px;
         }
-        .masonry-item {
-             margin-bottom: 15px; /* Espacio debajo de cada foto */
-             display: inline-block; /* Evita que se rompan */
-             width: 100%; /* Ocupa el ancho de la columna */
+        .collage-item {
+             overflow: hidden;
+             border-radius: 8px;
+             box-shadow: 0 8px 15px var(--sombra-suave);
+             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-        .masonry-item img {
-             width: 100%; 
-             height: auto; 
-             display: block; 
-             border-radius: 8px; 
-             box-shadow: 0 5px 15px var(--sombra-suave);
+        .collage-item:hover {
+             transform: scale(1.03);
+             box-shadow: 0 12px 20px var(--sombra-suave);
         }
-         @media (max-width: 768px) { .masonry-grid { columns: 2 150px; } }
-         @media (max-width: 480px) { .masonry-grid { columns: 1 100%; } }
+        .collage-item img {
+             width: 100%; height: 100%;
+             object-fit: cover;
+             display: block;
+        }
+        /* Hacer algunas imágenes más grandes */
+        .collage-item-large {
+             grid-column: span 2; /* Ocupa 2 columnas */
+             grid-row: span 2; /* Ocupa 2 filas */
+        }
+         .collage-item-tall { grid-row: span 2; }
+         .collage-item-wide { grid-column: span 2; }
+         
+         /* Adaptación Collage Móvil */
+         @media (max-width: 768px) {
+              .collage-grid { grid-template-columns: repeat(2, 1fr); gap: 10px;} /* 2 columnas */
+              .collage-item-large, .collage-item-tall, .collage-item-wide { grid-column: span 1; grid-row: span 1;} /* Reset spans */
+              .collage-item:nth-child(3n+1) { grid-column: span 2; } /* Cada 3era imagen más ancha */
+         }
+          @media (max-width: 480px) {
+               .collage-grid { grid-template-columns: 1fr; } /* 1 columna */
+               .collage-item:nth-child(3n+1) { grid-column: span 1; } /* Reset span ancho */
+          }
+
 
         /* Formulario RSVP */
         .rsvp-section h2 { margin-bottom: 5px; }
         .subtitulo-rsvp { font-size: 0.85rem; font-style: italic; color: var(--texto-secundario); margin-bottom: 25px;}
         .rsvp-form { max-width: 500px; margin: 0 auto; text-align: left;}
         .form-group { margin-bottom: 15px; }
-        .rsvp-form label { display: block; font-weight: 500; /* Medium Montserrat */ margin-bottom: 5px; color: var(--texto-principal); font-size: 0.9rem; font-family: 'Montserrat', sans-serif;}
+        .rsvp-form label { display: block; font-weight: 400; /* Regular Lato */ margin-bottom: 5px; color: var(--texto-principal); font-size: 0.9rem; font-family: 'Lato', sans-serif;}
         .rsvp-form input[type="text"],
         .rsvp-form select,
-        .rsvp-form textarea { width: 100%; padding: 10px; border: 1px solid var(--gris-borde); border-radius: 6px; box-sizing: border-box; font-family: 'Quattrocento', serif; font-size: 0.95rem; color: var(--texto-principal); background-color: var(--fondo-pagina);}
+        .rsvp-form textarea { width: 100%; padding: 10px; border: 1px solid var(--gris-borde); border-radius: 4px; box-sizing: border-box; font-family: 'Lato', sans-serif; font-weight: 300; font-size: 0.95rem; color: var(--texto-principal); background-color: var(--fondo-alterno);}
         .rsvp-form input::placeholder,
         .rsvp-form textarea::placeholder,
         .rsvp-form select { color: var(--texto-secundario); }
@@ -279,7 +279,7 @@
         footer { padding: 40px 0 0 0; font-size: 1.1rem; color: var(--texto-secundario); border-top: 1px solid var(--gris-borde); margin-top: 40px;}
 
         /* Footer Fijo Demo */
-         #sticky-footer { /* Mismo estilo que antes, pero fondo oscuro */
+         #sticky-footer { /* Mismo estilo que antes */
              position: fixed; bottom: 0; left: 0; width: 100%; 
              background-color: rgba(44, 62, 80, 0.9); 
              padding: 8px 15px; 
@@ -290,13 +290,13 @@
              opacity: 0; transform: translateY(100%); pointer-events: none;
              transition: opacity 0.4s ease 0.5s, transform 0.4s ease 0.5s; /* Retraso */
          }
-         body.invitation-revealed #sticky-footer { /* Se muestra cuando se revela */
+         body.invitation-revealed #sticky-footer { 
              opacity: 1; transform: translateY(0); pointer-events: auto;
          }
          .footer-text { font-size: 0.75rem; color: var(--texto-claro); text-align: left; flex-grow: 1; font-family: 'Montserrat', sans-serif;}
-         .whatsapp-button { display: inline-flex; align-items: center; background-color: var(--acento); color: var(--blanco); padding: 5px 10px; border-radius: 4px; font-size: 0.75rem; font-weight: 400; text-decoration: none; transition: background-color 0.3s ease; white-space: nowrap; font-family: 'Montserrat', sans-serif;}
+         .whatsapp-button { display: inline-flex; align-items: center; background-color: var(--esmeralda); color: var(--blanco); padding: 5px 10px; border-radius: 4px; font-size: 0.75rem; font-weight: 400; text-decoration: none; transition: background-color 0.3s ease; white-space: nowrap; font-family: 'Montserrat', sans-serif;}
          .whatsapp-button svg { width: 12px; height: 12px; fill: var(--blanco); margin-right: 5px;}
-         .whatsapp-button:hover { background-color: #9f6044; /* Acento oscuro */}
+         .whatsapp-button:hover { background-color: #004d39; /* Esmeralda oscuro */}
          
          @media (max-width: 600px) {
              #sticky-footer { justify-content: center; text-align: center; }
@@ -305,22 +305,28 @@
 
     </style>
 </head>
-<body class=""> <div id="intro-overlay">
-        <button id="enter-button">Descubrir</button>
+<body class=""> 
+
+    <div id="intro-overlay">
+        <div class="intro-preloader"></div>
+        <div class="intro-background"></div>
+        <div class="intro-content">
+             <button id="enter-button">Descubrir</button>
+        </div>
     </div>
 
     <div id="main-invitation">
 
-        <header class="nombres-header">
+        <header class="nombres-header fade-in-section">
              <div class="container">
                   <h1>Juan <span class="ampersand">&</span> María</h1>
              </div>
         </header>
 
-        <section class="seccion intro-texto">
+        <section class="seccion intro-texto fade-in-section">
             <div class="container">
                 <h2>¡Nos casamos!</h2>
-                <hr class="separador">
+                <hr class="separador-corto">
                 <p>
                     Después de 4 años caminando juntos hemos decidido unir nuestras vidas en matrimonio, 
                     por lo que nos complace que sean participes de esta unión ...
@@ -328,7 +334,7 @@
             </div>
         </section>
 
-        <section class="seccion seccion-alterna fecha-contador">
+        <section class="seccion seccion-alterna fecha-contador fade-in-section">
             <div class="container">
                 <div class="fecha-texto">20 de Mayo, 2027 | 12:00 PM</div>
                 <div id="countdown">
@@ -340,33 +346,38 @@
             </div>
         </section>
         
-        <section class="seccion">
+        <section class="seccion fade-in-section">
             <img src="fotonovios2.jpg" alt="Juan y María - Foto 2" class="foto-secundaria">
         </section>
 
-        <section class="seccion seccion-alterna itinerario">
+        <section class="seccion seccion-alterna itinerario fade-in-section">
             <div class="container">
                 <h2>Itinerario</h2>
-                <hr class="separador" style="margin-top:0;">
-                <div class="eventos-grid">
-                    <div class="evento-item">
-                        <h3>Ceremonia</h3>
-                        <p>Parroquia de San Judas Tadeo y de la Santa Cruz<br>12:00 PM</p>
-                        <a href="http://googleusercontent.com/maps/google.com/7" target="_blank" class="boton">Ver Ubicación</a>
-                    </div>
-                    <div class="evento-item">
-                        <h3>Recepción</h3>
-                        <p>Salón de Eventos La Ermita<br>A partir de las 2:00 PM</p>
-                        <a href="http://googleusercontent.com/maps/google.com/8" target="_blank" class="boton">Ver Ubicación</a>
-                    </div>
-                </div>
-            </div>
+                <hr class="separador-corto" style="margin-top:0;">
+                <div class="timeline">
+                    <div class="timeline-container timeline-left">
+                       <div class="timeline-content">
+                         <h3>Ceremonia</h3>
+                         <span class="hora">12:00 PM</span>
+                         <p>Parroquia de San Judas Tadeo y de la Santa Cruz</p>
+                         <a href="https://maps.app.goo.gl/nsExT5CH97KHWAaGA" target="_blank" class="boton">Ver Ubicación</a>
+                       </div>
+                     </div>
+                     <div class="timeline-container timeline-right">
+                       <div class="timeline-content">
+                         <h3>Recepción</h3>
+                         <span class="hora">A partir de las 2:00 PM</span>
+                         <p>Salón de Eventos La Ermita</p>
+                         <a href="https://maps.app.goo.gl/gyR2NbZVuNd4LWFR8" target="_blank" class="boton">Ver Ubicación</a>
+                       </div>
+                     </div>
+                </div> </div>
         </section>
 
-        <section class="seccion vestimenta">
+        <section class="seccion vestimenta fade-in-section">
             <div class="container">
                 <h2>Código de Vestimenta</h2>
-                <hr class="separador" style="margin-top:0;">
+                <hr class="separador-corto" style="margin-top:0;">
                 <p class="subtitulo-formal"><strong>Formal</strong></p>
                 <div class="vestimenta-grid">
                      <div><h4>Mujeres</h4><p>Vestido largo o de cóctel.</p></div>
@@ -375,37 +386,37 @@
             </div>
         </section>
 
-        <section class="seccion regalos">
+        <section class="seccion regalos fade-in-section">
              <div class="container">
                   <h2>Mesa de Regalos</h2>
-                  <hr class="separador" style="margin-top:0;">
+                  <hr class="separador-corto" style="margin-top:0;">
                   <p>Tu presencia es nuestro mejor regalo, pero si deseas obsequiarnos algo...</p>
                   <a href="mesa-de-regalos-demo2.html" target="_blank" class="boton boton-outline">Ver Opciones de Regalos</a>
              </div>
         </section>
 
-        <section class="seccion seccion-alterna galeria">
+        <section class="seccion seccion-alterna galeria fade-in-section">
             <div class="container">
                  <h2>Nuestra Galería</h2>
-                 <hr class="separador" style="margin-top:0;">
-                 <div class="masonry-grid">
-                      <div class="masonry-item"><img src="car1.jpg" alt="Galería 1"></div>
-                      <div class="masonry-item"><img src="car2.jpg" alt="Galería 2"></div>
-                      <div class="masonry-item"><img src="car3.jpg" alt="Galería 3"></div>
-                      <div class="masonry-item"><img src="car4.jpg" alt="Galería 4"></div>
-                      <div class="masonry-item"><img src="car5.jpg" alt="Galería 5"></div>
-                      <div class="masonry-item"><img src="car6.jpg" alt="Galería 6"></div>
-                      <div class="masonry-item"><img src="car7.jpg" alt="Galería 7"></div>
-                      <div class="masonry-item"><img src="car8.jpg" alt="Galería 8"></div>
+                 <hr class="separador-corto" style="margin-top:0;">
+                 <div class="collage-grid">
+                      <div class="collage-item"><img src="car1.jpg" alt="Galería 1"></div>
+                      <div class="collage-item collage-item-tall"><img src="car2.jpg" alt="Galería 2"></div>
+                      <div class="collage-item"><img src="car3.jpg" alt="Galería 3"></div>
+                      <div class="collage-item collage-item-wide"><img src="car4.jpg" alt="Galería 4"></div>
+                      <div class="collage-item"><img src="car5.jpg" alt="Galería 5"></div>
+                      <div class="collage-item"><img src="car6.jpg" alt="Galería 6"></div>
+                      <div class="collage-item collage-item-large"><img src="car7.jpg" alt="Galería 7"></div>
+                      <div class="collage-item"><img src="car8.jpg" alt="Galería 8"></div>
                  </div>
             </div>
         </section>
 
-        <section class="seccion rsvp-section">
+        <section class="seccion rsvp-section fade-in-section">
              <div class="container">
                  <h2>Confirmación de Asistencia</h2>
                  <p class="subtitulo-rsvp">Evento exclusivo para adultos.</p> 
-                 <hr class="separador" style="margin-top:0; margin-bottom: 30px;">
+                 <hr class="separador-corto" style="margin-top:0; margin-bottom: 30px;">
                  <form id="rsvp-form" class="rsvp-form" onsubmit="event.preventDefault(); alert('Este es un formulario de ejemplo.');"> 
                      <div class="form-group">
                          <label for="name">Nombre completo:</label>
@@ -433,7 +444,7 @@
              </div>
          </section>
 
-        <footer>
+        <footer class="fade-in-section">
             <p>¡Te esperamos!</p>
         </footer>
 
@@ -451,87 +462,56 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
         // --- SCRIPT PARA EL CONTADOR ---
-        (function() {
+        (function() { /* ... (mismo script contador) ... */ 
             const fechaBoda = new Date(2027, 4, 20, 12, 0, 0).getTime(); 
             const countdownEl = document.getElementById('countdown');
             const diasEl = document.getElementById('dias');
             const horasEl = document.getElementById('horas');
             const minutosEl = document.getElementById('minutos');
             const segundosEl = document.getElementById('segundos');
-
              if (!countdownEl || !diasEl || !horasEl || !minutosEl || !segundosEl) return; 
-
              const intervalo = setInterval(function() {
-                 const ahora = new Date().getTime();
-                 const diferencia = fechaBoda - ahora;
-
-                 if (diferencia < 0) {
-                     clearInterval(intervalo);
-                     countdownEl.innerHTML = "<p style='font-size: 1.2rem; color: var(--acento);'>¡Llegó el gran día!</p>";
-                     return;
-                 }
-                 const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
-                 const horas = Math.floor((diferencia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                 const minutos = Math.floor((diferencia % (1000 * 60 * 60)) / (1000 * 60));
-                 const segundos = Math.floor((diferencia % (1000 * 60)) / 1000);
-
-                 diasEl.innerText = dias.toString().padStart(2, '0');
-                 horasEl.innerText = horas.toString().padStart(2, '0');
-                 minutosEl.innerText = minutos.toString().padStart(2, '0');
-                 segundosEl.innerText = segundos.toString().padStart(2, '0');
+                 const ahora = new Date().getTime(); const diferencia = fechaBoda - ahora;
+                 if (diferencia < 0) { clearInterval(intervalo); countdownEl.innerHTML = "<p style='font-size: 1.2rem; color: var(--acento);'>¡Llegó el gran día!</p>"; return; }
+                 const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24)); const horas = Math.floor((diferencia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)); const minutos = Math.floor((diferencia % (1000 * 60 * 60)) / (1000 * 60)); const segundos = Math.floor((diferencia % (1000 * 60)) / 1000);
+                 diasEl.innerText = dias.toString().padStart(2, '0'); horasEl.innerText = horas.toString().padStart(2, '0'); minutosEl.innerText = minutos.toString().padStart(2, '0'); segundosEl.innerText = segundos.toString().padStart(2, '0');
              }, 1000);
         })();
 
-        // --- SCRIPT PARA INICIALIZAR SWIPER ---
-         if (document.querySelector('.swiper')) {
-             const swiper = new Swiper('.swiper', {
-                 effect: 'coverflow', 
-                 grabCursor: true,
-                 centeredSlides: true,
-                 slidesPerView: 'auto', 
-                 loop: true, 
-                 autoplay: { delay: 1500, disableOnInteraction: false },
-                 coverflowEffect: { rotate: 50, stretch: 0, depth: 100, modifier: 1, slideShadows: true },
-                 pagination: { el: '.swiper-pagination', clickable: true },
-             });
-         }
+        // --- SCRIPT PARA INICIALIZAR SWIPER (Full Width Slider) ---
+         // No necesitamos Swiper para la galería Masonry
         
         // --- SCRIPT PARA REVELAR INVITACIÓN ---
-        (function() {
+        (function() { /* ... (mismo script revelar) ... */
              const overlay = document.getElementById('intro-overlay');
-             const enterButton = document.getElementById('enter-button');
              const body = document.body;
-             const stickyFooter = document.getElementById('sticky-footer');
-
-             const revealInvitation = () => {
-                 if (!body.classList.contains('invitation-revealed')) {
-                      body.classList.add('invitation-revealed');
-                      // Opcional: Ocultar el botón después de la animación si ya no se necesita
-                      // setTimeout(() => {
-                      //      overlay.style.display = 'none'; 
-                      // }, 1000); // 1000ms = 1 segundo (igual a la transición)
-                 }
-             };
-
-             if (overlay) {
-                  // Permitir clic en cualquier parte del overlay o solo en el botón
-                  overlay.addEventListener('click', revealInvitation); 
-                  // Si solo quieres que funcione el botón:
-                  // if (enterButton) {
-                  //      enterButton.addEventListener('click', revealInvitation);
-                  // }
-             }
+             const revealInvitation = () => { if (!body.classList.contains('invitation-revealed')) { body.classList.add('invitation-revealed'); } };
+             if (overlay) { overlay.addEventListener('click', revealInvitation); }
         })();
         
         // --- SCRIPT FORMULARIO RSVP (No funcional) ---
-         (function() {
+         (function() { /* ... (mismo script rsvp) ... */
               const rsvpForm = document.getElementById('rsvp-form');
-              if (rsvpForm) {
-                   rsvpForm.addEventListener('submit', function(event) {
-                        event.preventDefault(); 
-                        alert('Confirmación enviada (Esto es un ejemplo).'); 
+              if (rsvpForm) { rsvpForm.addEventListener('submit', function(event) { event.preventDefault(); alert('Confirmación enviada (Esto es un ejemplo).'); }); }
+         })();
+
+         // --- SCRIPT PARA FADE-IN SECTIONS ---
+         (function() {
+              const sections = document.querySelectorAll('.fade-in-section');
+              const options = { threshold: 0.15 }; // Trigger cuando 15% es visible
+
+              const observer = new IntersectionObserver(function(entries, observer) {
+                   entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                             entry.target.classList.add('is-visible');
+                             observer.unobserve(entry.target); // Deja de observar una vez animado
+                        }
                    });
-              }
+              }, options);
+
+              sections.forEach(section => {
+                   observer.observe(section);
+              });
          })();
 
     </script>
