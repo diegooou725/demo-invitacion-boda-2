@@ -7,7 +7,7 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Merriweather+Sans:wght@300&family=Nunito+Sans:wght@300;400;700&family=Petit+Formal+Script&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700&family=Merriweather+Sans:wght@300&family=Nunito+Sans:wght@300;400;700&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
 
@@ -18,7 +18,7 @@
             --esmeralda: #006A4E; 
             --oro-palido: #E0CDB6;
             --negro-carbon: #333333; 
-            --gris-texto: #666666; /* Un poco más oscuro */
+            --gris-texto: #666666; 
             --fondo-alterno: #f9f9f9; 
             --sombra-suave: rgba(0, 0, 0, 0.08);
             --intro-overlay-color: rgba(0, 0, 0, 0.4); 
@@ -30,7 +30,6 @@
         html { scroll-behavior: smooth; }
 
         body {
-            /* Fuente Cuerpo: Merriweather Sans Light */
             font-family: 'Merriweather Sans', sans-serif;
             font-weight: 300; 
             background-color: var(--blanco); 
@@ -46,21 +45,20 @@
         body.invitation-revealed { overflow-y: auto; }
 
         h1, h2, h3, h4 { 
-            /* Fuente Títulos: Nunito Sans Light */
             font-family: 'Nunito Sans', sans-serif;
             font-weight: 300; /* Light */
             color: var(--negro-carbon); 
             text-align: center; 
-            letter-spacing: 1.5px; /* Ligeramente más espaciado */
+            letter-spacing: 1.5px; 
             margin-bottom: 25px; 
-            text-transform: uppercase; /* Mayúsculas */
+            text-transform: uppercase; 
         }
         
         /* Ajuste de tamaño */
         h1 { font-size: 2.8rem; } /* Nombres */
         h2 { font-size: 1.6rem; margin-bottom: 15px; color: var(--esmeralda);} /* Títulos Sección */
-        h3 { font-size: 1.4rem; font-weight: 400; text-transform: none; letter-spacing: 0.5px;} /* Itinerario */
-        h4 { font-size: 1rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;} /* Vestimenta */
+        h3 { font-size: 1.4rem; font-weight: 400; text-transform: none; letter-spacing: 0.5px;} 
+        h4 { font-size: 1rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;} 
 
         /* Contenedor */
         .container { max-width: 800px; margin: 0 auto; padding: 0 20px; }
@@ -87,7 +85,7 @@
         #intro-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; z-index: 1001; transition: transform 1s cubic-bezier(0.77, 0, 0.175, 1); cursor: pointer; background-color: var(--preloader-bg); }
         .intro-background { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: linear-gradient(var(--intro-overlay-color), var(--intro-overlay-color)), url('fotonovios1.jpg'); background-size: cover; background-position: center; z-index: 2;}
         .intro-content { position: relative; z-index: 3; height: 100%; display: flex; justify-content: center; align-items: center; }
-        #enter-button { background-color: transparent; border: 1px solid var(--blanco); color: var(--blanco); padding: 12px 30px; border-radius: 4px; font-family: 'Nunito Sans', sans-serif; font-weight: 400; /* Regular */ font-size: 1rem; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; transition: background-color 0.3s ease, color 0.3s ease; }
+        #enter-button { background-color: transparent; border: 1px solid var(--blanco); color: var(--blanco); padding: 12px 30px; border-radius: 4px; font-family: 'Nunito Sans', sans-serif; font-weight: 400; font-size: 1rem; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; transition: background-color 0.3s ease, color 0.3s ease; }
         #enter-button:hover { background-color: var(--blanco); color: var(--negro-carbon); }
         body.invitation-revealed #intro-overlay { transform: translateY(-100%); }
 
@@ -96,15 +94,16 @@
         .seccion { padding: 80px 0; } 
         .seccion-alterna { background-color: var(--fondo-alterno); }
         
-        /* Nombres (Petit Formal Script) */
+        /* Nombres (Cormorant Garamond) */
         .nombres-header { padding: 60px 0 40px 0; }
         .nombres-header h1 {
-             font-family: 'Petit Formal Script', cursive; /* Nueva Fuente */
-             font-weight: 400; /* Regular */
+             font-family: 'Cormorant Garamond', serif; /* Nueva Fuente */
+             font-weight: 700; /* Bold */
              font-size: 3.2rem; /* Ajustado */ 
              color: var(--negro-carbon);
-             margin-bottom: 0; line-height: 1.3; letter-spacing: 0px; /* Sin espaciado */
+             margin-bottom: 0; line-height: 1.3; letter-spacing: 1px;
              text-transform: none; /* Sin mayúsculas */
+             font-style: normal; /* No cursiva */
         }
         .nombres-header .ampersand { color: var(--esmeralda); font-style: normal; font-size: 0.9em; }
 
@@ -112,31 +111,46 @@
         .intro-texto h2 { margin-bottom: 10px; color: var(--esmeralda); font-size: 2rem;}
         .intro-texto p { max-width: 600px; margin: 0 auto; font-size: 1rem; color: var(--gris-texto);}
 
-        /* Countdown */
+        /* Countdown (Ajustado para una línea) */
         .fecha-contador { text-align: center; }
         .fecha-texto { 
-             font-family: 'Nunito Sans', sans-serif; /* Nunito */
-             font-weight: 400; /* Regular */
+             font-family: 'Nunito Sans', sans-serif; 
+             font-weight: 400; 
              font-size: 1.5rem; 
              color: var(--esmeralda); 
              margin-bottom: 30px; 
              letter-spacing: 1px;
-             text-transform: uppercase; /* Mayúsculas */
+             text-transform: uppercase; 
         }
-        #countdown { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; } /* Aumentado gap */
-        .tiempo-caja { background-color: transparent; padding: 0; min-width: 70px; }
-        .tiempo-caja span:first-child { display: block; font-size: 3rem; /* Más pequeño */ font-weight: 300; color: var(--negro-carbon); font-family: 'Lato', sans-serif; line-height: 1; margin-bottom: 5px;}
-        .tiempo-caja span:last-child { display: block; font-size: 0.7rem; text-transform: uppercase; color: var(--gris-texto); font-family: 'Nunito Sans', sans-serif; letter-spacing: 1px;}
+        .contador-marco {
+            max-width: 400px; /* Reducido aún más */
+            margin: 40px auto 0 auto; 
+            padding: 25px 10px 20px 10px; /* Menos padding horizontal */
+            border: double 4px var(--oro-palido); /* Cambiado a oro */
+            border-radius: 10px; 
+            position: relative; 
+        }
+        .contador-marco::before {
+             content: "Faltan"; position: absolute; top: -12px; left: 50%;
+             transform: translateX(-50%); background-color: var(--fondo-alterno); 
+             padding: 0 15px; font-family: 'Nunito Sans', sans-serif; /* Nunito */
+             font-weight: 300; font-size: 0.9rem; /* Más pequeño */ color: var(--gris-texto);
+        }
+        #countdown { display: flex; justify-content: space-around; gap: 5px; /* Menos gap */ flex-wrap: nowrap; margin-top: 5px; } 
+        .tiempo-caja { background-color: transparent; padding: 0; min-width: auto; box-shadow: none; flex: 1; }
+        .tiempo-caja span:first-child { display: block; font-size: 2.2rem; /* Reducido */ font-weight: 300; color: var(--negro-carbon); font-family: 'Lato', sans-serif; line-height: 1; margin-bottom: 3px; /* Menos espacio */}
+        .tiempo-caja span:last-child { display: block; font-size: 0.6rem; /* Reducido */ text-transform: uppercase; color: var(--gris-texto); font-family: 'Nunito Sans', sans-serif; letter-spacing: 1px; margin-top: 0;}
 
-        /* Segunda Foto */
-        .foto-secundaria { display: block; width: calc(100% - 40px); max-width: 700px; height: auto; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 8px; /* Reducido */ margin: 0 auto; box-shadow: 0 15px 30px var(--sombra-suave); }
+        /* Segunda Foto (Estilo Tarjeta) */
+        .foto-secundaria { display: block; width: calc(100% - 40px); max-width: 700px; height: auto; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 10px; margin: 0 auto; box-shadow: 0 15px 35px var(--sombra-suave); }
 
         /* Itinerario - Timeline Vertical */
+        /* ... (Estilos del timeline sin cambios estructurales) ... */
         .itinerario h2 { margin-bottom: 10px; }
         .timeline { position: relative; max-width: 600px; margin: 50px auto 0 auto; }
-        .timeline::after { content: ''; position: absolute; width: 1px; /* Más fina */ background-color: var(--oro-palido); top: 10px; bottom: 10px; left: 50%; margin-left: -0.5px; }
+        .timeline::after { content: ''; position: absolute; width: 1px; background-color: var(--oro-palido); top: 10px; bottom: 10px; left: 50%; margin-left: -0.5px; }
         .timeline-container { padding: 10px 40px; position: relative; background-color: inherit; width: 50%; }
-        .timeline-container::after { content: ''; position: absolute; width: 12px; height: 12px; right: -6px; background-color: var(--fondo-alterno); border: 2px solid var(--esmeralda); top: 20px; /* Ajustado */ border-radius: 50%; z-index: 1; }
+        .timeline-container::after { content: ''; position: absolute; width: 12px; height: 12px; right: -6px; background-color: var(--fondo-alterno); border: 2px solid var(--esmeralda); top: 20px; border-radius: 50%; z-index: 1; }
         .timeline-left { left: 0; }
         .timeline-left::before { content: " "; height: 0; position: absolute; top: 22px; width: 0; z-index: 1; right: 30px; border: medium solid var(--blanco); border-width: 8px 0 8px 8px; border-color: transparent transparent transparent var(--blanco); }
         .timeline-left::after { left: -6px; background-color: var(--blanco);} 
@@ -169,26 +183,50 @@
         .regalos h2 { margin-bottom: 10px; }
         .regalos p { margin-bottom: 25px; color: var(--texto-secundario); }
 
-        /* --- GALERÍA CONTINUOUS SLIDER --- */
-        .gallery-continuous { padding: 80px 0; background-color: var(--fondo-alterno); overflow: hidden; }
-        .gallery-continuous h2 { margin-bottom: 10px; }
-        .swiper-row { width: 100%; margin-top: 25px; } /* Aumentado margen */
-        .swiper-container-multirow { /* Contenedor Swiper */
-             height: 200px; /* Altura fija fila */
-             overflow: hidden; /* Asegura que no se desborde */
+        /* --- NUEVA GALERÍA: CONTINUOUS SLIDER CSS --- */
+        .gallery-continuous { 
+             padding: 80px 0; 
+             background-color: var(--fondo-alterno); 
+             overflow: hidden; /* Muy importante */
         }
-        .swiper-slide-continuous { width: auto !important; /* Importante para que Swiper calcule */ height: 100%; }
-        .swiper-slide-continuous img { display: block; height: 100%; width: auto; object-fit: cover; border-radius: 6px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin: 0 8px; /* Espacio entre fotos */}
-         .swiper-row .swiper-wrapper { /* Configuracion clave para continuidad */
-              transition-timing-function: linear !important; 
-         }
-         /* Quitamos flechas y paginacion */
-         .swiper-row .swiper-button-next, .swiper-row .swiper-button-prev, .swiper-row .swiper-pagination { display: none; }
+        .gallery-continuous h2 { margin-bottom: 10px; }
+        .slider-row {
+             display: flex; /* Habilita flexbox */
+             width: max-content; /* Ancho basado en contenido */
+             will-change: transform; /* Optimización para animación */
+             margin-top: 15px; /* Espacio entre filas */
+        }
+        .slider-row img {
+             height: 200px; /* Altura fija */
+             width: auto; /* Ancho automático */
+             margin: 0 8px; /* Espacio entre imágenes */
+             border-radius: 6px;
+             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        
+        /* Definición de animaciones */
+        @keyframes scrollLeft {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); } /* Mueve la mitad del ancho total */
+        }
+        @keyframes scrollRight {
+            0% { transform: translateX(-50%); } /* Empieza desde la mitad */
+            100% { transform: translateX(0); } /* Termina al inicio */
+        }
+        
+        /* Aplicación a las filas */
+        #slider-row1 .slider-row, #slider-row3 .slider-row {
+             animation: scrollLeft 60s linear infinite; /* Duración ajustable */
+        }
+        #slider-row2 .slider-row {
+             animation: scrollRight 60s linear infinite; /* Duración ajustable */
+        }
+        .slider-container { overflow: hidden; } /* Contenedor que oculta */
 
 
         /* Formulario RSVP */
         .rsvp-section h2 { margin-bottom: 5px; }
-        .subtitulo-rsvp { font-size: 0.85rem; font-style: italic; color: var(--texto-secundario); margin-bottom: 25px;}
+        .subtitulo-rsvp { font-size: 0.85rem; /*font-style: italic;*/ color: var(--texto-secundario); margin-bottom: 25px;} /* Quitada cursiva */
         .rsvp-form { max-width: 500px; margin: 0 auto; text-align: left;}
         .form-group { margin-bottom: 15px; }
         .rsvp-form label { display: block; font-weight: 400; margin-bottom: 5px; color: var(--texto-principal); font-size: 0.9rem; font-family: 'Lato', sans-serif;}
@@ -218,7 +256,7 @@
          body.invitation-revealed #sticky-footer { 
              opacity: 1; transform: translateY(0); pointer-events: auto;
          }
-         /* NUEVO: Color texto footer claro */
+         /* Footer Texto ahora Blanco Suave */
          .footer-text { font-size: 0.75rem; color: var(--texto-claro); text-align: left; flex-grow: 1; font-family: 'Montserrat', sans-serif;}
          .whatsapp-button { display: inline-flex; align-items: center; background-color: var(--esmeralda); color: var(--blanco); padding: 5px 10px; border-radius: 4px; font-size: 0.75rem; font-weight: 400; text-decoration: none; transition: background-color 0.3s ease; white-space: nowrap; font-family: 'Montserrat', sans-serif;}
          .whatsapp-button svg { width: 12px; height: 12px; fill: var(--blanco); margin-right: 5px;}
@@ -228,13 +266,15 @@
              #sticky-footer { justify-content: center; text-align: center; }
              .footer-text { width: 100%; margin-bottom: 5px; text-align: center; }
              h1 { font-size: 2.2rem; } h2 { font-size: 1.6rem; } h3 { font-size: 1.2rem; }
-             .nombres-header h1 { font-size: 2.8rem; } /* Ajustado */
+             .nombres-header h1 { font-size: 2.8rem; } 
              .vestimenta-grid { grid-template-columns: 1fr; gap: 15px;}
-             .swiper-slide-continuous { height: 120px; } /* Galería más estrecha */
-             .tiempo-caja span:first-child { font-size: 1.8rem; } /* Contador más pequeño */
-             .tiempo-caja span:last-child { font-size: 0.6rem; }
-             .contador-marco { max-width: 90%; padding: 20px 10px 15px 10px; }
-             #countdown { gap: 5px; }
+             /* Ajuste Contador Móvil */
+             .contador-marco { max-width: 95%; padding: 20px 5px 15px 5px;}
+             #countdown { gap: 0; justify-content: space-between;} /* Sin gap, distribuir */
+             .tiempo-caja span:first-child { font-size: 1.8rem; } 
+             .tiempo-caja span:last-child { font-size: 0.55rem; letter-spacing: 0.5px;}
+             /* Ajuste Galería Móvil */
+             .slider-row img { height: 120px; margin: 0 5px;}
          }
 
     </style>
@@ -259,11 +299,11 @@
 
         <section class="seccion intro-texto fade-in-section">
             <div class="container">
-                <h2>Celebremos Nuestro Amor</h2> <hr class="separador-corto">
+                <h2>Un Nuevo Comienzo</h2> <hr class="separador-corto">
                 <p>
-                     Con gran alegría, después de cuatro años compartiendo un mismo camino, 
-                     hemos decidido unir nuestras vidas. Nos encantaría que nos acompañes 
-                     en este día tan especial... </p>
+                     Con inmensa alegría, tras cuatro años compartiendo sueños y risas, 
+                     hemos decidido dar el siguiente paso. Queremos celebrar nuestro amor 
+                     y nos encantaría que fueras testigo de nuestra unión... </p>
             </div>
         </section>
 
@@ -325,7 +365,7 @@
              <div class="container">
                   <h2>Mesa de Regalos</h2>
                   <hr class="separador-corto" style="margin-top:0;">
-                  <p>Su presencia es el mejor regalo, pero si desean tener un detalle...</p> <a href="mesa-de-regalos-demo2.html" target="_blank" class="boton boton-outline">Ver Opciones de Regalos</a>
+                  <p>Su compañía es nuestro mayor tesoro. Si desean hacernos un obsequio...</p> <a href="mesa-de-regalos-demo2.html" target="_blank" class="boton boton-outline">Ver Opciones de Regalos</a>
              </div>
         </section>
 
@@ -334,72 +374,36 @@
                  <h2>Nuestra Galería</h2>
                  <hr class="separador-corto" style="margin-top:0;">
             </div>
-                 <div class="swiper swiper-row swiper-container-multirow" id="swiper-row1">
-                     <div class="swiper-wrapper">
-                         <div class="swiper-slide swiper-slide-continuous"><img src="car1.jpg" alt=""></div>
-                         <div class="swiper-slide swiper-slide-continuous"><img src="car2.jpg" alt=""></div>
-                         <div class="swiper-slide swiper-slide-continuous"><img src="car3.jpg" alt=""></div>
-                         <div class="swiper-slide swiper-slide-continuous"><img src="car4.jpg" alt=""></div>
-                         <div class="swiper-slide swiper-slide-continuous"><img src="car5.jpg" alt=""></div>
-                         <div class="swiper-slide swiper-slide-continuous"><img src="car6.jpg" alt=""></div>
-                         <div class="swiper-slide swiper-slide-continuous"><img src="car7.jpg" alt=""></div>
-                         <div class="swiper-slide swiper-slide-continuous"><img src="car8.jpg" alt=""></div>
-                         <div class="swiper-slide swiper-slide-continuous"><img src="car1.jpg" alt=""></div>
-                         <div class="swiper-slide swiper-slide-continuous"><img src="car2.jpg" alt=""></div>
-                         <div class="swiper-slide swiper-slide-continuous"><img src="car3.jpg" alt=""></div>
-                         <div class="swiper-slide swiper-slide-continuous"><img src="car4.jpg" alt=""></div>
-                         <div class="swiper-slide swiper-slide-continuous"><img src="car5.jpg" alt=""></div>
-                         <div class="swiper-slide swiper-slide-continuous"><img src="car6.jpg" alt=""></div>
-                         <div class="swiper-slide swiper-slide-continuous"><img src="car7.jpg" alt=""></div>
-                         <div class="swiper-slide swiper-slide-continuous"><img src="car8.jpg" alt=""></div>
-                     </div>
+                 <div class="slider-container" id="slider-row1">
+                      <div class="slider-row">
+                           <img src="car1.jpg" alt=""> <img src="car2.jpg" alt=""> <img src="car3.jpg" alt=""> <img src="car4.jpg" alt="">
+                           <img src="car5.jpg" alt=""> <img src="car6.jpg" alt=""> <img src="car7.jpg" alt=""> <img src="car8.jpg" alt="">
+                           <img src="car1.jpg" alt=""> <img src="car2.jpg" alt=""> <img src="car3.jpg" alt=""> <img src="car4.jpg" alt="">
+                           <img src="car5.jpg" alt=""> <img src="car6.jpg" alt=""> <img src="car7.jpg" alt=""> <img src="car8.jpg" alt="">
+                      </div>
                  </div>
-                 <div class="swiper swiper-row swiper-container-multirow" id="swiper-row2">
-                     <div class="swiper-wrapper">
-                          <div class="swiper-slide swiper-slide-continuous"><img src="car5.jpg" alt=""></div>
-                         <div class="swiper-slide swiper-slide-continuous"><img src="car6.jpg" alt=""></div>
-                         <div class="swiper-slide swiper-slide-continuous"><img src="car7.jpg" alt=""></div>
-                         <div class="swiper-slide swiper-slide-continuous"><img src="car8.jpg" alt=""></div>
-                         <div class="swiper-slide swiper-slide-continuous"><img src="car1.jpg" alt=""></div>
-                         <div class="swiper-slide swiper-slide-continuous"><img src="car2.jpg" alt=""></div>
-                         <div class="swiper-slide swiper-slide-continuous"><img src="car3.jpg" alt=""></div>
-                         <div class="swiper-slide swiper-slide-continuous"><img src="car4.jpg" alt=""></div>
-                         <div class="swiper-slide swiper-slide-continuous"><img src="car5.jpg" alt=""></div>
-                         <div class="swiper-slide swiper-slide-continuous"><img src="car6.jpg" alt=""></div>
-                         <div class="swiper-slide swiper-slide-continuous"><img src="car7.jpg" alt=""></div>
-                         <div class="swiper-slide swiper-slide-continuous"><img src="car8.jpg" alt=""></div>
-                         <div class="swiper-slide swiper-slide-continuous"><img src="car1.jpg" alt=""></div>
-                         <div class="swiper-slide swiper-slide-continuous"><img src="car2.jpg" alt=""></div>
-                         <div class="swiper-slide swiper-slide-continuous"><img src="car3.jpg" alt=""></div>
-                         <div class="swiper-slide swiper-slide-continuous"><img src="car4.jpg" alt=""></div>
-                     </div>
+                 <div class="slider-container" id="slider-row2">
+                      <div class="slider-row">
+                           <img src="car5.jpg" alt=""> <img src="car6.jpg" alt=""> <img src="car7.jpg" alt=""> <img src="car8.jpg" alt="">
+                           <img src="car1.jpg" alt=""> <img src="car2.jpg" alt=""> <img src="car3.jpg" alt=""> <img src="car4.jpg" alt="">
+                           <img src="car5.jpg" alt=""> <img src="car6.jpg" alt=""> <img src="car7.jpg" alt=""> <img src="car8.jpg" alt="">
+                           <img src="car1.jpg" alt=""> <img src="car2.jpg" alt=""> <img src="car3.jpg" alt=""> <img src="car4.jpg" alt="">
+                      </div>
                  </div>
-                 <div class="swiper swiper-row swiper-container-multirow" id="swiper-row3">
-                     <div class="swiper-wrapper">
-                          <div class="swiper-slide swiper-slide-continuous"><img src="car8.jpg" alt=""></div>
-                         <div class="swiper-slide swiper-slide-continuous"><img src="car7.jpg" alt=""></div>
-                         <div class="swiper-slide swiper-slide-continuous"><img src="car6.jpg" alt=""></div>
-                         <div class="swiper-slide swiper-slide-continuous"><img src="car5.jpg" alt=""></div>
-                         <div class="swiper-slide swiper-slide-continuous"><img src="car4.jpg" alt=""></div>
-                         <div class="swiper-slide swiper-slide-continuous"><img src="car3.jpg" alt=""></div>
-                         <div class="swiper-slide swiper-slide-continuous"><img src="car2.jpg" alt=""></div>
-                         <div class="swiper-slide swiper-slide-continuous"><img src="car1.jpg" alt=""></div>
-                         <div class="swiper-slide swiper-slide-continuous"><img src="car8.jpg" alt=""></div>
-                         <div class="swiper-slide swiper-slide-continuous"><img src="car7.jpg" alt=""></div>
-                         <div class="swiper-slide swiper-slide-continuous"><img src="car6.jpg" alt=""></div>
-                         <div class="swiper-slide swiper-slide-continuous"><img src="car5.jpg" alt=""></div>
-                         <div class="swiper-slide swiper-slide-continuous"><img src="car4.jpg" alt=""></div>
-                         <div class="swiper-slide swiper-slide-continuous"><img src="car3.jpg" alt=""></div>
-                         <div class="swiper-slide swiper-slide-continuous"><img src="car2.jpg" alt=""></div>
-                         <div class="swiper-slide swiper-slide-continuous"><img src="car1.jpg" alt=""></div>
-                     </div>
+                 <div class="slider-container" id="slider-row3">
+                      <div class="slider-row">
+                            <img src="car8.jpg" alt=""> <img src="car7.jpg" alt=""> <img src="car6.jpg" alt=""> <img src="car5.jpg" alt="">
+                           <img src="car4.jpg" alt=""> <img src="car3.jpg" alt=""> <img src="car2.jpg" alt=""> <img src="car1.jpg" alt="">
+                           <img src="car8.jpg" alt=""> <img src="car7.jpg" alt=""> <img src="car6.jpg" alt=""> <img src="car5.jpg" alt="">
+                           <img src="car4.jpg" alt=""> <img src="car3.jpg" alt=""> <img src="car2.jpg" alt=""> <img src="car1.jpg" alt="">
+                      </div>
                  </div>
         </section>
 
         <section class="seccion rsvp-section fade-in-section">
              <div class="container">
-                 <h2>Confirma tu Asistencia</h2> <p class="subtitulo-rsvp">Evento exclusivo para adultos.</p> 
-                 <hr class="separador-corto" style="margin-top:0; margin-bottom: 30px;">
+                 <h2>Confirma tu Asistencia</h2>
+                 <p class="subtitulo-rsvp">¡Niños bienvenidos!</p> <hr class="separador-corto" style="margin-top:0; margin-bottom: 30px;">
                  <form id="rsvp-form" class="rsvp-form" onsubmit="event.preventDefault(); alert('Este es un formulario de ejemplo.');"> 
                      <div class="form-group">
                          <label for="name">Nombre completo:</label>
@@ -419,7 +423,8 @@
                          </select>
                      </div>
                      <div class="form-group">
-                         <label for="message">Mensaje para los novios (opcional):</label> <textarea id="message" name="Mensaje" rows="3" placeholder="Escribe aquí tu mensaje..."></textarea>
+                         <label for="message">Mensaje para los novios (opcional):</label>
+                         <textarea id="message" name="Mensaje" rows="3" placeholder="Escribe aquí tu mensaje..."></textarea>
                      </div>
                      <button type="submit" class="boton">Enviar Confirmación</button>
                  </form>
@@ -427,7 +432,8 @@
          </section>
 
         <footer class="fade-in-section">
-            <p>Con cariño, Juan & María</p> </footer>
+            <p>Con cariño, Juan & María</p>
+        </footer>
 
     </div> 
     <div id="sticky-footer">
@@ -440,7 +446,6 @@
          </a>
      </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
         // --- SCRIPT PARA EL CONTADOR ---
         (function() { /* ... (mismo script contador) ... */ 
@@ -450,43 +455,12 @@
              if (!countdownEl || !diasEl || !horasEl || !minutosEl || !segundosEl) return; 
              const intervalo = setInterval(function() {
                  const ahora = new Date().getTime(); const diferencia = fechaBoda - ahora;
-                 if (diferencia < 0) { clearInterval(intervalo); countdownEl.innerHTML = "<p style='font-size: 1.2rem; color: var(--acento);'>¡Llegó el gran día!</p>"; return; }
+                 if (diferencia < 0) { clearInterval(intervalo); countdownEl.innerHTML = "<p style='font-size: 1.2rem; color: var(--esmeralda);'>¡Llegó el gran día!</p>"; return; }
                  const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24)); const horas = Math.floor((diferencia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)); const minutos = Math.floor((diferencia % (1000 * 60 * 60)) / (1000 * 60)); const segundos = Math.floor((diferencia % (1000 * 60)) / 1000);
                  diasEl.innerText = dias.toString().padStart(2, '0'); horasEl.innerText = horas.toString().padStart(2, '0'); minutosEl.innerText = minutos.toString().padStart(2, '0'); segundosEl.innerText = segundos.toString().padStart(2, '0');
              }, 1000);
         })();
 
-        // --- SCRIPT PARA INICIALIZAR SWIPER (Galería Continua) ---
-        function initContinuousSlider(selector, reverse = false) {
-             if (document.querySelector(selector)) {
-                  // Ajusta slidesPerView basado en el ancho de la ventana
-                  let slides = 'auto'; // Por defecto
-                  if (window.innerWidth < 600) slides = 3; // Muestra ~3 en móviles
-                  else if (window.innerWidth < 900) slides = 4; // Muestra ~4 en tablets
-                  else slides = 5; // Muestra ~5 en escritorio
-
-                  new Swiper(selector, {
-                       loop: true,
-                       slidesPerView: slides, // Variable
-                       spaceBetween: 15, 
-                       speed: 6000, // Velocidad constante
-                       autoplay: {
-                            delay: 1, // Mínimo delay
-                            disableOnInteraction: false,
-                            reverseDirection: reverse, 
-                       },
-                       freeMode: false, // Desactivado para asegurar velocidad constante
-                       // freeModeMomentum: false, // No necesario sin freeMode
-                       allowTouchMove: false, // Desactiva interacción manual
-                       // No grabCursor
-                  });
-             }
-         }
-         // Llama a la inicialización
-         initContinuousSlider('#swiper-row1', false); 
-         initContinuousSlider('#swiper-row2', true);  
-         initContinuousSlider('#swiper-row3', false); 
-        
         // --- SCRIPT PARA REVELAR INVITACIÓN ---
         (function() { /* ... (mismo script revelar) ... */
              const overlay = document.getElementById('intro-overlay');
