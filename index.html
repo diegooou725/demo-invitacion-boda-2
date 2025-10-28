@@ -3,14 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mesa de Regalos - Boda de Juan & María</title>
+    <title>Boda de Juan & María</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Merriweather+Sans:wght@300&family=Nunito+Sans:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700&family=Merriweather+Sans:wght@300&family=Nunito+Sans:wght@300;400;700&display=swap" rel="stylesheet">
     
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
-
     <style>
         /* --- Estilos Generales --- */
         :root {
@@ -21,12 +19,13 @@
             --negro-carbon: #333333; 
             --gris-texto: #666666; 
             --sombra-suave: rgba(0, 0, 0, 0.08);
-            --gris-borde: #eee; 
-            --esmeralda-velo: rgba(0, 106, 78, 0.5); 
-            --texto-claro: #ecf0f1; /* Definición de texto claro */
+            --intro-overlay-color: rgba(0, 0, 0, 0.4); 
+            --preloader-bg: var(--negro-carbon); 
+            --texto-claro: #ecf0f1; 
         }
 
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
 
         body {
             font-family: 'Merriweather Sans', sans-serif;
@@ -35,13 +34,15 @@
             color: var(--negro-carbon); 
             line-height: 1.8; 
             text-align: center; 
-            padding: 20px; 
-            padding-bottom: 90px; 
-             -webkit-font-smoothing: antialiased; 
-             -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden; 
+            overflow-y: hidden; 
+            padding-bottom: 80px; 
+            -webkit-font-smoothing: antialiased; 
+            -moz-osx-font-smoothing: grayscale;
         }
+        body.invitation-revealed { overflow-y: auto; }
 
-        h1, h2, h3 { 
+        h1, h2, h3, h4 { 
             font-family: 'Nunito Sans', sans-serif;
             font-weight: 300; 
             color: var(--negro-carbon); 
@@ -50,156 +51,195 @@
             margin-bottom: 25px; 
             text-transform: uppercase; 
         }
-        h1 { font-size: 2.2rem; margin-top: 50px; } 
-        h2 { font-size: 1.6rem; text-align: left; border-bottom: 1px solid var(--oro-palido); padding-bottom: 10px; margin-top: 40px; color: var(--esmeralda);} 
-        h3 { font-size: 1.1rem; font-weight: 700; color: var(--negro-carbon); margin: 10px 0; text-transform: uppercase;} 
+        h1 { font-size: 2.8rem; } 
+        h2 { font-size: 1.6rem; margin-bottom: 15px; color: var(--esmeralda);} 
+        h3 { font-size: 1.4rem; font-weight: 400; text-transform: none; letter-spacing: 0.5px;} 
+        h4 { font-size: 1rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;} 
 
-        /* Contenedor principal (Tarjeta) */
-        .container {
-            max-width: 900px; 
-            margin: 40px auto;
-            padding: 40px 0px 50px 0px; 
-            background-color: var(--blanco-nieve); 
-            border-radius: 8px; 
-            box-shadow: 0 10px 40px var(--sombra-suave); 
-            position: relative; 
-            text-align: center; 
-            overflow: hidden; /* Oculta overflow */
-        }
+        .container { max-width: 750px; margin: 0 auto; padding: 0 20px; }
         
-        .container-padding { padding: 0 30px; }
+        /* Separador Estilizado */
+        .separador { 
+             border: 0; height: 1px; width: 70%; max-width: 300px; 
+             background-color: var(--oro-palido); 
+             margin: 40px auto; 
+        }
+        .separador-corto { width: 40px; margin: 25px auto;}
         
         p { color: var(--gris-texto); font-weight: 300; margin-bottom: 20px; font-size: 0.95rem; max-width: 600px; margin-left: auto; margin-right: auto;}
-        .introduccion { font-size: 1rem; max-width: 550px; margin: 0 auto 40px auto; text-align: center; }
+        strong { font-weight: 400; color: var(--negro-carbon); }
         
-        /* Link Volver */
-        .link-volver {
-            display: inline-block;
-            position: absolute;
-            top: 30px; 
-            left: 30px;
-            font-size: 0.9rem; 
-            color: var(--esmeralda); 
-            text-decoration: none;
-            font-weight: 400; 
-            transition: color 0.3s ease;
-            font-family: 'Nunito Sans', sans-serif; 
-            z-index: 10; 
+        .boton { display: inline-block; background-color: var(--esmeralda); color: var(--blanco); border: 1px solid var(--esmeralda); padding: 12px 28px; border-radius: 4px; font-family: 'Nunito Sans', sans-serif; font-weight: 700; text-decoration: none; transition: all 0.3s ease; cursor: pointer; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1.5px; }
+        .boton:hover { background-color: var(--blanco); color: var(--esmeralda); }
+        .boton-outline { background-color: transparent; color: var(--esmeralda); border: 1px solid var(--esmeralda); }
+        .boton-outline:hover { background-color: var(--esmeralda); color: var(--blanco); }
+
+         /* --- EFECTO FADE-IN --- */
+         .fade-in-section { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
+         .fade-in-section.is-visible { opacity: 1; transform: translateY(0); }
+
+        /* --- INTRO OVERLAY --- */
+        #intro-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; z-index: 1001; transition: transform 1s cubic-bezier(0.77, 0, 0.175, 1); cursor: pointer; background-color: var(--preloader-bg); }
+        .intro-background { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: linear-gradient(var(--intro-overlay-color), var(--intro-overlay-color)), url('fotonovios1.jpg'); background-size: cover; background-position: center; z-index: 2;}
+        .intro-content { 
+             position: relative; z-index: 3; height: 100%; 
+             display: flex; justify-content: center; 
+             align-items: flex-end; 
+             padding-bottom: 15vh; 
         }
-        .link-volver:hover { color: var(--negro-carbon); }
-        .link-volver::before { content: '← '; transition: transform 0.3s ease; display: inline-block; }
-        .link-volver:hover::before { transform: translateX(-3px); }
+        #enter-button { 
+             background-color: rgba(255, 255, 255, 0.3); /* Fondo con ligera transparencia */
+             border: 2px solid white; /* Borde blanco */
+             color: white; /* Texto blanco puro */
+             padding: 12px 30px; 
+             border-radius: 8px; 
+             font-family: 'Nunito Sans', sans-serif; 
+             font-weight: 400; 
+             font-size: 1rem; 
+             text-transform: uppercase; 
+             letter-spacing: 2px; 
+             cursor: pointer; 
+             transition: background-color 0.3s ease, color 0.3s ease;
+             backdrop-filter: blur(3px); 
+             animation: pulse 2s infinite; 
+         }
+        #enter-button:hover { background-color: white; color: var(--negro-carbon); animation-play-state: paused; }
+        body.invitation-revealed #intro-overlay { transform: translateY(-100%); }
 
-
-        /* --- ESTILOS CARRUSEL DE REGALOS --- */
-        .swiper-container-regalos {
-             width: 100%;
-             height: auto; 
-             margin-top: 30px;
-             padding: 10px 0 30px 0; 
+        /* --- CONTENIDO PRINCIPAL --- */
+        #main-invitation { 
+             background-color: var(--blanco-nieve); 
+             position: relative; z-index: 1; 
+             margin: 40px auto; 
+             max-width: 900px; 
+             border-radius: 8px; 
+             box-shadow: 0 10px 40px var(--sombra-suave); 
              overflow: hidden; 
         }
+        /* PADDING VERTICAL REDUCIDO */
+        .seccion { padding: 50px 0; } 
         
-        /* ESTILO PARA MOVIMIENTO CONTINUO */
-        .swiper-container-regalos .swiper-wrapper {
-            transition-timing-function: linear !important;
-            -webkit-transition-timing-function: linear !important; 
+        /* Nombres */
+        .nombres-header { padding: 60px 0 40px 0; }
+        .nombres-header h1 {
+             font-family: 'Cormorant Garamond', serif; 
+             font-weight: 700; 
+             font-size: 3.2rem; 
+             color: var(--negro-carbon);
+             margin-bottom: 0; line-height: 1.3; letter-spacing: 1px;
+             text-transform: none; 
+             font-style: normal; 
         }
-        
-        /* NUEVO: Clase para pausar la animación */
-        .swiper-container-regalos.is-paused .swiper-wrapper {
-            /* Pausa la transición en seco */
-            -webkit-transition-duration: 0ms !important;
-            transition-duration: 0ms !important; 
-            /* Mantiene la posición actual */
-            transform: var(--swiper-paused-transform, 'translateX(0)');
-        }
+        .nombres-header .ampersand { color: var(--esmeralda); font-style: normal; font-size: 0.9em; }
 
-        .regalo-card {
-            width: 280px; 
-            background-color: var(--blanco);
-            border-radius: 10px;
-            box-shadow: 0 5px 15px var(--sombra-suave);
-            overflow: hidden; 
-            text-align: left; 
-            cursor: pointer; 
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            position: relative; 
-            margin-bottom: 10px; 
-        }
-        .regalo-card:hover {
-             transform: translateY(-5px);
-             box-shadow: 0 12px 20px rgba(0,0,0,0.12);
-        }
+        /* Intro Text */
+        .intro-texto h2 { margin-bottom: 10px; color: var(--esmeralda); font-size: 2rem;}
+        .intro-texto p { max-width: 600px; margin: 0 auto; font-size: 1rem; color: var(--gris-texto);}
 
-        .regalo-imagen {
-            width: 100%;
-            height: 180px; 
-            background-color: var(--gris-borde); 
-            background-size: cover;
-            background-position: center;
-            position: relative; 
+        /* Countdown */
+        .fecha-contador { text-align: center; }
+        .fecha-texto { 
+             font-family: 'Nunito Sans', sans-serif; 
+             font-weight: 400; 
+             /* TAMAÑO REDUCIDO */
+             font-size: 1.3rem; 
+             color: var(--esmeralda); 
+             margin-bottom: 15px; 
+             letter-spacing: 1px;
+             text-transform: uppercase; 
+             white-space: nowrap; 
         }
-        
-        .regalo-card.comprado .regalo-imagen::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background-color: var(--esmeralda-velo); 
-            z-index: 1; 
-        }
+        #countdown { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-top: 30px;} 
+        .tiempo-caja { background-color: transparent; padding: 0; min-width: 60px; }
+        .tiempo-caja span:first-child { display: block; font-size: 2.5rem; font-weight: 300; color: var(--negro-carbon); font-family: 'Lato', sans-serif; line-height: 1; margin-bottom: 3px; }
+        .tiempo-caja span:last-child { display: block; font-size: 0.6rem; text-transform: uppercase; color: var(--gris-texto); font-family: 'Nunito Sans', sans-serif; letter-spacing: 1px; margin-top: 0;}
 
-        .regalo-contenido { padding: 15px 20px 20px 20px; }
-        .regalo-titulo-wrap { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
-        .regalo-contenido h3 { text-align: left; margin-bottom: 0; font-size: 1.1rem; flex-grow: 1; }
-        .detalle-flecha { width: 9px; height: 9px; fill: var(--esmeralda); transition: transform 0.3s ease; flex-shrink: 0; }
-        .regalo-contenido p { font-size: 0.85rem; margin-bottom: 15px; color: var(--gris-texto); line-height: 1.6;}
-        
-        .boton-regalar {
-            background-color: var(--esmeralda); 
-            color: var(--blanco);
-            border: none; border-radius: 4px; padding: 8px 15px; 
-            font-size: 0.8rem; font-weight: 700; 
-            font-family: 'Nunito Sans', sans-serif;
-            cursor: pointer; transition: all 0.3s ease; text-align: center;
-            text-transform: uppercase; letter-spacing: 1px;
-        }
-        .boton-regalar:hover { opacity: 0.8; }
-        
-        .regalo-descripcion-full { max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out, padding 0.4s ease-out; padding: 0 20px; font-size: 0.9rem; color: var(--gris-texto); text-align: left; }
-        .regalo-descripcion-full p { margin-bottom: 0; padding-bottom: 20px; font-size: 0.9rem; }
-        
-        .regalo-card.active .regalo-descripcion-full { max-height: 200px; }
-        .regalo-card.active .detalle-flecha { transform: rotate(180deg); }
-        
-        .regalo-card.comprado {
-            opacity: 0.8; 
-            cursor: pointer; 
-        }
-        .regalo-card.comprado:hover {
-             transform: translateY(-5px); 
-        }
-         .regalo-card.comprado .regalo-contenido h3 { text-decoration: line-through; color: var(--gris-texto); }
-         .regalo-card.comprado .boton-regalar { background-color: var(--gris-texto); cursor: not-allowed; pointer-events: none; }
-         .regalo-card.comprado .boton-regalar::before { content: "¡Gracias!"; }
-         .regalo-card.comprado .boton-regalar span { display: none; }
+        /* Segunda Foto */
+        .foto-secundaria { display: block; width: calc(100% - 40px); max-width: 700px; height: auto; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 8px; margin: 0 auto; box-shadow: 0 15px 30px var(--sombra-suave); }
 
-         .swiper-pagination {
-              position: static; 
-              margin-top: 15px;
+        /* Itinerario - Timeline Vertical */
+        /* ... (Estilos del timeline sin cambios) ... */
+         .itinerario h2 { margin-bottom: 10px; }
+         .timeline { position: relative; max-width: 600px; margin: 50px auto 0 auto; }
+         .timeline::after { content: ''; position: absolute; width: 1px; background-color: var(--oro-palido); top: 10px; bottom: 10px; left: 50%; margin-left: -0.5px; }
+         .timeline-container { padding: 10px 40px; position: relative; background-color: inherit; width: 50%; }
+         .timeline-container::after { content: ''; position: absolute; width: 12px; height: 12px; right: -6px; background-color: var(--blanco-nieve); border: 2px solid var(--esmeralda); top: 20px; border-radius: 50%; z-index: 1; }
+         .timeline-left { left: 0; }
+         .timeline-left::before { content: " "; height: 0; position: absolute; top: 22px; width: 0; z-index: 1; right: 30px; border: medium solid var(--blanco-nieve); border-width: 8px 0 8px 8px; border-color: transparent transparent transparent var(--blanco-nieve); }
+         .timeline-left::after { left: -6px; background-color: var(--blanco-nieve);} 
+         .timeline-right { left: 50%; }
+         .timeline-right::before { content: " "; height: 0; position: absolute; top: 22px; width: 0; z-index: 1; left: 30px; border: medium solid var(--blanco-nieve); border-width: 8px 8px 8px 0; border-color: transparent var(--blanco-nieve) transparent transparent; }
+         .timeline-right::after { left: -6px; } 
+         .timeline-content { padding: 15px 20px; background-color: transparent; position: relative; border-radius: 6px; box-shadow: none; text-align: left; }
+          .timeline-content h3 { color: var(--esmeralda); font-size: 1.2rem; margin-bottom: 8px; text-align: left; font-family: 'Nunito Sans'; font-weight: 700; text-transform: uppercase;}
+          .timeline-content p { margin-bottom: 15px; color: var(--texto-secundario); font-size: 0.9rem;}
+          .timeline-content .hora { font-weight: 400; color: var(--negro-carbon); display: block; margin-bottom: 15px; font-family: 'Nunito Sans'; font-size: 0.8rem; text-transform: uppercase;}
+          /* BOTONES MAPA OUTLINE */
+          .timeline-content .boton { background-color: transparent; color: var(--esmeralda); border: 1px solid var(--esmeralda); padding: 8px 20px; font-size: 0.8rem; }
+           .timeline-content .boton:hover { background-color: var(--esmeralda); color: var(--blanco); }
+          
+          @media screen and (max-width: 768px) { /* Ajuste Timeline Móvil */
+            .timeline::after { left: 15px;} 
+            .timeline-container { width: 100%; padding-left: 50px; padding-right: 15px; } 
+            .timeline-container::before { left: 35px;} 
+            .timeline-left::before { border-color: transparent var(--blanco-nieve) transparent transparent;} 
+            .timeline-right::before { border-color: transparent var(--blanco-nieve) transparent transparent;}
+            .timeline-left::after, .timeline-right::after { left: 9px; } 
+            .timeline-right { left: 0%; } 
+          }
+
+        /* Vestimenta */
+        .vestimenta h2 { margin-bottom: 10px; }
+        .vestimenta .subtitulo-formal { font-size: 1rem; font-weight: 400; color: var(--texto-principal); margin-bottom: 30px; font-family: 'Nunito Sans', sans-serif;}
+        .vestimenta-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; max-width: 450px; margin: 0 auto; align-items: start; }
+        .vestimenta-grid div { text-align: center; }
+        .vestimenta-grid h4 { font-size: 1rem; margin-bottom: 5px; color: var(--texto-principal); font-weight: 700; text-transform: uppercase; letter-spacing: 1px;}
+        .vestimenta-grid p { font-size: 0.9rem; color: var(--texto-secundario); line-height: 1.6; }
+
+        /* Regalos */
+        .regalos h2 { margin-bottom: 10px; }
+        .regalos p { margin-bottom: 25px; color: var(--texto-secundario); }
+
+        /* --- GALERÍA CONTINUOUS SLIDER CSS --- */
+        .gallery-continuous { padding: 60px 0; background-color: var(--fondo-alterno); overflow: hidden; } 
+        .gallery-continuous h2 { margin-bottom: 10px; }
+        .slider-row { display: flex; width: max-content; will-change: transform; margin-top: 10px; }
+        .slider-row img { height: 180px; width: auto; margin: 0 6px; border-radius: 6px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        @keyframes scrollLeft { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        @keyframes scrollRight { 0% { transform: translateX(-50%); } 100% { transform: translateX(0); } }
+        #slider-row1 .slider-row, #slider-row3 .slider-row { animation: scrollLeft 60s linear infinite; }
+        #slider-row2 .slider-row { animation: scrollRight 60s linear infinite; }
+        .slider-container { overflow: hidden; } 
+
+
+        /* Formulario RSVP */
+        .rsvp-section h2 { margin-bottom: 5px; }
+        .subtitulo-rsvp { font-size: 0.85rem; color: var(--texto-secundario); margin-bottom: 25px;} 
+        .rsvp-form { max-width: 500px; margin: 0 auto; text-align: left;}
+        .form-group { margin-bottom: 15px; }
+        .rsvp-form label { display: block; font-weight: 400; margin-bottom: 5px; color: var(--texto-principal); font-size: 0.9rem; font-family: 'Lato', sans-serif;}
+        .rsvp-form input[type="text"],
+        .rsvp-form select,
+        .rsvp-form textarea { width: 100%; padding: 10px; border: 1px solid var(--gris-borde); border-radius: 4px; box-sizing: border-box; font-family: 'Lato', sans-serif; font-weight: 300; font-size: 0.95rem; color: var(--texto-principal); background-color: var(--fondo-alterno); }
+        .rsvp-form input::placeholder,
+        .rsvp-form textarea::placeholder,
+        .rsvp-form select { color: var(--texto-secundario); }
+        .rsvp-form textarea { min-height: 70px; resize: vertical; }
+        .rsvp-form .boton-wrapper { text-align: center; } 
+        /* BOTÓN RSVP OUTLINE */
+        .boton-enviar.boton-outline { 
+             background-color: transparent; 
+             color: var(--esmeralda); 
+             border: 1px solid var(--esmeralda); 
          }
-         .swiper-pagination-bullet {
-              background-color: var(--oro-palido);
-              opacity: 0.6;
-         }
-         .swiper-pagination-bullet-active {
-              background-color: var(--esmeralda);
-              opacity: 1;
-         }
-         .swiper-container-regalos .swiper-pagination {
-              display: none; 
+         .boton-enviar.boton-outline:hover {
+             background-color: var(--esmeralda);
+             color: var(--blanco);
          }
 
+
+        /* Footer dentro de invitación */
+        footer { padding: 40px 0 0 0; font-size: 1.1rem; color: var(--texto-secundario); border-top: 1px solid var(--oro-palido); margin-top: 40px;}
 
         /* --- FOOTER FIJO (NUEVO ESTILO ADAPTADO) --- */
         #sticky-footer {
@@ -242,323 +282,238 @@
         .footer-text .logo-link {
             text-decoration: none; display: inline-block; margin-right: 0; 
         }
-
-        /* --- AJUSTES PARA MÓVILES --- */
-        @media (max-width: 600px) {
-            h1 { font-size: 2.2rem; }
-            h2 { font-size: 1.6rem; text-align: center; border-bottom: none; padding-bottom: 0;}
-            .link-volver { position: static; margin-bottom: 20px; display: block; text-align: center;} 
-            .container { padding: 20px 0px 30px 0px; margin: 20px auto; width: 100%;} 
-            .container-padding { padding: 0 20px; } 
-            
-            .swiper-container-regalos { padding-left: 20px; } 
-            .regalo-card { width: 240px; } 
-
-            /* Ajustes Footer Móvil */
-            #sticky-footer { justify-content: center; text-align: center; padding: 12px 15px;}
-            .footer-text { width: 100%; margin-bottom: 5px; text-align: center; }
+         
+         @media (max-width: 600px) {
+             #sticky-footer { justify-content: center; text-align: center; padding: 12px 15px; }
+             .footer-text { width: 100%; margin-bottom: 5px; text-align: center; }
+             h1 { font-size: 2.2rem; } h2 { font-size: 1.6rem; } h3 { font-size: 1.2rem; }
+             .nombres-header h1 { font-size: 2.8rem; } 
+             .vestimenta-grid { grid-template-columns: 1fr; gap: 15px;}
+             /* Ajuste Contador Móvil */
+             .fecha-texto { font-size: 1.1rem; } 
+             #countdown { gap: 10px; } 
+             /* AJUSTE TAMAÑO CONTADOR MÓVIL */
+             .tiempo-caja span:first-child { font-size: 2rem; } 
+             .tiempo-caja span:last-child { font-size: 0.5rem; letter-spacing: 0.5px;} 
+             .seccion { padding: 50px 0; } 
+             .slider-row img { height: 120px; margin: 0 5px;}
+             
+         }
+         
+        /* --- DEFINICIÓN ANIMACIÓN PULSO --- */
+        @keyframes pulse {
+          0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4); }
+          70% { transform: scale(1.03); box-shadow: 0 0 0 10px rgba(255, 255, 255, 0); }
+          100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
         }
 
     </style>
 </head>
-<body>
+<body class=""> 
 
-    <svg style="display: none;">
-        <symbol id="icono-flecha-abajo" viewBox="0 0 10 7.5"> 
-             <path d="M0 0 L5 7.5 L10 0 Z" /> 
-        </symbol>
-    </svg>
-
-    <div class="container">
-        
-        <a href="index.html" class="link-volver">Volver a la Invitación</a>
-
-        <div class="container-padding">
-             <h1>Mesa de Regalos</h1>
-             <p class="introduccion">
-                 Su presencia es el mejor regalo. Si además desean tener un detalle con nosotros 
-                 para nuestra luna de miel en Brasil, aquí compartimos algunas experiencias que nos ilusionan. 
-                 Haz clic en una tarjeta para ver más.
-             </p>
+    <div id="intro-overlay">
+        <div class="intro-preloader"></div>
+        <div class="intro-background"></div>
+        <div class="intro-content">
+             <button id="enter-button">Descubrir</button>
         </div>
+    </div>
 
-        <h2 style="padding: 0 20px;">Río de Janeiro</h2>
-        <div class="swiper swiper-container-regalos" id="swiper-rio">
-            <div class="swiper-wrapper">
-                
-                <div class="swiper-slide regalo-card">
-                    <div class="regalo-imagen" style="background-image: url('cristoredentor.jpg');"></div>
-                    <div class="regalo-contenido">
-                        <div class="regalo-titulo-wrap">
-                            <h3>Visita al Cristo Redentor</h3>
-                            <svg class="detalle-flecha"><use href="#icono-flecha-abajo" /></svg>
-                        </div>
-                        <p>Subida en tren y visita al amanecer...</p> 
-                        <button class="boton-regalar"><span>Quiero regalar esto</span></button>
-                    </div>
-                    <div class="regalo-descripcion-full">
-                        <p>Entradas para subir en el tren de Corcovado y visitar el icónico Cristo Redentor al amanecer, disfrutando de las mejores vistas de la ciudad.</p>
-                    </div>
-                </div>
+    <div id="main-invitation">
 
-                <div class="swiper-slide regalo-card comprado">
-                    <div class="regalo-imagen" style="background-image: url('clasesamba.jpg');"></div>
-                    <div class="regalo-contenido">
-                         <div class="regalo-titulo-wrap">
-                            <h3>Clase de Samba en Lapa</h3>
-                            <svg class="detalle-flecha"><use href="#icono-flecha-abajo" /></svg>
-                         </div>
-                        <p>Clase privada de 2 horas en Lapa...</p>
-                        <button class="boton-regalar" disabled><span>Quiero regalar esto</span></button> 
-                    </div>
-                     <div class="regalo-descripcion-full">
-                        <p>Una clase privada de 2 horas para aprender los movimientos básicos de la samba y disfrutarlos en el corazón de la vida nocturna de Río.</p>
-                    </div>
-                </div>
-                
-                <div class="swiper-slide regalo-card">
-                     <div class="regalo-imagen" style="background-image: url('tourbote.jpg');"></div>
-                    <div class="regalo-contenido">
-                         <div class="regalo-titulo-wrap">
-                            <h3>Tour en Bote (Pan de Azúcar)</h3>
-                            <svg class="detalle-flecha"><use href="#icono-flecha-abajo" /></svg>
-                         </div>
-                        <p>Paseo en velero al atardecer...</p>
-                        <button class="boton-regalar"><span>Quiero regalar esto</span></button>
-                    </div>
-                     <div class="regalo-descripcion-full">
-                         <p>Un paseo en velero por la bahía de Guanabara para ver el atardecer con vistas espectaculares del Pan de Azúcar.</p>
-                    </div>
-                </div>
+        <header class="nombres-header fade-in-section">
+             <div class="container">
+                  <h1>Juan <span class="ampersand">&</span> María</h1>
+             </div>
+        </header>
 
-                <div class="swiper-slide regalo-card">
-                     <div class="regalo-imagen" style="background-image: url('tourescalera.jpg');"></div>
-                    <div class="regalo-contenido">
-                         <div class="regalo-titulo-wrap">
-                            <h3>Tour Escalera Selarón</h3>
-                            <svg class="detalle-flecha"><use href="#icono-flecha-abajo" /></svg>
-                         </div>
-                        <p>Recorrido a pie por Santa Teresa...</p>
-                        <button class="boton-regalar"><span>Quiero regalar esto</span></button>
-                    </div>
-                     <div class="regalo-descripcion-full">
-                        <p>Un recorrido a pie por el bohemio barrio de Santa Teresa y sus famosas escaleras de colores creadas por el artista Jorge Selarón.</p>
-                    </div>
-                </div>
-                
-                <div class="swiper-slide regalo-card">
-                    <div class="regalo-imagen" style="background-image: url('cristoredentor.jpg');"></div>
-                    <div class="regalo-contenido">
-                        <div class="regalo-titulo-wrap">
-                            <h3>Visita al Cristo Redentor</h3>
-                            <svg class="detalle-flecha"><use href="#icono-flecha-abajo" /></svg>
-                        </div>
-                        <p>Subida en tren y visita al amanecer...</p> 
-                        <button class="boton-regalar"><span>Quiero regalar esto</span></button>
-                    </div>
-                    <div class="regalo-descripcion-full">
-                        <p>Entradas para subir en el tren de Corcovado y visitar el icónico Cristo Redentor al amanecer, disfrutando de las mejores vistas de la ciudad.</p>
-                    </div>
-                </div>
-                <div class="swiper-slide regalo-card comprado">
-                    <div class="regalo-imagen" style="background-image: url('clasesamba.jpg');"></div>
-                    <div class="regalo-contenido">
-                         <div class="regalo-titulo-wrap">
-                            <h3>Clase de Samba en Lapa</h3>
-                            <svg class="detalle-flecha"><use href="#icono-flecha-abajo" /></svg>
-                         </div>
-                        <p>Clase privada de 2 horas en Lapa...</p>
-                        <button class="boton-regalar" disabled><span>Quiero regalar esto</span></button> 
-                    </div>
-                     <div class="regalo-descripcion-full">
-                        <p>Una clase privada de 2 horas para aprender los movimientos básicos de la samba y disfrutarlos en el corazón de la vida nocturna de Río.</p>
-                    </div>
-                </div>
+        <section class="seccion intro-texto fade-in-section">
+            <div class="container">
+                <h2>Celebremos Nuestro Amor</h2> 
+                <hr class="separador-corto">
+                <p>
+                     Con inmensa alegría, tras cuatro años compartiendo sueños y risas, 
+                     hemos decidido dar el siguiente paso. Queremos celebrar nuestro amor 
+                     y nos encantaría que fueras testigo de nuestra unión... 
+                </p>
+            </div>
+        </section>
+        
+        <hr class="separador"> 
 
-            </div> <div class="swiper-pagination"></div>
-        </div> <h2 style="padding: 0 20px;">São Paulo</h2>
-         <div class="swiper swiper-container-regalos" id="swiper-saopaulo">
-            <div class="swiper-wrapper">
+        <section class="seccion fecha-contador fade-in-section">
+            <div class="container">
+                <div class="fecha-texto">20 de Mayo, 2027 | 12:00 PM</div>
+                 <hr class="separador-corto" style="margin-top:0; margin-bottom: 30px;">
+                 <div id="countdown">
+                      <div class="tiempo-caja"><span id="dias">00</span><span>Días</span></div>
+                      <div class="tiempo-caja"><span id="horas">00</span><span>Horas</span></div>
+                      <div class="tiempo-caja"><span id="minutos">00</span><span>Minutos</span></div>
+                      <div class="tiempo-caja"><span id="segundos">00</span><span>Segundos</span></div>
+                 </div>
+            </div>
+        </section>
+        
+        <hr class="separador">
 
-                <div class="swiper-slide regalo-card">
-                     <div class="regalo-imagen" style="background-image: url('tourgastronomico.jpg');"></div>
-                    <div class="regalo-contenido">
-                         <div class="regalo-titulo-wrap">
-                            <h3>Tour Gastronómico</h3>
-                            <svg class="detalle-flecha"><use href="#icono-flecha-abajo" /></svg>
-                         </div>
-                        <p>Degustación en el Mercado Municipal...</p>
-                        <button class="boton-regalar"><span>Quiero regalar esto</span></button>
-                    </div>
-                     <div class="regalo-descripcion-full">
-                        <p>Un recorrido guiado para probar las famosas frutas exóticas, el sándwich de mortadela y el pastel de bacalhau en el histórico Mercado Municipal.</p>
-                    </div>
-                </div>
+        <section class="seccion fade-in-section">
+            <img src="fotonovios2.jpg" alt="Juan y María - Foto 2" class="foto-secundaria">
+        </section>
 
-                <div class="swiper-slide regalo-card comprado">
-                     <div class="regalo-imagen" style="background-image: url('jazz.jpg');"></div>
-                    <div class="regalo-contenido">
-                         <div class="regalo-titulo-wrap">
-                            <h3>Noche de Jazz</h3>
-                             <svg class="detalle-flecha"><use href="#icono-flecha-abajo" /></svg>
-                         </div>
-                        <p>Entradas para Bossa Nova en vivo...</p>
-                        <button class="boton-regalar" disabled><span>Quiero regalar esto</span></button>
-                    </div>
-                     <div class="regalo-descripcion-full">
-                        <p>Entradas para una noche de Bossa Nova y Jazz en vivo en uno de los clubes más legendarios de la ciudad, cuna de este género musical.</p>
-                    </div>
-                </div>
+         <hr class="separador">
 
-                <div class="swiper-slide regalo-card">
-                     <div class="regalo-imagen" style="background-image: url('masp.jpg');"></div>
-                    <div class="regalo-contenido">
-                        <div class="regalo-titulo-wrap">
-                            <h3>Visita al Museo (MASP)</h3>
-                            <svg class="detalle-flecha"><use href="#icono-flecha-abajo" /></svg>
-                        </div>
-                        <p>Entradas al famoso Museo de Arte...</p>
-                        <button class="boton-regalar"><span>Quiero regalar esto</span></button>
-                    </div>
-                     <div class="regalo-descripcion-full">
-                         <p>Entradas al Museo de Arte de São Paulo, famoso por su arquitectura y su increíble colección de arte europeo y brasileño.</p>
+        <section class="seccion itinerario fade-in-section">
+            <div class="container">
+                <h2>Itinerario</h2>
+                <hr class="separador-corto" style="margin-top:0;">
+                <div class="timeline">
+                    <div class="timeline-container timeline-left">
+                       <div class="timeline-content">
+                         <h3>Ceremonia</h3>
+                         <span class="hora">12:00 PM</span>
+                         <p>Parroquia de San Judas Tadeo y de la Santa Cruz</p>
+                         <a href="https://maps.app.goo.gl/nsExT5CH97KHWAaGA" target="_blank" class="boton boton-outline">Ver Ubicación</a>
+                       </div>
                      </div>
+                     <div class="timeline-container timeline-right">
+                       <div class="timeline-content">
+                         <h3>Recepción</h3>
+                         <span class="hora">A partir de las 2:00 PM</span>
+                         <p>Salón de Eventos La Ermita</p>
+                         <a href="https://maps.app.goo.gl/gyR2NbZVuNd4LWFR8" target="_blank" class="boton boton-outline">Ver Ubicación</a>
+                       </div>
+                     </div>
+                </div> </div>
+        </section>
+
+         <hr class="separador">
+
+        <section class="seccion vestimenta fade-in-section">
+            <div class="container">
+                <h2>Código de Vestimenta</h2>
+                <hr class="separador-corto" style="margin-top:0;">
+                <p class="subtitulo-formal"><strong>Formal</strong></p>
+                <div class="vestimenta-grid">
+                     <div><h4>Mujeres</h4><p>Nuestra sugerencia es<br>vestido largo o de cóctel.</p></div> 
+                     <div><h4>Hombres</h4><p>Nuestra sugerencia es<br>traje formal.</p></div> 
                 </div>
-                
-                <div class="swiper-slide regalo-card">
-                     <div class="regalo-imagen" style="background-image: url('tourgastronomico.jpg');"></div>
-                    <div class="regalo-contenido">
-                         <div class="regalo-titulo-wrap">
-                            <h3>Tour Gastronómico</h3>
-                            <svg class="detalle-flecha"><use href="#icono-flecha-abajo" /></svg>
-                         </div>
-                        <p>Degustación en el Mercado Municipal...</p>
-                        <button class="boton-regalar"><span>Quiero regalar esto</span></button>
-                    </div>
-                     <div class="regalo-descripcion-full">
-                        <p>Un recorrido guiado para probar las famosas frutas exóticas, el sándwich de mortadela y el pastel de bacalhau en el histórico Mercado Municipal.</p>
-                    </div>
-                </div>
-            
-             </div> <div class="swiper-pagination"></div>
-        </div> </div> 
-        
-        <div id="sticky-footer">
-            <span class="footer-text">
-                <a href="https://wa.me/524274270566?text=Quisiera%20mas%20informacion%20sobre%20las%20invitaciones%20digitales" target="_blank" class="logo-link">
-                    <img src="DigitalCore-esmeralda.png" alt="Logo de Digital Core" class="footer-logo">
-                </a>
-                Invitación de prueba creada por Digital Core. Cotiza y solicita tu diseño aqui.
-            </span>
-            <a href="https://wa.me/524274270566?text=Quisiera%20mas%20informacion%20sobre%20las%20invitaciones%20digitales" target="_blank" class="whatsapp-button">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.62 10.79c1.47 2.72 3.78 5.03 6.49 6.49l2.77-2.77c.27-.27.67-.36 1.02-.18 1.12.56 2.33.88 3.57.88.5 0 .98.4.98.88V20c0 .5-.48.88-.98.88-4.7 0-9.2-.1-13.6-4.5-4.4-4.4-4.5-8.9-4.5-13.6 0-.5.38-.98.88-.98h3.33c.48 0 .88.48.88.98 0 1.25.32 2.45.88 3.57.18.35.09.75-.18 1.02l-2.77 2.77z"/></svg>
-                Contáctanos
+            </div>
+        </section>
+
+         <hr class="separador">
+
+        <section class="seccion regalos fade-in-section">
+             <div class="container">
+                  <h2>Mesa de Regalos</h2>
+                  <hr class="separador-corto" style="margin-top:0;">
+                  <p>Su compañía es nuestro mayor tesoro. Si desean tener un detalle...</p> 
+                  <a href="mesa-de-regalos-demo2.html" target="_blank" class="boton boton-outline">Ver Opciones de Regalos</a>
+             </div>
+        </section>
+
+         <hr class="separador">
+
+        <section class="seccion gallery-continuous fade-in-section">
+            <div class="container">
+                 <h2>Nuestra Galería</h2>
+                 <hr class="separador-corto" style="margin-top:0;">
+            </div>
+                 <div class="slider-container" id="slider-row1"> <div class="slider-row"> <img src="car1.jpg" alt=""> <img src="car2.jpg" alt=""> <img src="car3.jpg" alt=""> <img src="car4.jpg" alt=""> <img src="car5.jpg" alt=""> <img src="car6.jpg" alt=""> <img src="car7.jpg" alt=""> <img src="car8.jpg" alt=""> <img src="car1.jpg" alt=""> <img src="car2.jpg" alt=""> <img src="car3.jpg" alt=""> <img src="car4.jpg" alt=""> <img src="car5.jpg" alt=""> <img src="car6.jpg" alt=""> <img src="car7.jpg" alt=""> <img src="car8.jpg" alt=""> </div> </div>
+                 <div class="slider-container" id="slider-row2"> <div class="slider-row"> <img src="car5.jpg" alt=""> <img src="car6.jpg" alt=""> <img src="car7.jpg" alt=""> <img src="car8.jpg" alt=""> <img src="car1.jpg" alt=""> <img src="car2.jpg" alt=""> <img src="car3.jpg" alt=""> <img src="car4.jpg" alt=""> <img src="car5.jpg" alt=""> <img src="car6.jpg" alt=""> <img src="car7.jpg" alt=""> <img src="car8.jpg" alt=""> <img src="car1.jpg" alt=""> <img src="car2.jpg" alt=""> <img src="car3.jpg" alt=""> <img src="car4.jpg" alt=""> </div> </div>
+                 <div class="slider-container" id="slider-row3"> <div class="slider-row"> <img src="car8.jpg" alt=""> <img src="car7.jpg" alt=""> <img src="car6.jpg" alt=""> <img src="car5.jpg" alt=""> <img src="car4.jpg" alt=""> <img src="car3.jpg" alt=""> <img src="car2.jpg" alt=""> <img src="car1.jpg" alt=""> <img src="car8.jpg" alt=""> <img src="car7.jpg" alt=""> <img src="car6.jpg" alt=""> <img src="car5.jpg" alt=""> <img src="car4.jpg" alt=""> <img src="car3.jpg" alt=""> <img src="car2.jpg" alt=""> <img src="car1.jpg" alt=""> </div> </div>
+        </section>
+
+         <hr class="separador">
+
+        <section class="seccion rsvp-section fade-in-section">
+             <div class="container">
+                 <h2>Confirma tu Asistencia</h2> 
+                 <p class="subtitulo-rsvp">¡Niños bienvenidos!</p> 
+                 <hr class="separador-corto" style="margin-top:0; margin-bottom: 30px;">
+                 <form id="rsvp-form" class="rsvp-form" onsubmit="event.preventDefault(); alert('Este es un formulario de ejemplo.');"> 
+                     <div class="form-group">
+                         <label for="name">Nombre completo:</label>
+                         <input type="text" id="name" name="Nombre" required>
+                     </div>
+                     <div class="form-group">
+                         <label for="guests">Número de invitados (incluyéndote):</label>
+                         <select id="guests" name="Invitados" required>
+                             <option value="" disabled selected>-- Selecciona cuántos asisten --</option>
+                             <option value="1">1 invitado</option>
+                             <option value="2">2 invitados</option>
+                             <option value="3">3 invitados</option>
+                             <option value="4">4 invitados</option>
+                             <option value="5">5 invitados</option>
+                             <option value="6">6 invitados</option>
+                             <option value="0 (No asistiremos)">No podremos asistir</option> 
+                         </select>
+                     </div>
+                     <div class="form-group">
+                         <label for="message">Mensaje para los novios (opcional):</label> 
+                         <textarea id="message" name="Mensaje" rows="3" placeholder="Escribe aquí tu mensaje..."></textarea>
+                     </div>
+                     <div class="boton-wrapper" style="text-align: center;">
+                          <button type="submit" class="boton boton-outline boton-enviar">Enviar Confirmación</button>
+                     </div>
+                 </form>
+             </div>
+         </section>
+
+        <footer class="fade-in-section">
+            <p>Con cariño, Juan & María</p>
+        </footer>
+
+    </div> 
+    
+    <div id="sticky-footer">
+        <span class="footer-text">
+            <a href="https://wa.me/524274270566?text=Quisiera%20mas%20informacion%20sobre%20las%20invitaciones%20digitales" target="_blank" class="logo-link">
+                <img src="DigitalCore-esmeralda.png" alt="Logo de Digital Core" class="footer-logo">
             </a>
-        </div>
+            Invitación de prueba creada por Digital Core. Cotiza y solicita tu diseño aqui.
+        </span>
+        <a href="https://wa.me/524274270566?text=Quisiera%20mas%20informacion%20sobre%20las%20invitaciones%20digitales" target="_blank" class="whatsapp-button">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.62 10.79c1.47 2.72 3.78 5.03 6.49 6.49l2.77-2.77c.27-.27.67-.36 1.02-.18 1.12.56 2.33.88 3.57.88.5 0 .98.4.98.88V20c0 .5-.48.88-.98.88-4.7 0-9.2-.1-13.6-4.5-4.4-4.4-4.5-8.9-4.5-13.6 0-.5.38-.98.88-.98h3.33c.48 0 .88.48.88.98 0 1.25.32 2.45.88 3.57.18.35.09.75-.18 1.02l-2.77 2.77z"/></svg>
+            Contáctanos
+        </a>
+    </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
-        // --- SCRIPT PARA INICIALIZAR SWIPERS Y CONTROLAR AUTOPLAY ---
-        (function() {
-            let swiperRio = null;
-            let swiperSaoPaulo = null;
-
-            // Configuración común para carrusel continuo
-            const swiperOptions = {
-                slidesPerView: 'auto', 
-                spaceBetween: 20, 
-                grabCursor: true, // Habilitar agarre manual
-                loop: true, 
-                allowTouchMove: true, // Habilitar swipe manual
-                
-                // --- CONFIGURACIÓN DE AUTOPLAY CONTINUO ---
-                speed: 10000, // MÁS LENTO: 10 segundos
-                autoplay: {
-                    delay: 1, // Delay mínimo
-                    disableOnInteraction: false, // NO se desactiva al tocar
-                    pauseOnMouseEnter: true, // Pausa si el ratón está encima
-                },
-                // --- FIN CONFIGURACIÓN AUTOPLAY ---
-
-                pagination: {
-                   el: '.swiper-pagination', 
-                   clickable: false,
-                },
-                slidesOffsetBefore: 20, 
-                slidesOffsetAfter: 20, 
-                
-                breakpoints: {
-                   601: {
-                        slidesOffsetBefore: 30, 
-                        slidesOffsetAfter: 30,
-                        spaceBetween: 30,
-                   }
-                }
-            };
-            
-            // Inicializar carrusel de Río
-            if (document.getElementById('swiper-rio')) {
-                 swiperRio = new Swiper('#swiper-rio', swiperOptions);
-            }
-            
-            // Inicializar carrusel de São Paulo
-            if (document.getElementById('swiper-saopaulo')) {
-                 swiperSaoPaulo = new Swiper('#swiper-saopaulo', swiperOptions);
-            }
-
-            // --- LÓGICA PARA PAUSAR/REANUDAR ---
-            const cards = document.querySelectorAll('.regalo-card');
-            
-            cards.forEach(card => {
-                const clickableArea = card; 
-                const button = card.querySelector('.boton-regalar');
-
-                const toggleActive = (event) => {
-                     // No hacer nada si el clic fue en el botón
-                     if (button && (event.target === button || button.contains(event.target))) {
-                          return;
-                     }
-                     
-                     // 1. Encontrar el swiper padre
-                     const swiperContainer = card.closest('.swiper-container-regalos');
-                     let targetSwiper = null;
-                     if (swiperContainer) {
-                         targetSwiper = (swiperContainer.id === 'swiper-rio') ? swiperRio : swiperSaoPaulo;
-                     }
-
-                     // 2. Comprobar si se está abriendo o cerrando
-                     const isOpening = !card.classList.contains('active');
-                     
-                     // 3. Activar/Desactivar
-                     card.classList.toggle('active');
-
-                     // 4. Pausar o Reanudar Autoplay
-                     if (targetSwiper && targetSwiper.autoplay) {
-                          if (isOpening) {
-                               // Pausa autoplay
-                               targetSwiper.autoplay.stop();
-                               // NUEVO: Pausa la animación CSS
-                               swiperContainer.classList.add('is-paused');
-                          } else {
-                               // Reanuda autoplay
-                               targetSwiper.autoplay.start();
-                               // NUEVO: Reanuda la animación CSS
-                               swiperContainer.classList.remove('is-paused');
-                          }
-                     }
-                };
-
-                clickableArea.addEventListener('click', toggleActive);
-                
-                if (button) {
-                    button.addEventListener('click', (event) => {
-                        event.stopPropagation(); 
-                        if (button.disabled) return; 
-                        alert('¡Gracias! Por favor, avísale a Juan o María para que lo marquen como comprado.');
-                    });
-                }
-            });
+        // --- SCRIPT PARA EL CONTADOR ---
+        (function() { 
+            const fechaBoda = new Date(2027, 4, 20, 12, 0, 0).getTime(); 
+            const countdownEl = document.getElementById('countdown');
+            const diasEl = document.getElementById('dias'); const horasEl = document.getElementById('horas'); const minutosEl = document.getElementById('minutos'); const segundosEl = document.getElementById('segundos');
+             if (!countdownEl || !diasEl || !horasEl || !minutosEl || !segundosEl) return; 
+             const intervalo = setInterval(function() {
+                 const ahora = new Date().getTime(); const diferencia = fechaBoda - ahora;
+                 if (diferencia < 0) { clearInterval(intervalo); countdownEl.innerHTML = "<p style='font-size: 1.2rem; color: var(--esmeralda);'>¡Llegó el gran día!</p>"; return; }
+                 const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24)); const horas = Math.floor((diferencia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)); const minutos = Math.floor((diferencia % (1000 * 60 * 60)) / (1000 * 60)); const segundos = Math.floor((diferencia % (1000 * 60)) / 1000);
+                 diasEl.innerText = dias.toString().padStart(2, '0'); horasEl.innerText = horas.toString().padStart(2, '0'); minutosEl.innerText = minutos.toString().padStart(2, '0'); segundosEl.innerText = segundos.toString().padStart(2, '0');
+             }, 1000);
         })();
+        
+        // --- SCRIPT PARA REVELAR INVITACIÓN ---
+        (function() { 
+             const overlay = document.getElementById('intro-overlay');
+             const body = document.body;
+             const revealInvitation = () => { if (!body.classList.contains('invitation-revealed')) { body.classList.add('invitation-revealed'); } };
+             if (overlay) { overlay.addEventListener('click', revealInvitation); }
+        })();
+        
+        // --- SCRIPT FORMULARIO RSVP (No funcional) ---
+         (function() { 
+              const rsvpForm = document.getElementById('rsvp-form');
+              if (rsvpForm) { rsvpForm.addEventListener('submit', function(event) { event.preventDefault(); alert('Confirmación enviada (Esto es un ejemplo).'); }); }
+         })();
+
+         // --- SCRIPT PARA FADE-IN SECTIONS ---
+         (function() { 
+              const sections = document.querySelectorAll('.fade-in-section'); const options = { threshold: 0.1 }; 
+              const observer = new IntersectionObserver(function(entries, observer) { entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('is-visible'); observer.unobserve(entry.target); } }); }, options);
+              sections.forEach(section => { observer.observe(section); });
+         })();
+
     </script>
 </body>
 </html>
